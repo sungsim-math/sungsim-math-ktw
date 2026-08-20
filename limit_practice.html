@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>극한 연산 무한 생성 랩</title>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Pretendard', sans-serif; }
+        .math-container { min-height: 140px; display: flex; align-items: center; justify-content: center; }
+    </style>
+    <!-- MathJax 최신 버전 -->
+    <script>
+        MathJax = {
+            tex: { 
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['$$', '$$']]
+            },
+            startup: {
+                pageReady: () => {
+                    return MathJax.startup.defaultPageReady().then(() => {
+                        generateProblem(0); 
+                    });
+                }
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body class="bg-slate-50 flex flex-col items-center min-h-screen py-10 px-4">
+
+    <div class="max-w-3xl w-full bg-white rounded-2xl shadow-lg p-8">
+        <!-- 헤더 -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-slate-800 mb-2">⚡ 극한 연산 무한 생성 랩</h1>
+            <p class="text-slate-500">0/0 꼴, ∞/∞ 꼴, 유리화, 미정계수 결정 무한 반복 훈련</p>
+        </div>
+
+        <!-- 점수판 -->
+        <div class="flex justify-between items-center bg-blue-50 rounded-lg p-4 mb-6">
+            <span class="text-blue-800 font-semibold">🔥 연속 정답: <span id="streakCount" class="text-2xl text-blue-600">0</span></span>
+            <span class="text-slate-600 font-medium">총 푼 문제: <span id="totalCount">0</span></span>
+        </div>
+
+        <!-- 문제 유형 선택 버튼 -->
+        <div class="grid grid-cols-5 gap-2 mb-6">
+            <button onclick="generateProblem(1)" class="py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded transition">0/0 꼴</button>
+            <button onclick="generateProblem(2)" class="py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded transition">∞/∞ 꼴</button>
+            <button onclick="generateProblem(4)" class="py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded transition">유리화</button>
+            <button onclick="generateProblem(3)" class="py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded transition text-blue-600 font-bold">미정계수</button>
+            <button onclick="generateProblem(0)" class="py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-bold rounded transition shadow-sm">🎲 랜덤</button>
+        </div>
+
+        <!-- 문제 표시 영역 -->
+        <div class="border-2 border-slate-200 rounded-xl p-6 mb-6 text-center">
+            <div id="questionType" class="text-sm font-bold text-indigo-500 mb-2"></div>
+            <!-- 한글 지문 영역 -->
+            <div id="questionText" class="text-lg font-medium text-slate-700 mb-2 min-h-[30px] flex items-center justify-center"></div>
+            <!-- 수식 전용 영역 -->
+            <div id="problemDisplay" class="math-container text-2xl overflow-x-auto text-slate-900">
+            </div>
+        </div>
+
+        <!-- 정답 입력 영역 -->
+        <div class="flex gap-4">
+            <input type="number" id="answerInput" placeholder="정답을 입력하세요 (정수)" class="flex-1 text-lg border-2 border-slate-300 rounded-lg px-4 py-3 focus:outline-none focus:border-indigo-500 transition" onkeypress="if(event.key === 'Enter') checkAnswer()">
+            <button onclick="checkAnswer()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-8 py-3 rounded-lg shadow-md transition">확인</button>
+        </div>
+
+        <!-- 피드백 메시지 -->
+        <div id="feedback" class="mt-6 text-center text-lg font-bold min-h-[30px]"></div>
+    </div>
+
+    <script>
+        let currentAnswer = null;
+        let streak = 0;
+        let total = 0;
+        let currentType = 0;
+
+        function poly(a, b, c) {
+            let terms = [];
+            if (a !== 0) terms.push(a === 1 ? 'x^2' : (a === -1 ? '-x^2' : a + 'x^2'));
+            if (b !== 0) {
+                let absB = Math.abs(b);
+                let bStr = absB === 1 ? 'x' : absB + 'x';
+                if (terms.length > 0) {
+                    terms.push(b > 0 ? '+ ' + bStr : '- ' + bStr);
+                } else {
+                    terms.push(b > 0 ? bStr : '-' + bStr);
+                }
+            }
+            if (c !== 0) {
+                let absC = Math.abs(c);
+                if (terms.length > 0) {
+                    terms.push(c > 0 ? '+ ' + absC : '- ' + absC);
+                } else {
+                    terms.push(c > 0 ? absC.toString() : '-' + absC);
+                }
+            }
+            return terms.length === 0 ? '0' : terms.join(' ');
+        }
+
+        function rand(min, max, exclude = []) {
+            let val;
+            do {
+                val = Math.floor(Math.random() * (max - min + 1)) + min;
+            } while (exclude.includes(val));
+            return val;
+        }
+
+        function generateProblem(type) {
+            currentType = type === 0 ? rand(1, 4) : type;
+            let texStr = "";
+            let typeTitle = "";
+            let qText = "다음 극한값을 구하시오.";
+
+            if (currentType === 1) { // 0/0 꼴
+                typeTitle = "[ 0/0 꼴 극한값 계산 ]";
+                let a = rand(-4, 4); 
+                let b = rand(-5, 5, [a]); 
+                let numStr = poly(1, -(a + b), a * b);
+                let denomStr = (a === 0) ? `x` : (a > 0 ? `x - ${a}` : `x + ${Math.abs(a)}`);
+                texStr = `$$ \\lim_{x \\to ${a}} \\frac{${numStr}}{${denomStr}} $$`;
+                currentAnswer = a - b;
+                
+            } else if (currentType === 2) { // ∞/∞ 꼴
+                typeTitle = "[ ∞/∞ 꼴 극한값 계산 ]";
+                currentAnswer = rand(-5, 5, [0]); 
+                let denA = rand(1, 4);
+                let numA = currentAnswer * denA;
+                
+                let numStr = poly(numA, rand(-5, 5), rand(-5, 5));
+                let denStr = poly(denA, rand(-5, 5), rand(-5, 5));
+                texStr = `$$ \\lim_{x \\to \\infty} \\frac{${numStr}}{${denStr}} $$`;
+
+            } else if (currentType === 3) { // 미정계수 결정 (4가지 형태 랜덤 출제)
+                let subType = rand(1, 4); // 1: 유리(분자), 2: 유리(분모), 3: 무리(분자), 4: 무리(분모)
+                let limX = rand(-3, 3);
+                let denomStr = (limX === 0) ? `x` : (limX > 0 ? `x - ${limX}` : `x + ${Math.abs(limX)}`);
+                
+                if (subType === 1) {
+                    typeTitle = "[ 미정계수 결정: 다항식 (분자) ]";
+                    let m = rand(-4, 4, [limX]);
+                    let a = -(limX + m);
+                    let b = limX * m;
+                    let L = limX - m;
+                    
+                    qText = `상수 \\(a, b\\)에 대하여 다음 등식이 성립할 때, \\(a + b\\) 의 값을 구하시오.`;
+                    texStr = `$$ \\lim_{x \\to ${limX}} \\frac{x^2 + ax + b}{${denomStr}} = ${L} $$`;
+                    currentAnswer = a + b;
+
+                } else if (subType === 2) {
+                    typeTitle = "[ 미정계수 결정: 다항식 (분모) ]";
+                    let m = rand(-4, 4, [limX]);
+                    let a = -(limX + m);
+                    let b = limX * m;
+                    let diff = limX - m; // 극한값 분모
+                    
+                    let L_str = "";
+                    if (diff === 1) L_str = "1";
+                    else if (diff === -1) L_str = "-1";
+                    else if (diff > 0) L_str = `\\frac{1}{${diff}}`;
+                    else L_str = `-\\frac{1}{${Math.abs(diff)}}`;
+
+                    qText = `상수 \\(a, b\\)에 대하여 다음 등식이 성립할 때, \\(a + b\\) 의 값을 구하시오.`;
+                    texStr = `$$ \\lim_{x \\to ${limX}} \\frac{${denomStr}}{x^2 + ax + b} = ${L_str} $$`;
+                    currentAnswer = a + b;
+
+                } else if (subType === 3) {
+                    typeTitle = "[ 미정계수 결정: 무리식 (분자) ]";
+                    let bVal = rand(1, 4); // 무리식 뒤의 상수 b
+                    let aVal = bVal * bVal - limX; 
+                    let L_str = `\\frac{1}{${2 * bVal}}`;
+
+                    qText = `상수 \\(a, b\\) (단, \\(b>0\\))에 대하여 다음 등식이 성립할 때, \\(a + b\\) 의 값을 구하시오.`;
+                    texStr = `$$ \\lim_{x \\to ${limX}} \\frac{\\sqrt{x + a} - b}{${denomStr}} = ${L_str} $$`;
+                    currentAnswer = aVal + bVal;
+
+                } else if (subType === 4) {
+                    typeTitle = "[ 미정계수 결정: 무리식 (분모) ]";
+                    let bVal = rand(1, 4);
+                    let aVal = bVal * bVal - limX;
+                    let L = 2 * bVal;
+
+                    qText = `상수 \\(a, b\\) (단, \\(b>0\\))에 대하여 다음 등식이 성립할 때, \\(a + b\\) 의 값을 구하시오.`;
+                    texStr = `$$ \\lim_{x \\to ${limX}} \\frac{${denomStr}}{\\sqrt{x + a} - b} = ${L} $$`;
+                    currentAnswer = aVal + bVal;
+                }
+
+            } else if (currentType === 4) { // 무리식 유리화
+                typeTitle = "[ 무리식 유리화 극한값 계산 ]";
+                let c = rand(1, 4); 
+                let a = rand(-3, 3); 
+                let b = c * c - a; 
+
+                let degree = rand(1, 2);
+                let numStr = "";
+                
+                if (degree === 1) {
+                    numStr = (a === 0) ? `x` : (a > 0 ? `x - ${a}` : `x + ${Math.abs(a)}`);
+                    currentAnswer = 2 * c;
+                } else {
+                    numStr = (a === 0) ? `x^2` : `x^2 - ${a*a}`;
+                    currentAnswer = 2 * a * (2 * c);
+                }
+
+                let bStr = (b === 0) ? `x` : (b > 0 ? `x + ${b}` : `x - ${Math.abs(b)}`);
+                
+                texStr = `$$ \\lim_{x \\to ${a}} \\frac{${numStr}}{\\sqrt{${bStr}} - ${c}} $$`;
+            }
+
+            // 화면 업데이트
+            document.getElementById('questionType').innerHTML = typeTitle;
+            document.getElementById('questionText').innerHTML = qText;
+            document.getElementById('problemDisplay').innerHTML = texStr;
+            document.getElementById('answerInput').value = "";
+            document.getElementById('answerInput').focus();
+            document.getElementById('feedback').innerHTML = "";
+            
+            // 수식 재렌더링
+            MathJax.typesetPromise([
+                document.getElementById('questionText'),
+                document.getElementById('problemDisplay')
+            ]);
+        }
+
+        function checkAnswer() {
+            let inputVal = document.getElementById('answerInput').value.trim();
+            let feedback = document.getElementById('feedback');
+            
+            if (inputVal === "") {
+                feedback.innerHTML = "<span class='text-slate-500'>정답을 입력해주세요.</span>";
+                return;
+            }
+
+            total++;
+            document.getElementById('totalCount').innerText = total;
+
+            if (parseInt(inputVal) === currentAnswer) {
+                streak++;
+                document.getElementById('streakCount').innerText = streak;
+                feedback.innerHTML = `<span class='text-green-600'>🎉 정답입니다! (답: ${currentAnswer})</span>`;
+                setTimeout(() => generateProblem(0), 1500);
+            } else {
+                streak = 0;
+                document.getElementById('streakCount').innerText = streak;
+                feedback.innerHTML = `<span class='text-red-500'>❌ 오답입니다. 다시 도전해 보세요!</span>`;
+                document.getElementById('answerInput').value = "";
+                document.getElementById('answerInput').focus();
+            }
+        }
+    </script>
+</body>
+</html>

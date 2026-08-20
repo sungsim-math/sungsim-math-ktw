@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미적분 I 플레이그라운드 ✨</title>
+    <!-- Pretendard 폰트 로드 (가장 깔끔하고 현대적인 한글 폰트) -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Pretendard', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fdf4ff',  // fuchsia-50
+                            100: '#fae8ff', // fuchsia-100
+                            300: '#f0abfc', // fuchsia-300
+                            500: '#d946ef', // fuchsia-500
+                            600: '#c026d3', // fuchsia-600
+                        },
+                        secondary: {
+                            50: '#f0f9ff',  // sky-50
+                            500: '#0ea5e9', // sky-500
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            font-family: 'Pretendard', sans-serif; 
+            /* 감성적인 파스텔 그라데이션 배경 (여학생들이 선호하는 무드) */
+            background: linear-gradient(135deg, #fdf4ff 0%, #e0e7ff 50%, #f3e8ff 100%);
+            background-attachment: fixed;
+        }
+        /* 글래스모피즘 (반투명 유리) 효과 카드 */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+        }
+        /* 카드 호버(마우스 올림) 애니메이션 */
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.12);
+            background: rgba(255, 255, 255, 0.85);
+        }
+        /* 커스텀 스크롤바 */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d8b4fe; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #c084fc; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <header class="w-full pt-16 pb-12 px-4 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto relative z-10 text-center">
+            <div class="inline-block mb-3 px-4 py-1.5 rounded-full bg-white/80 text-brand-600 font-bold text-sm shadow-sm border border-brand-100 backdrop-blur-sm">
+                2022 개정 교육과정 📚
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-800 drop-shadow-sm">
+                미적분 I 플레이그라운드 <span class="inline-block animate-bounce">🎡</span>
+            </h1>
+            <p class="text-lg text-slate-600 font-medium max-w-2xl mx-auto">
+                공식 암기는 그만! 직접 조작하고 눈으로 확인하며 미적분의 원리를 깨우치는 공간입니다.
+                오늘의 연구원이 되어 다양한 수학적 탐구에 도전해 보세요.
+            </p>
+        </div>
+        <!-- 배경 장식용 도형 -->
+        <div class="absolute top-10 left-10 w-32 h-32 bg-purple-300 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-pulse"></div>
+        <div class="absolute top-20 right-20 w-32 h-32 bg-pink-300 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-pulse" style="animation-delay: 2s;"></div>
+    </header>
+
+    <main class="flex-grow max-w-6xl mx-auto w-full px-4 pb-20">
+        
+        <!-- Category 1: 개념 시각화 및 연산 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-slate-800 flex items-center gap-2 pl-2 border-l-4 border-brand-500">
+                I. 함수의 극한과 연속 🔍
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                
+                <!-- Card 1: 극한 시각화 -->
+                <div class="glass-card rounded-3xl p-6 transition-all duration-300 flex flex-col h-full group cursor-pointer" onclick="location.href='limit_visualization.html'">
+                    <div class="w-14 h-14 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-sm group-hover:scale-110 transition-transform">
+                        🚀
+                    </div>
+                    <div class="mb-2">
+                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-1 rounded-lg">개념 시각화</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-slate-800 group-hover:text-brand-600 transition-colors">극한과 발산 시각화 랩</h3>
+                    <p class="text-sm text-slate-500 mb-6 flex-grow">
+                        유리함수의 평행이동과 점근선을 조작하며, x축 화살표와 그래프 화살표를 통해 좌극한, 우극한, 발산의 개념을 눈으로 확인해 봅니다.
+                    </p>
+                    <button class="w-full py-3 bg-white text-indigo-600 font-bold rounded-xl border border-indigo-100 group-hover:bg-indigo-600 group-hover:text-white transition-colors shadow-sm">
+                        실습하러 가기 ✨
+                    </button>
+                </div>
+
+                <!-- Card 2: 극한 연산 랩 -->
+                <div class="glass-card rounded-3xl p-6 transition-all duration-300 flex flex-col h-full group cursor-pointer" onclick="location.href='limit_practice.html'">
+                    <div class="w-14 h-14 bg-gradient-to-br from-emerald-100 to-teal-100 rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-sm group-hover:scale-110 transition-transform">
+                        ⚡
+                    </div>
+                    <div class="mb-2">
+                        <span class="text-xs font-bold text-teal-600 bg-teal-50 px-2 py-1 rounded-lg">실전 훈련</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-slate-800 group-hover:text-brand-600 transition-colors">극한 연산 무한 생성 랩</h3>
+                    <p class="text-sm text-slate-500 mb-6 flex-grow">
+                        0/0 꼴, ∞/∞ 꼴, 무리식 유리화, 미정계수 결정 등 극한의 핵심 연산 문제를 무제한으로 풀며 연산 근육을 탄탄하게 키워보세요.
+                    </p>
+                    <button class="w-full py-3 bg-white text-teal-600 font-bold rounded-xl border border-teal-100 group-hover:bg-teal-500 group-hover:text-white transition-colors shadow-sm">
+                        훈련 시작하기 🔥
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Category 2: 미분 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-slate-800 flex items-center gap-2 pl-2 border-l-4 border-brand-500">
+                II. 미분 📈
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                
+                <!-- Coming Soon Card -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col h-full border-dashed border-2 border-brand-300 opacity-80 hover:opacity-100 transition-opacity">
+                    <div class="w-14 h-14 bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-sm">
+                        🚧
+                    </div>
+                    <div class="mb-2">
+                        <span class="text-xs font-bold text-slate-500 bg-slate-100 px-2 py-1 rounded-lg">업데이트 예정</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-slate-700">도함수와 변화율 탐구 랩 (Coming Soon)</h3>
+                    <p class="text-sm text-slate-500 mb-6 flex-grow">
+                        접선의 기울기와 순간변화율의 비밀을 밝혀내는 새로운 시각화 도구가 곧 업데이트될 예정입니다. 조금만 기다려 주세요!
+                    </p>
+                    <button class="w-full py-3 bg-slate-50 text-slate-400 font-bold rounded-xl border border-slate-200 cursor-not-allowed">
+                        콘텐츠 제작 중... 🛠️
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Category 3: 적분 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-slate-800 flex items-center gap-2 pl-2 border-l-4 border-brand-500">
+                III. 적분 🎢
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                
+                <!-- Coming Soon Card -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col h-full border-dashed border-2 border-brand-300 opacity-80 hover:opacity-100 transition-opacity">
+                    <div class="w-14 h-14 bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-sm">
+                        🎁
+                    </div>
+                    <div class="mb-2">
+                        <span class="text-xs font-bold text-slate-500 bg-slate-100 px-2 py-1 rounded-lg">업데이트 예정</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-slate-700">정적분과 넓이의 마법 (Coming Soon)</h3>
+                    <p class="text-sm text-slate-500 mb-6 flex-grow">
+                        곡선 아래의 넓이를 구하는 놀라운 아이디어! 무한히 잘게 쪼개어 더하는 적분의 원리를 직접 체험할 수 있는 랩이 준비 중입니다.
+                    </p>
+                    <button class="w-full py-3 bg-slate-50 text-slate-400 font-bold rounded-xl border border-slate-200 cursor-not-allowed">
+                        콘텐츠 제작 중... 🛠️
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-auto py-8 text-center text-sm text-slate-500 bg-white/40 backdrop-blur-md border-t border-white/50">
+        <p class="font-medium text-slate-700 mb-1">👩‍🏫 2022 개정 교육과정 미적분 I 교과 자료실</p>
+        <p>Created with passion for high school students. Have a wonderful math journey!</p>
+    </footer>
+
+</body>
+</html>
