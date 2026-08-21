@@ -133,20 +133,20 @@
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                 
-                <!-- Coming Soon Card -->
-                <div class="glass-card rounded-3xl p-6 flex flex-col h-full border-dashed border-2 border-brand-300 opacity-80 hover:opacity-100 transition-opacity">
-                    <div class="w-14 h-14 bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-sm">
-                        🚧
+                <!-- 수정된 Card: 미분계수 시각화 -->
+                <div class="glass-card rounded-3xl p-6 transition-all duration-300 flex flex-col h-full group cursor-pointer border border-pink-200" onclick="location.href='derivative_meaning.html'">
+                    <div class="w-14 h-14 bg-gradient-to-br from-pink-100 to-rose-200 rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-sm group-hover:scale-110 transition-transform">
+                        🎢
                     </div>
                     <div class="mb-2">
-                        <span class="text-xs font-bold text-slate-500 bg-slate-100 px-2 py-1 rounded-lg">업데이트 예정</span>
+                        <span class="text-xs font-bold text-pink-600 bg-pink-50 px-2 py-1 rounded-lg">개념 시각화</span>
                     </div>
-                    <h3 class="text-xl font-bold mb-2 text-slate-700">도함수와 변화율 탐구 랩 (Coming Soon)</h3>
+                    <h3 class="text-xl font-bold mb-2 text-slate-800 group-hover:text-pink-600 transition-colors">미분계수의 기하학적 의미 랩</h3>
                     <p class="text-sm text-slate-500 mb-6 flex-grow">
-                        접선의 기울기와 순간변화율의 비밀을 밝혀내는 새로운 시각화 도구가 곧 업데이트될 예정입니다. 조금만 기다려 주세요!
+                        교과서의 정적인 그림은 안녕! 점 P가 점 A로 한없이 다가갈 때 평균변화율(할선)이 순간변화율(접선)로 진화하는 놀라운 과정을 애니메이션으로 직접 조작해 보세요.
                     </p>
-                    <button class="w-full py-3 bg-slate-50 text-slate-400 font-bold rounded-xl border border-slate-200 cursor-not-allowed">
-                        콘텐츠 제작 중... 🛠️
+                    <button class="w-full py-3 bg-white text-pink-600 font-bold rounded-xl border border-pink-100 group-hover:bg-pink-500 group-hover:text-white transition-colors shadow-sm">
+                        탐구하러 가기 ✨
                     </button>
                 </div>
 
