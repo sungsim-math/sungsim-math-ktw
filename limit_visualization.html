@@ -6,89 +6,102 @@
     <title>함수의 극한과 발산 시각화 랩</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: { sans: ['Pretendard', '-apple-system', 'sans-serif'] },
                     colors: {
-                        primary: { 50: '#f0f9ff', 100: '#e0f2fe', 500: '#0ea5e9', 600: '#0284c7', 900: '#0c4a6e' },
-                        accent: { 500: '#f43f5e', 600: '#e11d48' } // 빨간색 포인트 (우극한 등)
+                        primary: { 50: '#e0e7ff', 100: '#c7d2fe', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca' }, // Indigo 계열로 매핑하여 기존 JS 유지
+                        accent: { 500: '#f43f5e', 600: '#e11d48' },
+                        brand: { 50: '#fdf4ff', 100: '#fae8ff', 500: '#d946ef', 600: '#c026d3' }
                     }
                 }
             }
         }
     </script>
     <style>
-        body { background-color: #f8fafc; }
-        .glass-panel { background: rgba(255, 255, 255, 0.95); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); border: 1px solid rgba(226, 232, 240, 0.8); }
-        input[type=range] { accent-color: #0284c7; }
+        body { 
+            font-family: 'Pretendard', sans-serif; 
+            /* 대문(index)과 동일한 파스텔 그라데이션 배경 */
+            background: linear-gradient(135deg, #fdf4ff 0%, #e0e7ff 50%, #f3e8ff 100%);
+            background-attachment: fixed;
+        }
+        /* 글래스모피즘 효과 */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 40px -10px rgba(31, 38, 135, 0.08);
+        }
+        input[type=range] { accent-color: #6366f1; }
         canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c7d2fe; border-radius: 4px; }
     </style>
 </head>
 <body class="text-slate-800 min-h-screen flex flex-col font-sans">
 
-    <header class="bg-primary-900 text-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div>
-                <h1 class="text-2xl font-bold tracking-tight flex items-center gap-2">
-                    <span>🚀 함수의 극한과 발산 시각화 랩</span>
+    <header class="w-full pt-10 pb-6 px-4 relative z-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <div class="inline-block mb-2 px-3 py-1 rounded-full bg-white/80 text-primary-600 font-bold text-xs shadow-sm border border-primary-100 backdrop-blur-sm">
+                    개념 시각화 🚀
+                </div>
+                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-800 drop-shadow-sm">
+                    극한과 발산 시각화 랩
                 </h1>
-                <p class="text-primary-100 text-sm mt-1">미적분 I - 분모가 0에 한없이 가까워질 때의 극한 조사</p>
+                <p class="text-slate-600 font-medium text-sm mt-2">미적분 I - 분모가 0에 한없이 가까워질 때의 극한 조사</p>
             </div>
-            <div class="bg-primary-800 px-4 py-2 rounded-lg border border-primary-700 text-sm">
-                교과서 연계 시각화 도구
-            </div>
+            <button onclick="location.href='index.html'" class="bg-white/80 hover:bg-white text-slate-700 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm border border-slate-200 backdrop-blur-sm transition-all hover:-translate-y-0.5 flex items-center gap-2">
+                <span>🏠</span> 대문으로 돌아가기
+            </button>
         </div>
     </header>
 
-    <main class="flex-grow max-w-7xl mx-auto w-full p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 pb-20 grid grid-cols-1 lg:grid-cols-12 gap-6 relative z-10">
         
         <div class="lg:col-span-4 space-y-6">
-            
-            <div class="glass-panel rounded-2xl p-6 border-t-4 border-primary-500">
+            <div class="glass-card rounded-3xl p-6 border-t-4 border-primary-500">
                 <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
                     <span class="bg-primary-100 text-primary-700 p-1.5 rounded-lg text-sm">1</span> 함수 선택
                 </h2>
-                
                 <div class="space-y-3">
-                    <label class="flex items-center gap-3 p-3 border rounded-xl cursor-pointer hover:bg-slate-50 transition border-primary-500 bg-primary-50" id="label-f1">
+                    <label class="flex items-center gap-3 p-3 bg-white/60 border rounded-xl cursor-pointer hover:bg-white transition border-primary-500 bg-primary-50 shadow-sm" id="label-f1">
                         <input type="radio" name="func" value="1" checked class="w-4 h-4 text-primary-600" onchange="changeFunc(1)">
                         <span class="text-lg">\( y = a - \frac{1}{x^2} \)</span>
                     </label>
-                    <label class="flex items-center gap-3 p-3 border rounded-xl cursor-pointer hover:bg-slate-50 transition" id="label-f2">
+                    <label class="flex items-center gap-3 p-3 bg-white/60 border border-white rounded-xl cursor-pointer hover:bg-white transition shadow-sm" id="label-f2">
                         <input type="radio" name="func" value="2" class="w-4 h-4 text-primary-600" onchange="changeFunc(2)">
                         <span class="text-lg">\( y = \frac{1}{|x+b|} \)</span>
                     </label>
-                    <label class="flex items-center gap-3 p-3 border rounded-xl cursor-pointer hover:bg-slate-50 transition" id="label-f3">
+                    <label class="flex items-center gap-3 p-3 bg-white/60 border border-white rounded-xl cursor-pointer hover:bg-white transition shadow-sm" id="label-f3">
                         <input type="radio" name="func" value="3" class="w-4 h-4 text-primary-600" onchange="changeFunc(3)">
                         <span class="text-lg">\( y = -\frac{1}{|x+b|} \)</span>
                     </label>
                 </div>
             </div>
 
-            <div class="glass-panel rounded-2xl p-6">
+            <div class="glass-card rounded-3xl p-6">
                 <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
                     <span class="bg-primary-100 text-primary-700 p-1.5 rounded-lg text-sm">2</span> 매개변수 설정
                 </h2>
-                
                 <div class="space-y-6">
-                    <!-- 매개변수 a (f1 전용) -->
                     <div id="control-a">
                         <div class="flex justify-between text-sm font-semibold mb-2">
-                            <label>상수 \( a \) (y축 평행이동)</label>
-                            <span id="val-a" class="text-primary-600 font-mono text-lg">2</span>
+                            <label class="text-slate-700">상수 \( a \) (y축 평행이동)</label>
+                            <span id="val-a" class="text-primary-600 font-mono text-lg bg-white px-2 py-0.5 rounded-md border border-slate-200">2</span>
                         </div>
                         <input type="range" id="slider-a" min="-5" max="5" step="0.5" value="2" class="w-full">
                         <p class="text-xs text-slate-500 mt-1 text-right">적용 함수: 1번</p>
                     </div>
 
-                    <!-- 매개변수 b (f2, f3 전용) -->
                     <div id="control-b" class="opacity-50 pointer-events-none">
                         <div class="flex justify-between text-sm font-semibold mb-2">
-                            <label>상수 \( b \) (x축 평행이동)</label>
-                            <span id="val-b" class="text-primary-600 font-mono text-lg">0</span>
+                            <label class="text-slate-700">상수 \( b \) (x축 평행이동)</label>
+                            <span id="val-b" class="text-primary-600 font-mono text-lg bg-white px-2 py-0.5 rounded-md border border-slate-200">0</span>
                         </div>
                         <input type="range" id="slider-b" min="-3" max="3" step="0.5" value="0" class="w-full">
                         <p class="text-xs text-slate-500 mt-1 text-right">적용 함수: 2, 3번</p>
@@ -96,49 +109,48 @@
                 </div>
             </div>
 
-            <div class="glass-panel rounded-2xl p-6 bg-slate-800 text-white border-none relative overflow-hidden">
+            <div class="glass-card rounded-3xl p-6 bg-slate-800/90 text-white border border-slate-700 relative overflow-hidden shadow-lg backdrop-blur-xl">
                 <div class="absolute -right-10 -top-10 w-32 h-32 bg-primary-500 rounded-full blur-3xl opacity-30"></div>
-                <h3 class="text-sm font-bold text-primary-300 mb-1">현재 극한 조사</h3>
-                <div id="limit-expression" class="text-xl mb-4 text-center py-2">
+                <h3 class="text-sm font-bold text-primary-300 mb-1 relative z-10">현재 극한 조사</h3>
+                <div id="limit-expression" class="text-xl mb-4 text-center py-2 relative z-10">
                     \( \lim_{x \to 0} \left( 2 - \frac{1}{x^2} \right) \)
                 </div>
-                <div id="limit-result" class="text-center font-bold text-2xl text-accent-500 bg-slate-900/50 py-3 rounded-lg border border-slate-700">
+                <div id="limit-result" class="text-center font-bold text-2xl text-accent-500 bg-slate-900/60 py-3 rounded-xl border border-slate-600 relative z-10">
                     \( -\infty \) (음의 무한대로 발산)
                 </div>
             </div>
         </div>
 
         <div class="lg:col-span-8 flex flex-col gap-4">
-            
-            <div class="glass-panel rounded-2xl p-2 flex-grow relative shadow-inner min-h-[500px]">
-                <!-- 캔버스 (JS로 렌더링) -->
-                <canvas id="mathCanvas"></canvas>
+            <div class="glass-card rounded-3xl p-3 flex-grow relative shadow-lg min-h-[500px]">
+                <!-- 캔버스 -->
+                <canvas id="mathCanvas" class="rounded-2xl bg-white"></canvas>
                 
                 <!-- 범례 -->
-                <div class="absolute top-6 left-6 bg-white/90 p-3 rounded-lg shadow border border-slate-200 text-xs space-y-2 backdrop-blur">
-                    <div class="flex items-center gap-2"><div class="w-4 h-0.5 bg-blue-600"></div>좌극한 방향</div>
-                    <div class="flex items-center gap-2"><div class="w-4 h-0.5 bg-red-600"></div>우극한 방향</div>
-                    <div class="flex items-center gap-2"><div class="w-4 h-0.5 bg-slate-800"></div>함수 그래프</div>
+                <div class="absolute top-6 left-6 bg-white/90 p-4 rounded-xl shadow-sm border border-slate-200 text-sm space-y-3 backdrop-blur-md">
+                    <div class="flex items-center gap-3"><div class="w-5 h-1 rounded-full bg-blue-600"></div><span class="font-medium text-slate-700">좌극한 방향</span></div>
+                    <div class="flex items-center gap-3"><div class="w-5 h-1 rounded-full bg-red-600"></div><span class="font-medium text-slate-700">우극한 방향</span></div>
+                    <div class="flex items-center gap-3"><div class="w-5 h-1 rounded-full bg-slate-800"></div><span class="font-medium text-slate-700">함수 그래프</span></div>
                 </div>
                 
                 <!-- 애니메이션 조작 버튼 -->
                 <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-3">
-                    <button onclick="playAnimation()" class="bg-primary-600 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-primary-500 transition flex items-center gap-2 hover:-translate-y-1">
+                    <button onclick="playAnimation()" class="bg-primary-600 text-white px-8 py-3 rounded-xl font-bold shadow-md hover:bg-primary-500 transition-all flex items-center gap-2 hover:-translate-y-1">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
                         극한 화살표 재생
                     </button>
-                    <button onclick="resetAnimation()" class="bg-white text-slate-700 px-4 py-3 rounded-full font-bold shadow-md hover:bg-slate-50 transition border border-slate-200">
+                    <button onclick="resetAnimation()" class="bg-white/90 text-slate-700 px-5 py-3 rounded-xl font-bold shadow-sm hover:bg-white transition-all border border-slate-200 backdrop-blur-sm">
                         초기화
                     </button>
                 </div>
             </div>
             
             <!-- 교사용 설명 팁 -->
-            <div class="bg-primary-50 border border-primary-100 rounded-xl p-4 text-sm text-slate-700 flex gap-3">
-                <span class="text-xl">💡</span>
+            <div class="bg-white/80 border border-white rounded-2xl p-5 text-sm text-slate-700 flex gap-4 shadow-sm backdrop-blur-sm">
+                <span class="text-2xl mt-1">💡</span>
                 <div>
-                    <strong class="text-primary-800 block mb-1">수업 활용 팁</strong>
-                    <p id="teacher-tip">
+                    <strong class="text-primary-700 block mb-1 text-base">수업 활용 팁</strong>
+                    <p id="teacher-tip" class="leading-relaxed">
                         "x가 0에 한없이 가까워질 때, x축 위의 화살표와 그래프 위의 화살표가 어떻게 움직이는지 관찰해보세요. 함수값이 음수 쪽으로 끝없이 작아지는 모습을 통해 '음의 무한대로 발산한다'는 개념을 직관적으로 이해할 수 있습니다."
                     </p>
                 </div>
@@ -147,17 +159,13 @@
     </main>
 
     <script>
-        // 상태 변수
         let currentFunc = 1;
         let paramA = 2;
         let paramB = 0;
-        
-        // 애니메이션 상태
         let isAnimating = false;
         let animProgress = 0;
         let animId;
 
-        // DOM 요소
         const sliderA = document.getElementById('slider-a');
         const sliderB = document.getElementById('slider-b');
         const valA = document.getElementById('val-a');
@@ -165,21 +173,19 @@
         const canvas = document.getElementById('mathCanvas');
         const ctx = canvas.getContext('2d');
 
-        // 함수 선택 변경 처리
         function changeFunc(funcNum) {
             currentFunc = funcNum;
-            
-            // UI 스타일 업데이트
             document.querySelectorAll('input[name="func"]').forEach(radio => {
                 const label = radio.parentElement;
                 if(radio.checked) {
                     label.classList.add('border-primary-500', 'bg-primary-50');
+                    label.classList.remove('bg-white/60', 'border-white');
                 } else {
                     label.classList.remove('border-primary-500', 'bg-primary-50');
+                    label.classList.add('bg-white/60', 'border-white');
                 }
             });
 
-            // 매개변수 활성화/비활성화 처리
             const ctrlA = document.getElementById('control-a');
             const ctrlB = document.getElementById('control-b');
             
@@ -195,7 +201,6 @@
             resetAnimation();
         }
 
-        // 슬라이더 이벤트 리스너
         sliderA.addEventListener('input', (e) => {
             paramA = parseFloat(e.target.value);
             valA.textContent = paramA;
@@ -210,30 +215,27 @@
             if(!isAnimating) drawScene();
         });
 
-        // 수식 및 결과 텍스트 업데이트
         function updateMathExpression() {
             let expr = "";
             let resultText = "";
             let tipText = "";
-            
-            // 극한을 조사할 target x값 (분모가 0이 되는 지점)
             let targetX = (currentFunc === 1) ? 0 : -paramB;
 
             if (currentFunc === 1) {
                 expr = `\\lim_{x \\to 0} \\left( ${paramA} - \\frac{1}{x^2} \\right)`;
-                resultText = `<span class="text-accent-500">\\( -\\infty \\)</span> <span class="text-sm font-normal block mt-1">(음의 무한대로 발산)</span>`;
+                resultText = `<span class="text-accent-500">\\( -\\infty \\)</span> <span class="text-sm font-normal block mt-1 text-slate-300">(음의 무한대로 발산)</span>`;
                 tipText = "분모(x²)가 0에 가까워질 때, 함숫값이 끝없이 작아집니다. 양방향에서 모두 아래로 곤두박질치는 화살표를 통해 '음의 무한대로 발산'함을 직관적으로 확인할 수 있습니다.";
             } 
             else if (currentFunc === 2) {
                 let signB = paramB > 0 ? `+${paramB}` : (paramB < 0 ? `${paramB}` : "");
                 expr = `\\lim_{x \\to ${targetX}} \\frac{1}{|x${signB}|}`;
-                resultText = `<span class="text-red-500">\\( \\infty \\)</span> <span class="text-sm font-normal block mt-1">(양의 무한대로 발산)</span>`;
+                resultText = `<span class="text-red-400">\\( \\infty \\)</span> <span class="text-sm font-normal block mt-1 text-slate-300">(양의 무한대로 발산)</span>`;
                 tipText = `분모인 |x${signB}|가 0이 되는 점(x = ${targetX})으로 다가갈 때의 극한입니다. 절댓값 기호로 인해 양방향 모두 함숫값이 끝없이 솟구치는 '양의 무한대 발산'을 보여줍니다.`;
             }
             else if (currentFunc === 3) {
                 let signB = paramB > 0 ? `+${paramB}` : (paramB < 0 ? `${paramB}` : "");
                 expr = `\\lim_{x \\to ${targetX}} \\left( -\\frac{1}{|x${signB}|} \\right)`;
-                resultText = `<span class="text-accent-500">\\( -\\infty \\)</span> <span class="text-sm font-normal block mt-1">(음의 무한대로 발산)</span>`;
+                resultText = `<span class="text-accent-500">\\( -\\infty \\)</span> <span class="text-sm font-normal block mt-1 text-slate-300">(음의 무한대로 발산)</span>`;
                 tipText = `분모가 0이 되는 점(x = ${targetX})을 향해 다가갑니다. 전체 부호가 음수이므로, 화살표가 아래로 끝없이 떨어지는 '음의 무한대' 개념을 강렬하게 전달합니다.`;
             }
 
@@ -241,20 +243,17 @@
             document.getElementById('limit-result').innerHTML = resultText;
             document.getElementById('teacher-tip').innerText = tipText;
 
-            // 수식 재렌더링
             if(window.MathJax) {
                 MathJax.typesetPromise([document.getElementById('limit-expression'), document.getElementById('limit-result')]);
             }
         }
 
-        // Canvas 스케일링 설정
         let width, height;
-        const rangeX = 6; // x축 보여줄 범위 (-6 ~ 6)
-        const rangeY = 6; // y축 보여줄 범위 (-6 ~ 6)
+        const rangeX = 6; 
+        const rangeY = 6; 
         
         function resizeCanvas() {
             const rect = canvas.parentElement.getBoundingClientRect();
-            // 고해상도 디스플레이 대응
             const dpr = window.devicePixelRatio || 1;
             canvas.width = rect.width * dpr;
             canvas.height = rect.height * dpr;
@@ -265,11 +264,9 @@
         }
         window.addEventListener('resize', resizeCanvas);
 
-        // 수학 좌표를 Canvas 픽셀 좌표로 변환
         function toCanvasX(mathX) { return width / 2 + (mathX * (width / (rangeX * 2))); }
         function toCanvasY(mathY) { return height / 2 - (mathY * (height / (rangeY * 2))); }
 
-        // 현재 선택된 함수 계산
         function f(x) {
             if (currentFunc === 1) {
                 if (x === 0) return null;
@@ -284,7 +281,6 @@
             return 0;
         }
 
-        // 미분계수 (수치미분으로 근사 - 화살표 각도 계산용)
         function fPrime(x) {
             const h = 0.001;
             const y1 = f(x - h);
@@ -293,18 +289,10 @@
             return (y2 - y1) / (2 * h);
         }
 
-        // 전체 화면 그리기 (배경, 그리드, 그래프, 애니메이션 화살표)
         function drawScene() {
-            // 배경 초기화
             ctx.clearRect(0, 0, width, height);
-
-            // 그리드 그리기
             drawGrid();
-
-            // 함수 그래프 그리기
             drawGraph();
-
-            // 애니메이션 진행 시 화살표 그리기
             if (animProgress > 0) {
                 drawAnimatedArrows();
             }
@@ -316,31 +304,26 @@
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
 
-            // 보조선 그리기
             for (let i = -rangeX; i <= rangeX; i++) {
-                ctx.strokeStyle = i === 0 ? '#475569' : '#e2e8f0'; // 0일때는 진하게
+                ctx.strokeStyle = i === 0 ? '#475569' : '#e2e8f0'; 
                 ctx.lineWidth = i === 0 ? 2 : 1;
                 
-                // 세로선 (x=i)
                 ctx.beginPath();
                 ctx.moveTo(toCanvasX(i), 0);
                 ctx.lineTo(toCanvasX(i), height);
                 ctx.stroke();
 
-                // 가로선 (y=i)
                 ctx.beginPath();
                 ctx.moveTo(0, toCanvasY(i));
                 ctx.lineTo(width, toCanvasY(i));
                 ctx.stroke();
 
-                // 숫자 라벨 (원점 제외)
                 ctx.fillStyle = '#64748b';
                 if (i !== 0) {
                     ctx.fillText(i, toCanvasX(i), toCanvasY(0) + 15);
                     ctx.fillText(i, toCanvasX(0) - 15, toCanvasY(i));
                 }
             }
-            // 원점(O), x축, y축 라벨
             ctx.fillStyle = '#334155';
             ctx.font = 'bold 14px sans-serif';
             ctx.fillText('O', toCanvasX(0) - 12, toCanvasY(0) + 12);
@@ -350,16 +333,15 @@
 
         function drawGraph() {
             ctx.beginPath();
-            ctx.strokeStyle = '#1e293b'; // slate-800
+            ctx.strokeStyle = '#1e293b'; 
             ctx.lineWidth = 3;
             
             let isFirst = true;
-            let step = 0.02; // 세밀도
+            let step = 0.02; 
 
             for (let x = -rangeX; x <= rangeX; x += step) {
                 let y = f(x);
                 if (y === null || y > rangeY + 2 || y < -rangeY - 2) {
-                    // 점근선 구간이거나 캔버스를 크게 벗어날 경우 끊기
                     isFirst = true;
                     continue;
                 }
@@ -376,11 +358,10 @@
             }
             ctx.stroke();
 
-            // 점근선 표시 (f2, f3의 경우 x = -b)
             if (currentFunc === 2 || currentFunc === 3) {
                 const asympX = toCanvasX(-paramB);
                 ctx.beginPath();
-                ctx.strokeStyle = 'rgba(234, 179, 8, 0.5)'; // yellow
+                ctx.strokeStyle = 'rgba(234, 179, 8, 0.5)'; 
                 ctx.setLineDash([5, 5]);
                 ctx.lineWidth = 2;
                 ctx.moveTo(asympX, 0);
@@ -390,11 +371,9 @@
             }
         }
 
-        // 화살표 그리기 유틸리티 함수
         function drawArrow(x, y, angle, color, size = 15) {
             ctx.save();
             ctx.translate(toCanvasX(x), toCanvasY(y));
-            // y축 방향이 반대이므로 각도 부호 반전 필요
             ctx.rotate(-angle);
             
             ctx.beginPath();
@@ -402,12 +381,10 @@
             ctx.fillStyle = color;
             ctx.lineWidth = 3;
             
-            // 화살표 몸통 (원점에서 뒤로 꼬리)
             ctx.moveTo(-size, 0);
             ctx.lineTo(0, 0);
             ctx.stroke();
             
-            // 화살표 머리
             ctx.beginPath();
             ctx.moveTo(0, 0);
             ctx.lineTo(-size/2, -size/3);
@@ -419,46 +396,33 @@
         }
 
         function drawAnimatedArrows() {
-            // 애니메이션 진행률에 따라 x위치 계산 (목표값으로 다가감)
-            // easing function (천천히 출발해서 서서히 다가감)
             const easeProgress = 1 - Math.pow(1 - animProgress, 3); 
-            
-            // 극한을 조사할 target x값 (분모가 0이 되는 지점)
             let targetX = (currentFunc === 1) ? 0 : -paramB;
 
-            // 좌극한 (파란색): targetX - 4에서 시작하여 targetX - 0.02까지 접근
             const xLeft = (targetX - 4) + (4 - 0.02) * easeProgress;
-            // 우극한 (빨간색): targetX + 4에서 시작하여 targetX + 0.02까지 접근
             const xRight = (targetX + 4) - (4 - 0.02) * easeProgress;
 
-            // 1. X축 위의 화살표 그리기
-            drawArrow(xLeft, 0, 0, '#2563eb'); // blue-600, 각도 0 (오른쪽으로)
-            drawArrow(xRight, 0, Math.PI, '#dc2626'); // red-600, 각도 180도 (왼쪽으로)
+            drawArrow(xLeft, 0, 0, '#2563eb'); 
+            drawArrow(xRight, 0, Math.PI, '#dc2626'); 
 
-            // 2. 그래프 곡선 위의 화살표 그리기
             const yLeft = f(xLeft);
             const yRight = f(xRight);
 
-            // 좌극한 그래프 화살표
             if (yLeft !== null && yLeft > -rangeY - 1 && yLeft < rangeY + 1) {
-                // 접선 각도 계산: Math.atan(f'(x))
                 const slopeL = fPrime(xLeft);
                 const angleL = Math.atan(slopeL);
                 drawArrow(xLeft, yLeft, angleL, '#2563eb');
             }
 
-            // 우극한 그래프 화살표
             if (yRight !== null && yRight > -rangeY - 1 && yRight < rangeY + 1) {
                 const slopeR = fPrime(xRight);
-                // 우극한은 x가 감소하는 방향으로 이동하므로 벡터 각도를 180도(PI) 뒤집어야 함
                 const angleR = Math.atan(slopeR) + Math.PI;
                 drawArrow(xRight, yRight, angleR, '#dc2626');
             }
             
-            // 강조점 그리기 (목표 x값)
             ctx.beginPath();
             ctx.arc(toCanvasX(targetX), toCanvasY(0), 5, 0, 2*Math.PI);
-            ctx.fillStyle = '#10b981'; // emerald
+            ctx.fillStyle = '#10b981'; 
             ctx.fill();
             ctx.stroke();
         }
@@ -469,7 +433,7 @@
             animProgress = 0;
             
             function animate() {
-                animProgress += 0.005; // 애니메이션 속도 조절
+                animProgress += 0.005; 
                 if (animProgress > 1) {
                     animProgress = 1;
                     isAnimating = false;
@@ -489,10 +453,8 @@
             drawScene();
         }
 
-        // 초기화 실행
         window.onload = function() {
             updateMathExpression();
-            // 약간의 딜레이 후 캔버스 초기화 (DOM 크기 계산 안정화)
             setTimeout(resizeCanvas, 100);
         };
     </script>

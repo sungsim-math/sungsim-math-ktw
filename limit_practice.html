@@ -6,11 +6,40 @@
     <title>극한 연산 무한 생성 랩</title>
     <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] },
+                    colors: {
+                        brand: { 50: '#fdf4ff', 100: '#fae8ff', 500: '#d946ef', 600: '#c026d3' },
+                        teal: { 50: '#f0fdfa', 100: '#ccfbf1', 500: '#14b8a6', 600: '#0d9488' }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body { font-family: 'Pretendard', sans-serif; }
+        body { 
+            font-family: 'Pretendard', sans-serif; 
+            /* 대문(index)과 동일한 파스텔 그라데이션 배경 */
+            background: linear-gradient(135deg, #fdf4ff 0%, #e0e7ff 50%, #f3e8ff 100%);
+            background-attachment: fixed;
+        }
+        /* 글래스모피즘 효과 */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 40px -10px rgba(31, 38, 135, 0.08);
+        }
         .math-container { min-height: 140px; display: flex; align-items: center; justify-content: center; }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d8b4fe; border-radius: 4px; }
     </style>
-    <!-- MathJax 최신 버전 -->
     <script>
         MathJax = {
             tex: { 
@@ -28,49 +57,70 @@
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body class="bg-slate-50 flex flex-col items-center min-h-screen py-10 px-4">
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
 
-    <div class="max-w-3xl w-full bg-white rounded-2xl shadow-lg p-8">
-        <!-- 헤더 -->
-        <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold text-slate-800 mb-2">⚡ 극한 연산 무한 생성 랩</h1>
-            <p class="text-slate-500">0/0 꼴, ∞/∞ 꼴, 유리화, 미정계수 결정 무한 반복 훈련</p>
-        </div>
-
-        <!-- 점수판 -->
-        <div class="flex justify-between items-center bg-blue-50 rounded-lg p-4 mb-6">
-            <span class="text-blue-800 font-semibold">🔥 연속 정답: <span id="streakCount" class="text-2xl text-blue-600">0</span></span>
-            <span class="text-slate-600 font-medium">총 푼 문제: <span id="totalCount">0</span></span>
-        </div>
-
-        <!-- 문제 유형 선택 버튼 -->
-        <div class="grid grid-cols-5 gap-2 mb-6">
-            <button onclick="generateProblem(1)" class="py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded transition">0/0 꼴</button>
-            <button onclick="generateProblem(2)" class="py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded transition">∞/∞ 꼴</button>
-            <button onclick="generateProblem(4)" class="py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded transition">유리화</button>
-            <button onclick="generateProblem(3)" class="py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded transition text-blue-600 font-bold">미정계수</button>
-            <button onclick="generateProblem(0)" class="py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-bold rounded transition shadow-sm">🎲 랜덤</button>
-        </div>
-
-        <!-- 문제 표시 영역 -->
-        <div class="border-2 border-slate-200 rounded-xl p-6 mb-6 text-center">
-            <div id="questionType" class="text-sm font-bold text-indigo-500 mb-2"></div>
-            <!-- 한글 지문 영역 -->
-            <div id="questionText" class="text-lg font-medium text-slate-700 mb-2 min-h-[30px] flex items-center justify-center"></div>
-            <!-- 수식 전용 영역 -->
-            <div id="problemDisplay" class="math-container text-2xl overflow-x-auto text-slate-900">
+    <header class="w-full pt-10 pb-6 px-4 relative z-10">
+        <div class="max-w-3xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <div class="inline-block mb-2 px-3 py-1 rounded-full bg-white/80 text-teal-600 font-bold text-xs shadow-sm border border-teal-100 backdrop-blur-sm">
+                    실전 훈련 ⚡
+                </div>
+                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-800 drop-shadow-sm">
+                    극한 연산 무한 생성 랩
+                </h1>
             </div>
+            <button onclick="location.href='index.html'" class="bg-white/80 hover:bg-white text-slate-700 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm border border-slate-200 backdrop-blur-sm transition-all hover:-translate-y-0.5 flex items-center gap-2">
+                <span>🏠</span> 대문으로 돌아가기
+            </button>
         </div>
+    </header>
 
-        <!-- 정답 입력 영역 -->
-        <div class="flex gap-4">
-            <input type="number" id="answerInput" placeholder="정답을 입력하세요 (정수)" class="flex-1 text-lg border-2 border-slate-300 rounded-lg px-4 py-3 focus:outline-none focus:border-indigo-500 transition" onkeypress="if(event.key === 'Enter') checkAnswer()">
-            <button onclick="checkAnswer()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-8 py-3 rounded-lg shadow-md transition">확인</button>
+    <main class="flex-grow max-w-3xl mx-auto w-full px-4 pb-20">
+        <div class="glass-card rounded-3xl shadow-lg p-6 md:p-8 relative overflow-hidden">
+            <!-- 장식용 데코 -->
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-teal-300 rounded-full mix-blend-multiply filter blur-2xl opacity-30"></div>
+            
+            <div class="text-center mb-6 relative z-10">
+                <p class="text-slate-500 font-medium">0/0 꼴, ∞/∞ 꼴, 유리화, 미정계수 결정 무한 반복 훈련</p>
+            </div>
+
+            <!-- 점수판 -->
+            <div class="flex justify-between items-center bg-white/60 border border-white rounded-2xl p-4 mb-6 shadow-sm relative z-10">
+                <span class="text-teal-800 font-bold flex items-center gap-2">
+                    <span class="text-xl">🔥</span> 연속 정답: <span id="streakCount" class="text-2xl text-teal-600">0</span>
+                </span>
+                <span class="text-slate-500 font-medium text-sm">총 푼 문제: <span id="totalCount" class="font-bold text-slate-700">0</span></span>
+            </div>
+
+            <!-- 문제 유형 선택 버튼 -->
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8 relative z-10">
+                <button onclick="generateProblem(1)" class="py-2.5 bg-white/80 hover:bg-teal-500 hover:text-white text-slate-700 border border-teal-100 font-bold rounded-xl shadow-sm transition-all">0/0 꼴</button>
+                <button onclick="generateProblem(2)" class="py-2.5 bg-white/80 hover:bg-teal-500 hover:text-white text-slate-700 border border-teal-100 font-bold rounded-xl shadow-sm transition-all">∞/∞ 꼴</button>
+                <button onclick="generateProblem(4)" class="py-2.5 bg-white/80 hover:bg-teal-500 hover:text-white text-slate-700 border border-teal-100 font-bold rounded-xl shadow-sm transition-all">유리화</button>
+                <button onclick="generateProblem(3)" class="py-2.5 bg-white/80 hover:bg-teal-500 hover:text-white text-teal-700 border border-teal-200 font-extrabold rounded-xl shadow-sm transition-all">미정계수</button>
+                <button onclick="generateProblem(0)" class="py-2.5 bg-teal-500 hover:bg-teal-600 text-white font-bold rounded-xl shadow-md transition-all col-span-2 md:col-span-1">🎲 랜덤</button>
+            </div>
+
+            <!-- 문제 표시 영역 -->
+            <div class="bg-white/50 border border-white rounded-2xl p-6 mb-8 text-center shadow-inner relative z-10">
+                <div id="questionType" class="text-sm font-bold text-teal-600 mb-3 bg-teal-50 inline-block px-3 py-1 rounded-full border border-teal-100"></div>
+                <!-- 한글 지문 영역 -->
+                <div id="questionText" class="text-sm md:text-base font-semibold text-slate-700 mb-2 min-h-[30px] flex items-center justify-center"></div>
+                <!-- 수식 전용 영역 -->
+                <div id="problemDisplay" class="math-container text-2xl overflow-x-auto text-slate-900 bg-white p-4 rounded-xl shadow-sm">
+                </div>
+            </div>
+
+            <!-- 정답 입력 영역 -->
+            <div class="flex flex-col md:flex-row gap-4 relative z-10">
+                <input type="number" id="answerInput" placeholder="정답을 입력하세요 (정수)" class="flex-1 text-center md:text-left text-lg bg-white/90 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-100 transition shadow-sm" onkeypress="if(event.key === 'Enter') checkAnswer()">
+                <button onclick="checkAnswer()" class="bg-teal-600 hover:bg-teal-700 text-white font-bold text-lg px-8 py-3 rounded-xl shadow-md transition-all transform hover:-translate-y-0.5">정답 확인</button>
+            </div>
+
+            <!-- 피드백 메시지 -->
+            <div id="feedback" class="mt-6 text-center text-lg font-bold min-h-[30px] relative z-10"></div>
         </div>
-
-        <!-- 피드백 메시지 -->
-        <div id="feedback" class="mt-6 text-center text-lg font-bold min-h-[30px]"></div>
-    </div>
+    </main>
 
     <script>
         let currentAnswer = null;
@@ -134,8 +184,8 @@
                 let denStr = poly(denA, rand(-5, 5), rand(-5, 5));
                 texStr = `$$ \\lim_{x \\to \\infty} \\frac{${numStr}}{${denStr}} $$`;
 
-            } else if (currentType === 3) { // 미정계수 결정 (4가지 형태 랜덤 출제)
-                let subType = rand(1, 4); // 1: 유리(분자), 2: 유리(분모), 3: 무리(분자), 4: 무리(분모)
+            } else if (currentType === 3) { // 미정계수 결정
+                let subType = rand(1, 4); 
                 let limX = rand(-3, 3);
                 let denomStr = (limX === 0) ? `x` : (limX > 0 ? `x - ${limX}` : `x + ${Math.abs(limX)}`);
                 
@@ -145,7 +195,6 @@
                     let a = -(limX + m);
                     let b = limX * m;
                     let L = limX - m;
-                    
                     qText = `상수 \\(a, b\\)에 대하여 다음 등식이 성립할 때, \\(a + b\\) 의 값을 구하시오.`;
                     texStr = `$$ \\lim_{x \\to ${limX}} \\frac{x^2 + ax + b}{${denomStr}} = ${L} $$`;
                     currentAnswer = a + b;
@@ -155,24 +204,21 @@
                     let m = rand(-4, 4, [limX]);
                     let a = -(limX + m);
                     let b = limX * m;
-                    let diff = limX - m; // 극한값 분모
-                    
+                    let diff = limX - m; 
                     let L_str = "";
                     if (diff === 1) L_str = "1";
                     else if (diff === -1) L_str = "-1";
                     else if (diff > 0) L_str = `\\frac{1}{${diff}}`;
                     else L_str = `-\\frac{1}{${Math.abs(diff)}}`;
-
                     qText = `상수 \\(a, b\\)에 대하여 다음 등식이 성립할 때, \\(a + b\\) 의 값을 구하시오.`;
                     texStr = `$$ \\lim_{x \\to ${limX}} \\frac{${denomStr}}{x^2 + ax + b} = ${L_str} $$`;
                     currentAnswer = a + b;
 
                 } else if (subType === 3) {
                     typeTitle = "[ 미정계수 결정: 무리식 (분자) ]";
-                    let bVal = rand(1, 4); // 무리식 뒤의 상수 b
+                    let bVal = rand(1, 4); 
                     let aVal = bVal * bVal - limX; 
                     let L_str = `\\frac{1}{${2 * bVal}}`;
-
                     qText = `상수 \\(a, b\\) (단, \\(b>0\\))에 대하여 다음 등식이 성립할 때, \\(a + b\\) 의 값을 구하시오.`;
                     texStr = `$$ \\lim_{x \\to ${limX}} \\frac{\\sqrt{x + a} - b}{${denomStr}} = ${L_str} $$`;
                     currentAnswer = aVal + bVal;
@@ -182,7 +228,6 @@
                     let bVal = rand(1, 4);
                     let aVal = bVal * bVal - limX;
                     let L = 2 * bVal;
-
                     qText = `상수 \\(a, b\\) (단, \\(b>0\\))에 대하여 다음 등식이 성립할 때, \\(a + b\\) 의 값을 구하시오.`;
                     texStr = `$$ \\lim_{x \\to ${limX}} \\frac{${denomStr}}{\\sqrt{x + a} - b} = ${L} $$`;
                     currentAnswer = aVal + bVal;
@@ -193,10 +238,8 @@
                 let c = rand(1, 4); 
                 let a = rand(-3, 3); 
                 let b = c * c - a; 
-
                 let degree = rand(1, 2);
                 let numStr = "";
-                
                 if (degree === 1) {
                     numStr = (a === 0) ? `x` : (a > 0 ? `x - ${a}` : `x + ${Math.abs(a)}`);
                     currentAnswer = 2 * c;
@@ -204,13 +247,10 @@
                     numStr = (a === 0) ? `x^2` : `x^2 - ${a*a}`;
                     currentAnswer = 2 * a * (2 * c);
                 }
-
                 let bStr = (b === 0) ? `x` : (b > 0 ? `x + ${b}` : `x - ${Math.abs(b)}`);
-                
                 texStr = `$$ \\lim_{x \\to ${a}} \\frac{${numStr}}{\\sqrt{${bStr}} - ${c}} $$`;
             }
 
-            // 화면 업데이트
             document.getElementById('questionType').innerHTML = typeTitle;
             document.getElementById('questionText').innerHTML = qText;
             document.getElementById('problemDisplay').innerHTML = texStr;
@@ -218,7 +258,6 @@
             document.getElementById('answerInput').focus();
             document.getElementById('feedback').innerHTML = "";
             
-            // 수식 재렌더링
             MathJax.typesetPromise([
                 document.getElementById('questionText'),
                 document.getElementById('problemDisplay')
@@ -230,7 +269,7 @@
             let feedback = document.getElementById('feedback');
             
             if (inputVal === "") {
-                feedback.innerHTML = "<span class='text-slate-500'>정답을 입력해주세요.</span>";
+                feedback.innerHTML = "<span class='text-slate-500 bg-slate-100 px-4 py-1 rounded-full'>정답을 입력해주세요.</span>";
                 return;
             }
 
@@ -240,12 +279,12 @@
             if (parseInt(inputVal) === currentAnswer) {
                 streak++;
                 document.getElementById('streakCount').innerText = streak;
-                feedback.innerHTML = `<span class='text-green-600'>🎉 정답입니다! (답: ${currentAnswer})</span>`;
+                feedback.innerHTML = `<span class='text-teal-600 bg-teal-50 border border-teal-100 px-6 py-2 rounded-full inline-block shadow-sm'>🎉 정답입니다! (답: ${currentAnswer})</span>`;
                 setTimeout(() => generateProblem(0), 1500);
             } else {
                 streak = 0;
                 document.getElementById('streakCount').innerText = streak;
-                feedback.innerHTML = `<span class='text-red-500'>❌ 오답입니다. 다시 도전해 보세요!</span>`;
+                feedback.innerHTML = `<span class='text-rose-500 bg-rose-50 border border-rose-100 px-6 py-2 rounded-full inline-block shadow-sm'>❌ 오답입니다. 다시 도전해 보세요!</span>`;
                 document.getElementById('answerInput').value = "";
                 document.getElementById('answerInput').focus();
             }
