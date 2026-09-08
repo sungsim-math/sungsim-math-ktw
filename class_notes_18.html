@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18쪽 교과서 필기 노트 📝</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] },
+                    colors: { brand: { 50: '#fdf4ff', 500: '#d946ef', 600: '#c026d3' } }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            font-family: 'Pretendard', sans-serif; 
+            background: linear-gradient(135deg, #fdf4ff 0%, #e0e7ff 50%, #f3e8ff 100%);
+            background-attachment: fixed;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 40px -10px rgba(31, 38, 135, 0.08);
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d8b4fe; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #c084fc; }
+    </style>
+    <!-- MathJax 최신 버전 -->
+    <script>
+        MathJax = {
+            tex: { 
+                inlineMath: [['\\(', '\\)']], 
+                displayMath: [['$$', '$$']],
+                macros: {
+                    // 모든 lim 기호에 강제로 limits 속성을 부여하여 화살표가 항상 아래에 오도록 재정의
+                    lim: '\\mathop{\\rm lim}\\limits'
+                }
+            },
+            startup: { pageReady: () => MathJax.startup.defaultPageReady() }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <header class="w-full pt-10 pb-6 px-4 relative z-10">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <div class="inline-block mb-2 px-3 py-1 rounded-full bg-amber-100 text-amber-700 font-bold text-xs shadow-sm border border-amber-200">
+                    교과서 18쪽 스마트 복습 📖
+                </div>
+                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-800 drop-shadow-sm">
+                    함수의 극한과 연속
+                </h1>
+            </div>
+            <button onclick="location.href='index.html'" class="bg-white hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm border border-slate-200 transition-all hover:-translate-y-0.5 flex items-center gap-2">
+                <span>🏠</span> 대문으로 돌아가기
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 pb-20 space-y-6">
+        
+        <div class="glass-card rounded-2xl p-5 flex items-start gap-4">
+            <div class="text-2xl mt-1">👩‍🏫</div>
+            <div>
+                <h3 class="font-bold text-slate-800 mb-1">선생님의 꿀팁 코멘트!</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    교과서 18쪽 '스스로 확인하기' 문제의 핵심 판서를 디지털로 옮겼습니다. 붉은색 글씨로 강조된 <strong>좌극한과 우극한 판별, 미정계수 결정</strong>의 원리를 꼼꼼히 복습해 보세요!
+                </p>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <!-- 문제 1 -->
+            <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden flex flex-col h-full">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-blue-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">1</span>
+                    <h3 class="font-bold text-lg text-slate-800">좌극한과 우극한 판별</h3>
+                </div>
+                <div class="text-slate-700 mb-4 font-medium text-sm">
+                    함수 \( y=f(x) \)의 그래프가 주어졌을 때, 극한값을 구하시오.
+                </div>
+                <div class="text-center mb-6">
+                    $$ \lim_{x \to -1-} f(x) + \lim_{x \to 1+} f(x) $$
+                </div>
+                <div class="bg-blue-50 p-5 rounded-2xl border border-blue-100 flex-grow">
+                    <h4 class="font-bold text-sm text-blue-800 mb-3 flex items-center gap-2">
+                        <span>💡 선생님의 풀이</span>
+                    </h4>
+                    <ul class="space-y-3 text-sm text-slate-700 leading-relaxed">
+                        <li>• \( x \)가 \(-1\)보다 작은 쪽에서 다가갈 때(좌극한) 함숫값은 \(-1\)을 향합니다. <br><span class="text-rose-600 font-bold ml-2">\( \implies \lim_{x \to -1-} f(x) = -1 \)</span></li>
+                        <li>• \( x \)가 \(1\)보다 큰 쪽에서 다가갈 때(우극한) 함숫값은 \(2\)를 향합니다. <br><span class="text-rose-600 font-bold ml-2">\( \implies \lim_{x \to 1+} f(x) = 2 \)</span></li>
+                        <li class="pt-2 border-t border-blue-200 font-bold text-slate-800">
+                            \(\therefore (-1) + 2 = 1\) (정답)
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 문제 2 -->
+            <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden flex flex-col h-full">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-blue-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">2</span>
+                    <h3 class="font-bold text-lg text-slate-800">절댓값 기호가 있는 극한</h3>
+                </div>
+                <div class="text-slate-700 mb-4 font-medium text-sm">
+                    함수 \( f(x) = \frac{|x^2-x-2|}{x-2} \) 일 때, \( \lim_{x \to 2} f(x) \)를 조사하시오.
+                </div>
+                <div class="bg-blue-50 p-5 rounded-2xl border border-blue-100 flex-grow">
+                    <h4 class="font-bold text-sm text-blue-800 mb-3 flex items-center gap-2">
+                        <span>💡 선생님의 풀이</span>
+                    </h4>
+                    <div class="text-sm text-slate-700 space-y-2">
+                        <p>분자를 인수분해하면 \( |(x+1)(x-2)| \) 입니다.</p>
+                        <ul class="space-y-2 ml-2 mt-2">
+                            <li><strong>우극한 (\(x > 2\)):</strong> 절댓값 안이 양수이므로,<br>
+                                <span class="text-rose-600 font-bold">\( \lim_{x \to 2+} \frac{(x+1)(x-2)}{x-2} = \lim_{x \to 2+} (x+1) = 3 \)</span>
+                            </li>
+                            <li><strong>좌극한 (\(x < 2\)):</strong> 절댓값 안이 음수이므로 마이너스 부호가 붙습니다.<br>
+                                <span class="text-blue-600 font-bold">\( \lim_{x \to 2-} \frac{-(x+1)(x-2)}{x-2} = \lim_{x \to 2-} (-x-1) = -3 \)</span>
+                            </li>
+                        </ul>
+                        <div class="pt-3 mt-3 border-t border-blue-200 font-bold text-slate-800 text-center">
+                            좌극한과 우극한이 다르므로 극한값은 <span class="text-rose-600 underline">존재하지 않는다.</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 3번, 4번 문항 추가 영역 -->
+        <div class="grid md:grid-cols-2 gap-6 mt-6 mb-6">
+            <!-- 문제 3 -->
+            <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden flex flex-col h-full">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-blue-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">3</span>
+                    <h3 class="font-bold text-lg text-slate-800">함수의 식 구하기</h3>
+                </div>
+                <div class="text-slate-700 mb-4 font-medium text-sm leading-relaxed">
+                    일차함수 \( y=f(x) \)의 그래프가 오른쪽 그림과 같다. \( \lim_{x \to 4} f(x) = 0 \), \( \lim_{x \to 0} f(x) = 2 \) 일 때, \( f(3) \)의 값을 구하시오.
+                </div>
+                <div class="bg-blue-50 p-5 rounded-2xl border border-blue-100 flex-grow">
+                    <h4 class="font-bold text-sm text-blue-800 mb-3 flex items-center gap-2">
+                        <span>💡 선생님의 풀이</span>
+                    </h4>
+                    <div class="text-sm text-slate-700 space-y-2">
+                        <p>\( f(x) = ax+b \) (\(a, b\)는 상수, \(a \neq 0\))로 둡니다.</p>
+                        <ul class="space-y-2 ml-2 mt-2 font-mono text-base">
+                            <li>\( \lim_{x \to 4} (ax+b) = 4a+b = 0 \)</li>
+                            <li>\( \lim_{x \to 0} (ax+b) = b = 2 \)</li>
+                        </ul>
+                        <p class="mt-2 text-rose-600 font-bold text-center">\( \therefore 4a+2=0 \implies a=-\frac{1}{2} \)</p>
+                        <div class="pt-3 mt-3 border-t border-blue-200 font-bold text-slate-800 text-center text-lg">
+                            \( f(3) = -\frac{3}{2} + 2 = \frac{1}{2} \)
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 문제 4 -->
+            <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden flex flex-col h-full">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-blue-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">4</span>
+                    <h3 class="font-bold text-lg text-slate-800">극한값이 존재할 조건</h3>
+                </div>
+                <div class="text-slate-700 mb-4 font-medium text-sm leading-relaxed overflow-x-auto">
+                    함수 \( f(x) = \begin{cases} x^2-2x+4 & (x \le 3) \\ -x+k & (x > 3) \end{cases} \)에 대하여 극한 \( \lim_{x \to 3} f(x) \)의 값이 존재할 때, 상수 \( k \)의 값을 구하시오.
+                </div>
+                <div class="bg-blue-50 p-5 rounded-2xl border border-blue-100 flex-grow">
+                    <h4 class="font-bold text-sm text-blue-800 mb-3 flex items-center gap-2">
+                        <span>💡 선생님의 풀이</span>
+                    </h4>
+                    <div class="text-sm text-slate-700 space-y-2">
+                        <p>극한값이 존재하려면 \(x=3\)에서의 좌극한과 우극한이 같아야 합니다.</p>
+                        <ul class="space-y-3 ml-2 mt-2 font-mono">
+                            <li><strong>좌극한:</strong> <span class="text-blue-600 font-bold">\( \lim_{x \to 3-} (x^2-2x+4) = 9-6+4 = 7 \)</span></li>
+                            <li><strong>우극한:</strong> <span class="text-rose-600 font-bold">\( \lim_{x \to 3+} (-x+k) = -3+k \)</span></li>
+                        </ul>
+                        <div class="pt-3 mt-3 border-t border-blue-200 font-bold text-rose-600 text-center text-xl">
+                            \( 7 = -3+k \implies k = 10 \)
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 문제 5 -->
+        <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="bg-blue-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">5</span>
+                <h3 class="font-bold text-lg text-slate-800">실생활 속 극한의 활용 (함수의 불연속)</h3>
+            </div>
+            <div class="text-slate-700 mb-4 font-medium text-sm leading-relaxed bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                어느 치킨 가게에서는 매일 11시 10분부터 20분 동안 20,000원짜리 양념치킨 한 마리를 15,000원으로 할인하여 판매하다가 11시 30분부터 다시 20,000원으로 판매하고 있다. 11시부터 \( x \)분이 지난 후의 양념치킨 한 마리의 가격을 \( f(x) \)원이라 할 때, 다음 극한을 조사하시오. (단, \( 0 < x \le 40 \))
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-blue-50 p-5 rounded-2xl border border-blue-100 flex-grow">
+                    <h4 class="font-bold text-sm text-blue-800 mb-3 flex items-center gap-2">
+                        <span>💡 가격 변동 그래프의 이해</span>
+                    </h4>
+                    <div class="text-sm text-slate-700 space-y-2">
+                        <p>\( x=10 \) (11시 10분) 전까지는 20,000원입니다.</p>
+                        <p>\( 10 \le x < 30 \) (20분 동안) 구간은 15,000원입니다.</p>
+                        <p>\( x=30 \) (11시 30분) 이후는 다시 20,000원입니다.</p>
+                        <div class="text-center font-bold text-blue-600 mt-3 bg-white p-2 rounded-lg border border-blue-200">
+                            할인 구간: \( x=10 \) 에서 \( x=30 \) 사이
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-amber-50 p-5 rounded-2xl border border-amber-100 flex-grow">
+                    <h4 class="font-bold text-sm text-amber-800 mb-3 flex items-center gap-2">
+                        <span>🖍️ 극한값 구하기</span>
+                    </h4>
+                    <ul class="space-y-3 text-sm text-slate-700 font-mono">
+                        <li>(1) \( \lim_{x \to 5} f(x) = \)<span class="text-rose-600 font-bold ml-1 text-base">20000</span></li>
+                        <li>(2) \( \lim_{x \to 10-} f(x) = \)<span class="text-rose-600 font-bold ml-1 text-base">20000</span> <span class="font-sans text-xs text-slate-500">(할인 직전 우극한은 다름)</span></li>
+                        <li>(3) \( \lim_{x \to 20} f(x) = \)<span class="text-rose-600 font-bold ml-1 text-base">15000</span> <span class="font-sans text-xs text-slate-500">(할인 중)</span></li>
+                        <li>(4) \( \lim_{x \to 30} f(x) \implies \) 좌극한(15000) \(\neq\) 우극한(20000) <br>
+                            <span class="text-blue-600 font-bold mt-1.5 block"> \(\therefore\) 존재하지 않는다.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-cyan-300 rounded-full mix-blend-multiply filter blur-2xl opacity-20"></div>
+            
+            <div class="flex items-center gap-3 mb-4 relative z-10">
+                <span class="bg-cyan-500 text-white px-3 py-1.5 rounded-lg text-sm font-bold shadow-md">수학으로 생각 넓히기</span>
+                <h3 class="font-bold text-lg text-slate-800">다양한 극한의 반례 찾기</h3>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-4 relative z-10">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+                    <h4 class="font-bold text-slate-700 mb-2 text-sm">(1) 좌극한은 존재, 우극한은 없는 경우</h4>
+                    <p class="text-sm text-slate-600 mb-3">\( x=0 \)으로 다가갈 때 좌측은 수렴하고 우측은 발산하는 형태의 그래프를 그리면 됩니다.</p>
+                    <div class="text-rose-600 font-bold text-sm bg-rose-50 p-2 rounded-lg text-center font-mono">
+                        예: \( f(x) = \begin{cases} x & (x < 0) \\ 1/x & (x \ge 0) \end{cases} \)
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+                    <h4 class="font-bold text-slate-700 mb-2 text-sm">(2) 둘 다 존재하지만 극한값은 없는 경우</h4>
+                    <p class="text-sm text-slate-600 mb-3">\( x=0 \)에서 좌극한과 우극한의 '값'이 서로 다르게 끊어져 있는 그래프를 그립니다.</p>
+                    <div class="text-blue-600 font-bold text-sm bg-blue-50 p-2 rounded-lg text-center font-mono">
+                        예: \( f(x) = \begin{cases} -x & (x < 0) \\ x+1 & (x \ge 0) \end{cases} \)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-auto py-8 text-center text-sm text-slate-500 bg-white/40 backdrop-blur-md border-t border-white/50">
+        <p class="font-medium text-slate-700 mb-1">👩‍🏫 2022 개정 교육과정 미적분 I 교과 자료실</p>
+        <p>복습은 실력을 배신하지 않습니다. 화이팅!</p>
+    </footer>
+
+</body>
+</html>

@@ -87,7 +87,8 @@
             <h2 class="text-2xl font-bold mb-6 text-slate-800 flex items-center gap-2 pl-2 border-l-4 border-brand-500">
                 I. 함수의 극한과 연속 🔍
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <!-- 카드가 4개이므로 lg:grid-cols-2 xl:grid-cols-4 로 레이아웃 조정 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6 max-w-full mx-auto">
                 
                 <!-- Card 1: 극한 시각화 -->
                 <div class="glass-card rounded-3xl p-6 transition-all duration-300 flex flex-col h-full group cursor-pointer" onclick="location.href='limit_visualization.html'">
@@ -120,6 +121,40 @@
                     </p>
                     <button class="w-full py-3 bg-white text-teal-600 font-bold rounded-xl border border-teal-100 group-hover:bg-teal-500 group-hover:text-white transition-colors shadow-sm">
                         훈련 시작하기 🔥
+                    </button>
+                </div>
+
+                <!-- Card 3: 18쪽 필기 노트 (첫 번째 이미지) -->
+                <div class="glass-card rounded-3xl p-6 transition-all duration-300 flex flex-col h-full group cursor-pointer" onclick="location.href='class_notes_18.html'">
+                    <div class="w-14 h-14 bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-sm group-hover:scale-110 transition-transform">
+                        📝
+                    </div>
+                    <div class="mb-2">
+                        <span class="text-xs font-bold text-amber-600 bg-amber-50 px-2 py-1 rounded-lg">18쪽 복습</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-slate-800 group-hover:text-amber-600 transition-colors">함수의 극한과 연속 필기</h3>
+                    <p class="text-sm text-slate-500 mb-6 flex-grow">
+                        교과서 18쪽 '스스로 확인하기' 문제 풀이입니다. 함수의 좌극한과 우극한 판별, 미정계수 결정 문제에 대한 선생님의 꿀팁을 확인하세요.
+                    </p>
+                    <button class="w-full py-3 bg-white text-amber-600 font-bold rounded-xl border border-amber-100 group-hover:bg-amber-500 group-hover:text-white transition-colors shadow-sm">
+                        필기 보러 가기 📖
+                    </button>
+                </div>
+
+                <!-- Card 4: 25쪽 필기 노트 (두 번째 이미지) -->
+                <div class="glass-card rounded-3xl p-6 transition-all duration-300 flex flex-col h-full group cursor-pointer" onclick="location.href='class_notes_25.html'">
+                    <div class="w-14 h-14 bg-gradient-to-br from-cyan-100 to-sky-100 rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-sm group-hover:scale-110 transition-transform">
+                        💡
+                    </div>
+                    <div class="mb-2">
+                        <span class="text-xs font-bold text-cyan-600 bg-cyan-50 px-2 py-1 rounded-lg">25쪽 복습</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-slate-800 group-hover:text-cyan-600 transition-colors">함수의 극한 성질 필기</h3>
+                    <p class="text-sm text-slate-500 mb-6 flex-grow">
+                        교과서 25쪽 '스스로 확인하기' 문제 풀이입니다. 극한에 대한 성질과 다항함수의 극한값 계산에 필요한 핵심 판서가 담겨 있습니다.
+                    </p>
+                    <button class="w-full py-3 bg-white text-cyan-600 font-bold rounded-xl border border-cyan-100 group-hover:bg-cyan-500 group-hover:text-white transition-colors shadow-sm">
+                        필기 보러 가기 📖
                     </button>
                 </div>
 

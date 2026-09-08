@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25쪽 교과서 필기 노트 💡</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] },
+                    colors: { brand: { 50: '#fdf4ff', 500: '#d946ef', 600: '#c026d3' } }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            font-family: 'Pretendard', sans-serif; 
+            background: linear-gradient(135deg, #fdf4ff 0%, #e0e7ff 50%, #f3e8ff 100%);
+            background-attachment: fixed;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 40px -10px rgba(31, 38, 135, 0.08);
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d8b4fe; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #c084fc; }
+    </style>
+    <!-- MathJax 최신 버전 -->
+    <script>
+        MathJax = {
+            tex: { 
+                inlineMath: [['\\(', '\\)']], 
+                displayMath: [['$$', '$$']],
+                macros: {
+                    // 모든 lim 기호에 강제로 limits 속성을 부여하여 화살표가 항상 아래에 오도록 재정의
+                    lim: '\\mathop{\\rm lim}\\limits'
+                }
+            },
+            startup: { pageReady: () => MathJax.startup.defaultPageReady() }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <header class="w-full pt-10 pb-6 px-4 relative z-10">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <div class="inline-block mb-2 px-3 py-1 rounded-full bg-cyan-100 text-cyan-700 font-bold text-xs shadow-sm border border-cyan-200">
+                    교과서 25쪽 스마트 복습 💡
+                </div>
+                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-800 drop-shadow-sm">
+                    함수의 극한에 대한 성질
+                </h1>
+            </div>
+            <button onclick="location.href='index.html'" class="bg-white hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm border border-slate-200 transition-all hover:-translate-y-0.5 flex items-center gap-2">
+                <span>🏠</span> 대문으로 돌아가기
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 pb-20 space-y-6">
+        
+        <div class="glass-card rounded-2xl p-5 flex items-start gap-4">
+            <div class="text-2xl mt-1">👩‍🏫</div>
+            <div>
+                <h3 class="font-bold text-slate-800 mb-1">선생님의 꿀팁 코멘트!</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    교과서 25쪽의 다소 복잡한 극한 계산과 미정계수, 샌드위치 정리 문제들을 디지털 수식으로 깔끔하게 정리했습니다. 수식의 전개 과정을 눈으로 천천히 따라와 보세요.
+                </p>
+            </div>
+        </div>
+
+        <div class="space-y-6">
+            
+            <!-- 문제 1 -->
+            <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden">
+                <div class="flex items-center gap-3 mb-4 border-b border-slate-200 pb-4">
+                    <span class="bg-indigo-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">1</span>
+                    <h3 class="font-bold text-lg text-slate-800">다양한 극한값의 계산</h3>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4 text-sm text-slate-700 font-mono">
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <p class="mb-2 text-slate-500 font-sans text-xs font-bold">(1) 0/0 꼴 인수분해</p>
+                        $$ \lim_{x \to -3} \frac{x^2-x-12}{x+3} = \lim_{x \to -3} \frac{(x-4)(x+3)}{x+3} $$
+                        <p class="text-rose-600 font-bold text-center mt-2">\( = \lim_{x \to -3} (x-4) = -7 \)</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <p class="mb-2 text-slate-500 font-sans text-xs font-bold">(2) 0/0 꼴 유리화</p>
+                        $$ \lim_{x \to 4} \frac{\sqrt{x+5}-3}{x-4} = \lim_{x \to 4} \frac{x-4}{(x-4)(\sqrt{x+5}+3)} $$
+                        <p class="text-rose-600 font-bold text-center mt-2">\( = \frac{1}{\sqrt{9}+3} = \frac{1}{6} \)</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <p class="mb-2 text-slate-500 font-sans text-xs font-bold">(3) ∞/∞ 꼴</p>
+                        $$ \lim_{x \to \infty} \frac{2x^2-4x+6}{3x^2+2} = \frac{2}{3} $$
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <p class="mb-2 text-slate-500 font-sans text-xs font-bold">(4) ∞ - ∞ 꼴 유리화</p>
+                        $$ \lim_{x \to \infty} (\sqrt{x^2+3x} - \sqrt{x^2-3x}) $$
+                        <p class="text-rose-600 font-bold text-center mt-2">\( = \lim_{x \to \infty} \frac{6x}{\sqrt{x^2+3x} + \sqrt{x^2-3x}} = \frac{6}{1+1} = 3 \)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 문제 2 -->
+            <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-indigo-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">2</span>
+                    <h3 class="font-bold text-lg text-slate-800">미정계수 결정</h3>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-indigo-50 p-5 rounded-2xl border border-indigo-100">
+                        <div class="text-slate-800 font-medium text-sm mb-3 text-center">
+                            (1) \( \lim_{x \to 1} \frac{2x^2+ax+b}{x-1} = 1 \)
+                        </div>
+                        <div class="text-sm text-slate-700 space-y-2 font-mono">
+                            <p>분모 \( \to 0 \) 이므로 분자 \( \to 0 \)</p>
+                            <p class="bg-white p-2 rounded-lg text-center text-indigo-700 font-bold border border-indigo-200">\( 2+a+b=0 \implies b=-a-2 \)</p>
+                            <p class="text-xs text-slate-500 mt-2 font-sans">이를 대입하여 인수분해 후 극한값을 구하면,</p>
+                            <p class="text-center font-bold text-rose-600 text-lg">\( \therefore a=-3, \ b=1 \)</p>
+                        </div>
+                    </div>
+                    <div class="bg-indigo-50 p-5 rounded-2xl border border-indigo-100">
+                        <div class="text-slate-800 font-medium text-sm mb-3 text-center">
+                            (2) \( \lim_{x \to 3} \frac{a\sqrt{x+6}+b}{x-3} = \frac{1}{3} \)
+                        </div>
+                        <div class="text-sm text-slate-700 space-y-2 font-mono">
+                            <p>분모 \( \to 0 \) 이므로 분자 \( \to 0 \)</p>
+                            <p class="bg-white p-2 rounded-lg text-center text-indigo-700 font-bold border border-indigo-200">\( 3a+b=0 \implies b=-3a \)</p>
+                            <p class="text-xs text-slate-500 mt-2 font-sans">이를 대입하여 유리화 후 극한값을 구하면,</p>
+                            <p class="text-center font-bold text-rose-600 text-lg">\( \therefore a=2, \ b=-6 \)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 문제 3 -->
+            <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-indigo-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">3</span>
+                    <h3 class="font-bold text-lg text-slate-800">함수의 극한의 대소 관계 (샌드위치 정리)</h3>
+                </div>
+                <div class="text-slate-700 mb-4 font-medium text-sm leading-relaxed">
+                    함수 \( f(x) \)가 모든 양의 실수 \( x \)에 대하여 \( 3x+1 \le \frac{f(x)}{x} \le 3x+4 \) 를 만족시킬 때, \( \lim_{x \to \infty} \frac{f(x)}{x^2} \) 의 값을 구하시오.
+                </div>
+                <div class="bg-indigo-50 p-5 rounded-2xl border border-indigo-100">
+                    <h4 class="font-bold text-sm text-indigo-700 mb-3 flex items-center gap-2">
+                        <span>🖍️ 핵심 판서 정리</span>
+                    </h4>
+                    <div class="text-sm text-slate-700 space-y-3">
+                        <p>주어진 부등식의 각 변에 \( \frac{1}{x} \) (\( x > 0 \)이므로 부등호 방향은 그대로 유지)을 곱하여 우리가 극한값을 구하려는 형태인 \( \frac{f(x)}{x^2} \) 모양을 만듭니다.</p>
+                        <div class="bg-white p-3 rounded-xl border border-indigo-200 font-mono text-center overflow-x-auto text-lg text-slate-800">
+                            $$ \frac{3x+1}{x} \le \frac{f(x)}{x^2} \le \frac{3x+4}{x} $$
+                        </div>
+                        <p class="pt-2">이때 \( \lim_{x \to \infty} \frac{3x+1}{x} = 3 \) 이고, \( \lim_{x \to \infty} \frac{3x+4}{x} = 3 \) 이므로,</p>
+                        <div class="font-mono text-center text-xl font-bold text-rose-600 mt-2 bg-rose-50 p-2 rounded-lg">
+                            \( \therefore \lim_{x \to \infty} \frac{f(x)}{x^2} = 3 \)
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 문제 4 -->
+            <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-indigo-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">4</span>
+                    <h3 class="font-bold text-lg text-slate-800">극한의 성질 응용</h3>
+                </div>
+                <div class="text-slate-700 mb-4 font-medium text-sm leading-relaxed">
+                    \( \lim_{x \to 1} f(x) = \infty \), \( \lim_{x \to 1} \{2f(x)+3g(x)\} = 1 \) 일 때, \( \lim_{x \to 1} \frac{f(x)-g(x)}{4f(x)+g(x)} \) 의 값을 구하시오.
+                </div>
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                    <h4 class="font-bold text-sm text-indigo-700 mb-3 flex items-center gap-2">
+                        <span>🖍️ 핵심 판서 정리 (분수 형태로 변형하기)</span>
+                    </h4>
+                    <div class="text-sm text-slate-700 space-y-2">
+                        <p>우선 \( \lim_{x \to 1} \frac{1}{f(x)} = 0 \) 임을 이용합니다.</p>
+                        <div class="bg-white p-3 rounded-xl border border-slate-200 font-mono text-center overflow-x-auto">
+                            $$ 0 = \lim_{x \to 1} \frac{2f(x)+3g(x)}{f(x)} = \lim_{x \to 1} \left\{ 2 + 3\frac{g(x)}{f(x)} \right\} $$
+                        </div>
+                        <p class="text-rose-600 font-bold text-center">\( \therefore \lim_{x \to 1} \frac{g(x)}{f(x)} = -\frac{2}{3} \)</p>
+                        <p class="pt-3 mt-3 border-t border-slate-200">주어진 식의 분모와 분자를 \( f(x) \)로 나누면,</p>
+                        <div class="font-mono text-center text-lg font-bold text-slate-800">
+                            $$ \lim_{x \to 1} \frac{1 - \frac{g(x)}{f(x)}}{4 + \frac{g(x)}{f(x)}} = \frac{1 - (-\frac{2}{3})}{4 + (-\frac{2}{3})} = \frac{5/3}{10/3} = \frac{1}{2} $$
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 문제 5 -->
+            <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-indigo-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">5</span>
+                    <h3 class="font-bold text-lg text-slate-800">무리식이 포함된 극한의 미정계수</h3>
+                </div>
+                <div class="text-slate-700 mb-4 font-medium text-sm leading-relaxed">
+                    등식 \( \lim_{x \to \infty} (\sqrt{4x^2+5x} + ax) = b \) 가 성립할 때, \( a+b \) 의 값을 구하시오. (단, \( a, b \)는 상수)
+                </div>
+                <div class="bg-indigo-50 p-5 rounded-2xl border border-indigo-100 flex-grow">
+                    <h4 class="font-bold text-sm text-indigo-700 mb-3 flex items-center gap-2">
+                        <span>💡 선생님의 풀이</span>
+                    </h4>
+                    <div class="text-sm text-slate-700 space-y-3">
+                        <p>극한값이 존재하려면 \( \infty - \infty \) 꼴이어야 하므로 <strong class="text-rose-600">\( a < 0 \)</strong> 입니다. 주어진 식을 분모가 1인 분수로 보고 유리화하면,</p>
+                        <div class="font-mono text-center overflow-x-auto text-lg text-slate-800 bg-white p-3 rounded-xl border border-indigo-200">
+                            $$ \lim_{x \to \infty} \frac{(4-a^2)x^2 + 5x}{\sqrt{4x^2+5x} - ax} = b $$
+                        </div>
+                        <p>수렴하기 위해서는 분모(1차)와 분자(2차)의 최고차항 차수가 같아야 하므로, 분자의 2차항이 사라져야 합니다.</p>
+                        <p class="text-center font-bold text-indigo-700 text-base">\( 4 - a^2 = 0 \implies a = -2 \ (\because a < 0) \)</p>
+                        <p class="pt-3 border-t border-indigo-200 mt-3">\( a=-2 \) 를 대입하여 분모, 분자를 \( x \)로 나누면 극한값 \( b \)를 구할 수 있습니다.</p>
+                        <div class="font-mono text-center font-bold text-rose-600 text-lg">
+                            $$ \lim_{x \to \infty} \frac{5x}{\sqrt{4x^2+5x} + 2x} = \frac{5}{\sqrt{4}+2} = \frac{5}{4} = b $$
+                        </div>
+                        <div class="text-center font-bold text-xl text-slate-800 pt-2">
+                            \( \therefore a+b = -2 + \frac{5}{4} = -\frac{3}{4} \)
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 문제 6 -->
+            <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-indigo-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">6</span>
+                    <h3 class="font-bold text-lg text-slate-800">극한을 이용한 다항함수의 결정</h3>
+                </div>
+                <div class="text-slate-700 mb-4 font-medium text-sm leading-relaxed bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                    삼차함수 \( f(x) \)가 다음 조건을 만족시킬 때, \( f(1) \)의 값을 구하시오.<br>
+                    (가) \( \lim_{x \to 0} \frac{f(x)}{x} = 2 \) <br>
+                    (나) \( \lim_{x \to \infty} \frac{f(x) - x^3}{x^2} = 1 \)
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-indigo-50 p-5 rounded-2xl border border-indigo-100">
+                        <h4 class="font-bold text-sm text-indigo-700 mb-3 flex items-center gap-2">
+                            <span>💡 (나) 조건 분석: 차수와 최고차항</span>
+                        </h4>
+                        <div class="text-sm text-slate-700 space-y-2">
+                            <p>\( x \to \infty \) 일 때 0이 아닌 1로 수렴하므로, 분자와 분모의 차수가 같아야 합니다.</p>
+                            <p class="font-mono bg-white p-2 rounded-lg border border-indigo-200 text-center">
+                                \( f(x) - x^3 = x^2 + ax + b \)
+                            </p>
+                            <p class="text-rose-600 font-bold text-center mt-3 text-base">
+                                \( \therefore f(x) = x^3 + x^2 + ax + b \)
+                            </p>
+                            <p class="text-xs text-slate-500 text-center">(\(a, b\)는 상수)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-rose-50 p-5 rounded-2xl border border-rose-100">
+                        <h4 class="font-bold text-sm text-rose-800 mb-3 flex items-center gap-2">
+                            <span>💡 (가) 조건 분석: 최저차항과 상수항</span>
+                        </h4>
+                        <div class="text-sm text-slate-700 space-y-2">
+                            <p>분모가 0으로 가므로 분자도 0으로 가야 합니다. 즉 \( f(0) = 0 \implies b = 0 \)</p>
+                            <div class="font-mono bg-white p-2 rounded-lg border border-rose-200 text-center overflow-x-auto">
+                                $$ \lim_{x \to 0} \frac{x^3 + x^2 + ax}{x} = \lim_{x \to 0} (x^2 + x + a) = a $$
+                            </div>
+                            <p class="mt-2 text-center">이 극한값이 2이므로 <span class="font-bold text-rose-600 text-base">\( a = 2 \)</span></p>
+                            <div class="pt-3 border-t border-rose-200 mt-3 text-center font-bold text-slate-800 text-lg">
+                                \( f(x) = x^3 + x^2 + 2x \implies f(1) = 4 \)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 생각 넓히기 -->
+            <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden">
+                <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-amber-300 rounded-full mix-blend-multiply filter blur-2xl opacity-20"></div>
+                <div class="flex items-center gap-3 mb-4 relative z-10">
+                    <span class="bg-amber-500 text-white px-3 py-1.5 rounded-lg text-sm font-bold shadow-md">생각 넓히기</span>
+                    <h3 class="font-bold text-lg text-slate-800">안전한 풀이법</h3>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm relative z-10">
+                    <p class="text-sm text-slate-700 mb-3 leading-relaxed">
+                        \( x \to -\infty \) 극한 계산 시 부호 실수를 방지하는 가장 완벽하고 바른 풀이는 <strong class="text-indigo-600">치환</strong>을 이용하는 것입니다.
+                    </p>
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 font-mono text-sm text-center">
+                        <span class="text-rose-600 font-bold">\( x = -t \)</span> 로 놓으면, <br>
+                        \( x \to -\infty \) 일 때 <span class="text-blue-600 font-bold">\( t \to \infty \)</span>
+                    </div>
+                    <p class="text-xs text-slate-500 text-center mt-3">
+                        치환 후에는 평소 풀던 익숙한 양의 무한대 계산 방식으로 안전하게 풀이할 수 있습니다.
+                    </p>
+                </div>
+            </section>
+
+        </div>
+
+    </main>
+
+    <footer class="mt-auto py-8 text-center text-sm text-slate-500 bg-white/40 backdrop-blur-md border-t border-white/50">
+        <p class="font-medium text-slate-700 mb-1">👩‍🏫 2022 개정 교육과정 미적분 I 교과 자료실</p>
+        <p>복습은 실력을 배신하지 않습니다. 화이팅!</p>
+    </footer>
+
+</body>
+</html>
