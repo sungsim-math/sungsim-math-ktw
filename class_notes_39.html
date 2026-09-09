@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>39쪽 교과서 필기 노트 🌿</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] },
+                    colors: { brand: { 50: '#fdf4ff', 500: '#d946ef', 600: '#c026d3' } }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            font-family: 'Pretendard', sans-serif; 
+            background: linear-gradient(135deg, #fdf4ff 0%, #e0e7ff 50%, #f3e8ff 100%);
+            background-attachment: fixed;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 40px -10px rgba(31, 38, 135, 0.08);
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d8b4fe; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #c084fc; }
+    </style>
+    <!-- MathJax 최신 버전 -->
+    <script>
+        MathJax = {
+            tex: { 
+                inlineMath: [['\\(', '\\)']], 
+                displayMath: [['$$', '$$']],
+                macros: {
+                    lim: '\\mathop{\\rm lim}\\limits'
+                }
+            },
+            startup: { pageReady: () => MathJax.startup.defaultPageReady() }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <header class="w-full pt-10 pb-6 px-4 relative z-10">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <div class="inline-block mb-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 font-bold text-xs shadow-sm border border-emerald-200">
+                    교과서 39쪽 스마트 복습 🌿
+                </div>
+                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-800 drop-shadow-sm">
+                    연속함수의 성질
+                </h1>
+            </div>
+            <button onclick="location.href='index.html'" class="bg-white hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm border border-slate-200 transition-all hover:-translate-y-0.5 flex items-center gap-2">
+                <span>🏠</span> 대문으로 돌아가기
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 pb-20 space-y-6">
+        
+        <div class="glass-card rounded-2xl p-5 flex items-start gap-4">
+            <div class="text-2xl mt-1">👩‍🏫</div>
+            <div>
+                <h3 class="font-bold text-slate-800 mb-1">선생님의 꿀팁 코멘트!</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    교과서 39쪽 '스스로 확인하기'는 수능 단골 손님인 <strong>'사이값 정리'와 '최대·최소 정리'</strong>가 등장하는 아주 중요한 파트입니다. 특히 실근의 존재 유무를 확인하거나 기하학적 도형에 적용하는 방법을 눈여겨 복습해 보세요!
+                </p>
+            </div>
+        </div>
+
+        <div class="space-y-6">
+            
+            <!-- 문제 1, 2 -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden flex flex-col h-full">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="bg-emerald-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">1</span>
+                        <h3 class="font-bold text-lg text-slate-800">함수가 연속인 구간</h3>
+                    </div>
+                    <div class="text-slate-700 mb-4 font-medium text-sm">
+                        두 함수 \( f(x)=x+3 \), \( g(x)=x^2-6x+8 \)에 대하여 다음 함수가 연속인 구간을 구하시오.
+                    </div>
+                    <div class="bg-emerald-50 p-5 rounded-2xl border border-emerald-100 flex-grow">
+                        <h4 class="font-bold text-sm text-emerald-800 mb-3 flex items-center gap-2">
+                            <span>💡 분수함수의 연속성 파악하기</span>
+                        </h4>
+                        <div class="text-sm text-slate-700 space-y-3 font-mono">
+                            <div>
+                                <p class="font-bold text-slate-800 mb-1">(3) \( \frac{g(x)}{f(x)} \)</p>
+                                <p>분모가 0이 되는 곳에서 불연속이 됩니다.</p>
+                                <p class="text-emerald-700">\( f(x) = x+3 = 0 \implies x = -3 \)</p>
+                                <p class="bg-white p-2 rounded-lg text-center mt-2 font-bold shadow-sm border border-emerald-100">
+                                    \( (-\infty, -3), (-3, \infty) \) 에서 연속
+                                </p>
+                            </div>
+                            <div class="pt-3 border-t border-emerald-200">
+                                <p class="font-bold text-slate-800 mb-1">(4) \( \frac{f(x)}{g(x)} \)</p>
+                                <p>분모가 0이 되는 곳에서 불연속이 됩니다.</p>
+                                <p class="text-emerald-700">\( g(x) = x^2-6x+8 = 0 \implies x = 2 \text{ or } x = 4 \)</p>
+                                <p class="bg-white p-2 rounded-lg text-center mt-2 font-bold shadow-sm border border-emerald-100">
+                                    \( (-\infty, 2), (2, 4), (4, \infty) \) 에서 연속
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden flex flex-col h-full">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="bg-emerald-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">2</span>
+                        <h3 class="font-bold text-lg text-slate-800">모든 실수에서 연속일 조건</h3>
+                    </div>
+                    <div class="text-slate-700 mb-4 font-medium text-sm">
+                        함수 \( f(x) = \frac{x^2-1}{x^2+kx+9} \)이 실수 전체의 집합에서 연속이 되도록 하는 정수 \( k \)의 개수를 구하시오.
+                    </div>
+                    <div class="bg-emerald-50 p-5 rounded-2xl border border-emerald-100 flex-grow">
+                        <h4 class="font-bold text-sm text-emerald-800 mb-3 flex items-center gap-2">
+                            <span>💡 선생님의 풀이 (판별식 활용)</span>
+                        </h4>
+                        <div class="text-sm text-slate-700 space-y-2">
+                            <p>분수함수가 모든 실수에서 연속이려면 <strong class="text-rose-600">분모가 0이 되는 값이 없어야</strong> 합니다.</p>
+                            <p class="font-mono bg-white p-2 rounded-lg text-center font-bold border border-emerald-200 shadow-sm">
+                                \( x^2+kx+9 \neq 0 \implies x^2+kx+9 > 0 \)
+                            </p>
+                            <p>2차 부등식이 항상 성립하려면 판별식 \( D < 0 \) 이어야 합니다.</p>
+                            <p class="font-mono text-center text-emerald-700 font-bold">
+                                \( D = k^2 - 36 < 0 \implies -6 < k < 6 \)
+                            </p>
+                            <div class="pt-3 mt-3 border-t border-emerald-200 font-bold text-slate-800 text-center text-lg">
+                                정수 \( k \)는 -5부터 5까지 <span class="text-rose-600">총 11개 (정답)</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- 문제 3, 4 -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden flex flex-col h-full">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="bg-emerald-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">3</span>
+                        <h3 class="font-bold text-lg text-slate-800">곱으로 이뤄진 함수의 연속</h3>
+                    </div>
+                    <div class="text-slate-700 mb-4 font-medium text-sm">
+                        \( f(x) = \begin{cases} 3x-1 & (x < 1) \\ -x+5 & (x \ge 1) \end{cases} \), \( g(x) = x^2-4x+k \) 에 대하여 함수 \( f(x)g(x) \)가 실수 전체 집합에서 연속이 되도록 하는 상수 \( k \)는?
+                    </div>
+                    <div class="bg-emerald-50 p-5 rounded-2xl border border-emerald-100 flex-grow">
+                        <h4 class="font-bold text-sm text-emerald-800 mb-3 flex items-center gap-2">
+                            <span>💡 선생님의 풀이</span>
+                        </h4>
+                        <div class="text-sm text-slate-700 space-y-2">
+                            <p>\( f(x) \)가 \( x=1 \)에서 불연속이므로, \( x=1 \)에서 두 함수의 곱이 연속인지만 확인하면 됩니다.</p>
+                            <p class="font-mono font-bold text-center bg-white p-2 rounded-lg border border-emerald-200 shadow-sm my-2">
+                                \( \lim_{x \to 1} f(x)g(x) = f(1)g(1) \)
+                            </p>
+                            <ul class="space-y-1 ml-2 font-mono">
+                                <li>• 좌극한: \( (3-1) \times g(1) = 2(k-3) \)</li>
+                                <li>• 우극한, 함숫값: \( (-1+5) \times g(1) = 4(k-3) \)</li>
+                            </ul>
+                            <p class="text-center font-bold text-emerald-700 mt-2">
+                                \( 2(k-3) = 4(k-3) \implies 2(k-3) = 0 \)
+                            </p>
+                            <div class="pt-3 mt-3 border-t border-emerald-200 font-bold text-rose-600 text-center text-xl font-mono">
+                                \( \therefore k = 3 \)
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden flex flex-col h-full">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="bg-emerald-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">4</span>
+                        <h3 class="font-bold text-lg text-slate-800">최대·최소 정리</h3>
+                    </div>
+                    <div class="text-slate-700 mb-4 font-medium text-sm">
+                        주어진 구간에서 다음 함수의 최댓값 또는 최솟값을 구하시오.
+                    </div>
+                    <div class="bg-emerald-50 p-5 rounded-2xl border border-emerald-100 flex-grow">
+                        <div class="text-sm text-slate-700 space-y-4 font-mono">
+                            <div>
+                                <p class="font-bold text-slate-800 mb-1">(1) \( f(x) = x^2+6x+4 \) \((-4, 1)\)</p>
+                                <p class="font-sans text-xs text-slate-500 mb-1">※ 열린 구간이므로 끝점 제외, 꼭짓점 확인</p>
+                                <div class="bg-white p-3 rounded-xl border border-emerald-200 text-center">
+                                    \( x=-3 \)일 때 <strong class="text-blue-600">최솟값 \( f(-3) = -5 \)</strong><br>
+                                    <span class="text-rose-600 font-bold">최댓값 존재 X</span>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-800 mb-1">(2) \( f(x) = \sqrt{x+1} \) \([0, 3]\)</p>
+                                <p class="font-sans text-xs text-slate-500 mb-1">※ 닫힌 구간이고 연속이므로 최대/최소 모두 존재 (증가함수)</p>
+                                <div class="bg-white p-3 rounded-xl border border-emerald-200 text-center">
+                                    <strong class="text-rose-600">최댓값: \( f(3) = 2 \)</strong><br>
+                                    <strong class="text-blue-600">최솟값: \( f(0) = 1 \)</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- 문제 5, 6 (사이값 정리) -->
+            <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden">
+                <div class="flex items-center gap-3 mb-4 border-b border-slate-200 pb-4">
+                    <span class="bg-emerald-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">5 & 6</span>
+                    <h3 class="font-bold text-xl text-slate-800">사이값 정리의 활용 (실근의 존재)</h3>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6 mt-4">
+                    <!-- 5번 -->
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+                        <h4 class="font-bold text-emerald-700 mb-2">5번. 오직 하나의 실근 조건</h4>
+                        <p class="text-sm text-slate-600 mb-3">방정식 \( x^2+2x+k=0 \)이 열린구간 \( (-1, 2) \)에서 오직 하나의 실근을 갖도록 하는 실수 \( k \)의 범위는?</p>
+                        <div class="bg-emerald-50 p-3 rounded-xl font-mono text-sm">
+                            <p>\( f(x) = x^2+2x+k \) 라고 하면,</p>
+                            <p class="text-center font-bold my-2 text-slate-800 border-b border-emerald-200 pb-2">
+                                \( f(-1) \times f(2) < 0 \)
+                            </p>
+                            <p class="text-center">\( (k-1)(k+8) < 0 \)</p>
+                            <p class="text-center font-bold text-rose-600 text-lg mt-1">\( \therefore -8 < k < 1 \)</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 6번 -->
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+                        <h4 class="font-bold text-emerald-700 mb-2">6번. 적어도 몇 개의 실근을 갖는가?</h4>
+                        <p class="text-sm text-slate-600 mb-3">\( f(-2)=-1, f(-1)=3, f(0)=1, f(1)=-2, f(2)=1 \) 일 때, \( f(x)=0 \)은 구간 \( (-2, 2) \)에서?</p>
+                        <div class="bg-slate-50 p-3 rounded-xl font-mono text-sm space-y-1">
+                            <p>\( (-2, -1): f(-2)f(-1) < 0 \implies \) <span class="text-rose-600 font-bold">적어도 1개</span></p>
+                            <p class="text-slate-400">\( (-1, 0): f(-1)f(0) > 0 \implies \times \)</p>
+                            <p>\( (0, 1): f(0)f(1) < 0 \implies \) <span class="text-rose-600 font-bold">적어도 1개</span></p>
+                            <p>\( (1, 2): f(1)f(2) < 0 \implies \) <span class="text-rose-600 font-bold">적어도 1개</span></p>
+                            <div class="text-center font-bold text-xl text-emerald-700 mt-2 pt-2 border-t border-slate-200">
+                                총 <span class="text-rose-600">3개</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 생각 넓히기 -->
+            <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden">
+                <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-amber-300 rounded-full mix-blend-multiply filter blur-2xl opacity-20 pointer-events-none"></div>
+                
+                <div class="flex items-center gap-3 mb-4 relative z-10">
+                    <span class="bg-amber-500 text-white px-3 py-1.5 rounded-lg text-sm font-bold shadow-md">수학으로 생각 넓히기</span>
+                    <h3 class="font-bold text-lg text-slate-800">기하학과 사이값 정리의 만남</h3>
+                </div>
+                
+                <div class="bg-white p-5 rounded-2xl border border-amber-100 shadow-sm relative z-10">
+                    <p class="text-sm text-slate-700 mb-3 leading-relaxed">
+                        중심이 \( (4,0) \)이고 반지름이 2인 반원이 있다. 원점을 지나고 기울기가 \( m \)인 직선이 이 반원과 만날 때 생기는 윗부분의 넓이를 \( S(m) \)이라 하자. 반원을 이등분하는 직선이 존재함을 증명하시오.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-amber-50 p-4 rounded-xl">
+                            <h4 class="font-bold text-amber-800 text-sm mb-2">(1) 기울기 \( m \)의 범위 구하기</h4>
+                            <p class="text-sm text-slate-700 mb-2">직선이 x축과 일치할 때 최소 (\( m=0 \)), 원점에서 반원에 접할 때 최대가 됩니다.</p>
+                            <p class="text-xs text-slate-500 mb-2">※ 접할 때 직각삼각형을 그리면 빗변 4, 높이 2이므로 \( \sin\theta = \frac{1}{2} \), 즉 각도는 \( 30^\circ \)가 됩니다.</p>
+                            <div class="text-center font-mono font-bold text-slate-800 bg-white p-2 rounded-lg border border-amber-200">
+                                \( a = 0, \ b = \tan 30^\circ = \frac{\sqrt{3}}{3} \)
+                            </div>
+                        </div>
+                        
+                        <div class="bg-emerald-50 p-4 rounded-xl">
+                            <h4 class="font-bold text-emerald-800 text-sm mb-2">(2) 사이값 정리로 증명하기</h4>
+                            <p class="text-sm text-slate-700 font-mono space-y-1">
+                                반원 전체의 넓이는 \( 2\pi \) 이므로,<br>
+                                • \( S(0) = 2\pi \) <br>
+                                • \( S(\frac{\sqrt{3}}{3}) < \pi \) (접할 때의 작은 조각)
+                            </p>
+                            <p class="text-sm text-slate-700 mt-2">
+                                즉, <span class="font-mono font-bold text-emerald-700">\( S(\frac{\sqrt{3}}{3}) < \pi < S(0) \)</span> 이 성립하므로, <strong>사이값 정리</strong>에 의해 \( S(m) = \pi \)가 되는 \( m \)이 구간 \( (0, \frac{\sqrt{3}}{3}) \)에 적어도 하나 존재한다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+    </main>
+
+    <footer class="mt-auto py-8 text-center text-sm text-slate-500 bg-white/40 backdrop-blur-md border-t border-white/50">
+        <p class="font-medium text-slate-700 mb-1">👩‍🏫 2022 개정 교육과정 미적분 I 교과 자료실</p>
+        <p>복습은 실력을 배신하지 않습니다. 화이팅!</p>
+    </footer>
+
+</body>
+</html>

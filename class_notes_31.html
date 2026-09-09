@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>31쪽 교과서 필기 노트 🔮</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] },
+                    colors: { brand: { 50: '#fdf4ff', 500: '#d946ef', 600: '#c026d3' } }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            font-family: 'Pretendard', sans-serif; 
+            background: linear-gradient(135deg, #fdf4ff 0%, #e0e7ff 50%, #f3e8ff 100%);
+            background-attachment: fixed;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 40px -10px rgba(31, 38, 135, 0.08);
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c4b5fd; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a78bfa; }
+    </style>
+    <script>
+        MathJax = {
+            tex: { 
+                inlineMath: [['\\(', '\\)']], 
+                displayMath: [['$$', '$$']],
+                macros: {
+                    lim: '\\mathop{\\rm lim}\\limits'
+                }
+            },
+            startup: { pageReady: () => MathJax.startup.defaultPageReady() }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <header class="w-full pt-10 pb-6 px-4 relative z-10">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <div class="inline-block mb-2 px-3 py-1 rounded-full bg-violet-100 text-violet-700 font-bold text-xs shadow-sm border border-violet-200">
+                    교과서 31쪽 스마트 복습 🔮
+                </div>
+                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-800 drop-shadow-sm">
+                    함수의 연속
+                </h1>
+            </div>
+            <button onclick="location.href='index.html'" class="bg-white hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm border border-slate-200 transition-all hover:-translate-y-0.5 flex items-center gap-2">
+                <span>🏠</span> 대문으로 돌아가기
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 pb-20 space-y-6">
+        
+        <div class="glass-card rounded-2xl p-5 flex items-start gap-4">
+            <div class="text-2xl mt-1">👩‍🏫</div>
+            <div>
+                <h3 class="font-bold text-slate-800 mb-1">선생님의 꿀팁 코멘트!</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    31쪽은 <strong>주기함수의 연속성(5번)</strong>과 <strong>새롭게 정의된 함수(생각 넓히기)</strong>가 출제되는 수능 핵심 파트입니다. 극한값과 함숫값을 일치시키는 연립방정식 풀이 과정을 천천히 따라가며 완벽하게 내 것으로 만들어 보세요!
+                </p>
+            </div>
+        </div>
+
+        <div class="space-y-6">
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <section class="glass-card rounded-3xl p-6 relative overflow-hidden flex flex-col h-full">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="bg-violet-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">1</span>
+                        <h3 class="font-bold text-lg text-slate-800">연속과 불연속 조사</h3>
+                    </div>
+                    <div class="text-slate-700 mb-4 font-medium text-sm">
+                        다음 함수가 \( x=1 \)에서 연속인지 불연속인지 조사하시오.
+                    </div>
+                    <div class="bg-violet-50 p-4 rounded-2xl border border-violet-100 flex-grow font-mono text-sm space-y-4">
+                        <div>
+                            <p>(1) \( f(x) = -x + 1 \)</p>
+                            <p class="text-rose-600 font-bold ml-4 mt-1">➔ 다항함수이므로 연속</p>
+                        </div>
+                        <div class="border-t border-violet-200 pt-3">
+                            <p>(2) \( f(x) = \frac{1}{x-1} \)</p>
+                            <p class="text-blue-600 font-bold ml-4 mt-1">➔ 분모가 0이 되는 \( x=1 \)에서 불연속</p>
+                        </div>
+                        <div class="border-t border-violet-200 pt-3">
+                            <p>(3) \( f(x) = \begin{cases} x^2+1 & (x \le 1) \\ 3-x & (x > 1) \end{cases} \)</p>
+                            <div class="bg-white p-2 rounded-lg mt-2 text-center text-violet-800 font-bold border border-violet-200">
+                                \( \lim_{x \to 1} f(x) = f(1) = 2 \) <br>
+                                <span class="text-rose-600 text-base">\( \therefore x=1 \)에서 연속</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="glass-card rounded-3xl p-6 relative overflow-hidden flex flex-col h-full">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="bg-violet-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">2</span>
+                        <h3 class="font-bold text-lg text-slate-800">그래프에서의 불연속 분석</h3>
+                    </div>
+                    <div class="text-slate-700 mb-4 font-medium text-sm">
+                        극한값이 존재하지 않는 \(x\)의 개수 \(a\), 불연속인 \(x\)의 개수 \(b\)에 대하여 \(a+b\)는?
+                    </div>
+                    <div class="bg-violet-50 p-4 rounded-2xl border border-violet-100 flex-grow">
+                        <h4 class="font-bold text-sm text-violet-800 mb-2 flex items-center gap-2">
+                            <span>💡 그래프 분석하기</span>
+                        </h4>
+                        <ul class="text-sm text-slate-700 space-y-3 font-mono">
+                            <li class="bg-white p-3 rounded-xl border border-slate-200">
+                                <span class="font-bold text-slate-800 block mb-1">극한값이 존재하지 않는 곳 (좌/우극한 다름)</span>
+                                ➔ \( x = 0, \ x = 1 \) <br>
+                                <span class="text-rose-600 font-bold">\( \therefore a = 2 \)</span>
+                            </li>
+                            <li class="bg-white p-3 rounded-xl border border-slate-200">
+                                <span class="font-bold text-slate-800 block mb-1">불연속인 곳 (끊어지거나 구멍 뚫림)</span>
+                                ➔ \( x = -1, \ x = 0, \ x = 1 \) <br>
+                                <span class="text-blue-600 font-bold">\( \therefore b = 3 \)</span>
+                            </li>
+                        </ul>
+                        <div class="text-center font-bold text-xl text-violet-700 mt-4">
+                            답: \( a + b = 5 \)
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <section class="glass-card rounded-3xl p-6 relative overflow-hidden flex flex-col h-full">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="bg-violet-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">3</span>
+                        <h3 class="font-bold text-lg text-slate-800">무리함수의 연속성 (미정계수)</h3>
+                    </div>
+                    <div class="text-slate-700 mb-4 font-medium text-sm">
+                        \( f(x) = \begin{cases} \frac{\sqrt{x+5}+a}{x+1} & (x \neq -1) \\ b & (x = -1) \end{cases} \)가 모든 실수에서 연속일 때, \(a, b\)를 구하시오.
+                    </div>
+                    <div class="bg-violet-50 p-5 rounded-2xl border border-violet-100 flex-grow">
+                        <div class="text-sm text-slate-700 space-y-3 font-mono">
+                            <p>연속이므로 \( \lim_{x \to -1} f(x) = f(-1) = b \)</p>
+                            <p class="font-bold">분모 \(\to 0\) 이므로 분자 \(\to 0\)</p>
+                            <div class="bg-white p-2 rounded-lg text-center border border-violet-200">
+                                \( \lim_{x \to -1} (\sqrt{x+5}+a) = 2+a = 0 \)<br>
+                                <span class="text-rose-600 font-bold">\( \therefore a = -2 \)</span>
+                            </div>
+                            <p class="pt-2">\( a=-2 \) 대입 후 유리화하여 극한값 \(b\)를 구합니다.</p>
+                            <div class="bg-white p-2 rounded-lg text-center border border-violet-200 overflow-x-auto">
+                                $$ \lim_{x \to -1} \frac{\sqrt{x+5}-2}{x+1} = \lim_{x \to -1} \frac{x+1}{(x+1)(\sqrt{x+5}+2)} $$
+                            </div>
+                            <p class="text-center font-bold text-blue-600 text-lg mt-2">
+                                \( = \frac{1}{\sqrt{4}+2} = \frac{1}{4} = b \)
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="glass-card rounded-3xl p-6 relative overflow-hidden flex flex-col h-full">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="bg-violet-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">4</span>
+                        <h3 class="font-bold text-lg text-slate-800">관계식이 주어진 함수의 연속</h3>
+                    </div>
+                    <div class="text-slate-700 mb-4 font-medium text-sm">
+                        연속함수 \(f(x)\)가 \( (x-2)f(x) = x^2+ax+b \)를 만족하고 \(f(1)=1\)일 때, 다음을 구하시오.
+                    </div>
+                    <div class="bg-violet-50 p-5 rounded-2xl border border-violet-100 flex-grow">
+                        <div class="text-sm text-slate-700 space-y-3 font-mono">
+                            <p><strong>[조건 1]</strong> \(x=1\) 대입: \( -f(1) = 1+a+b \)<br>
+                               <span class="ml-4 font-bold text-rose-600">\( \implies a+b = -2 \cdots \) ㉠</span>
+                            </p>
+                            <p><strong>[조건 2]</strong> \(x \neq 2\)일 때 \( f(x) = \frac{x^2+ax+b}{x-2} \) 이고 연속이므로,<br>
+                               \( f(2) = \lim_{x \to 2} \frac{x^2+ax+b}{x-2} \) 이 성립.<br>
+                               분모 \(\to 0\) 이므로 분자 \(\to 0\)<br>
+                               <span class="ml-4 font-bold text-blue-600">\( \implies 4+2a+b = 0 \cdots \) ㉡</span>
+                            </p>
+                            <div class="bg-white p-3 rounded-xl border border-violet-200 text-center font-bold">
+                                ㉠, ㉡ 연립 ➔ <span class="text-violet-700 text-lg">\( a=-2, \ b=0 \)</span><br>
+                                <span class="text-slate-500 text-xs">\( \therefore \) (1) \(ab\)의 값 = 0</span>
+                            </div>
+                            <p class="text-center font-bold">
+                                \( f(x) = \frac{x^2-2x}{x-2} = x \implies f(2) = 2 \)
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden">
+                <div class="flex items-center gap-3 mb-4 border-b border-slate-200 pb-4">
+                    <span class="bg-violet-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">5</span>
+                    <h3 class="font-bold text-xl text-slate-800">주기함수의 연속성 (수능 빈출)</h3>
+                </div>
+                
+                <div class="text-slate-700 mb-4 font-medium text-sm bg-white p-4 rounded-xl border border-slate-200 shadow-sm leading-relaxed">
+                    실수 전체에서 연속인 \(f(x)\)가 모든 실수 \(x\)에 대해 <strong class="text-rose-600 text-base">\(f(x+3)=f(x)\) (주기 3)</strong>를 만족하고, <br>
+                    \( f(x) = \begin{cases} -x+4 & (0 \le x < 1) \\ \frac{ax+b}{x+3} & (1 \le x < 3) \end{cases} \) 일 때, \(f(5)\)의 값을 구하시오.
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 mt-4">
+                    <div class="bg-violet-50 p-5 rounded-2xl border border-violet-100">
+                        <h4 class="font-bold text-violet-800 mb-3 text-sm">① \(x=1\) 에서의 연속</h4>
+                        <div class="text-sm text-slate-700 font-mono bg-white p-3 rounded-lg border border-violet-200">
+                            <p class="mb-2">좌극한 = 우극한(함숫값)</p>
+                            <p class="text-center">\( \lim_{x \to 1-} (-x+4) = \lim_{x \to 1+} \frac{ax+b}{x+3} \)</p>
+                            <p class="text-center font-bold mt-2 text-rose-600">\( 3 = \frac{a+b}{4} \implies a+b = 12 \)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-violet-50 p-5 rounded-2xl border border-violet-100">
+                        <h4 class="font-bold text-violet-800 mb-3 text-sm">② \(x=3\) 에서의 연속 (주기성 활용)</h4>
+                        <div class="text-sm text-slate-700 font-mono bg-white p-3 rounded-lg border border-violet-200">
+                            <p class="mb-2">주기가 3이므로 <strong class="text-blue-600">\(f(3) = f(0)\)</strong> 이어야 함.</p>
+                            <p class="text-center">\( \lim_{x \to 3-} \frac{ax+b}{x+3} = f(0) = 4 \)</p>
+                            <p class="text-center font-bold mt-2 text-blue-600">\( \frac{3a+b}{6} = 4 \implies 3a+b = 24 \)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-6 text-center bg-slate-800 p-4 rounded-xl text-white font-mono text-lg font-bold shadow-md">
+                    연립하면 \( a=6, \ b=6 \)<br>
+                    \( f(5) = f(2) = \frac{6(2)+6}{2+3} = \frac{18}{5} \)
+                </div>
+            </section>
+
+            <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden">
+                <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-fuchsia-300 rounded-full mix-blend-multiply filter blur-2xl opacity-20 pointer-events-none"></div>
+                
+                <div class="flex items-center gap-3 mb-4 relative z-10">
+                    <span class="bg-fuchsia-500 text-white px-3 py-1.5 rounded-lg text-sm font-bold shadow-md">수학으로 생각 넓히기</span>
+                    <h3 class="font-bold text-lg text-slate-800">새롭게 정의된 함수의 불연속점</h3>
+                </div>
+                
+                <div class="bg-white p-5 rounded-2xl border border-fuchsia-100 shadow-sm relative z-10">
+                    <p class="text-sm text-slate-700 mb-4 leading-relaxed bg-slate-50 p-3 rounded-lg">
+                        \( y=|x^2-4x| \)의 그래프와 직선 \( y=k \)의 교점의 개수를 \( f(k) \)라 할 때, 함수 \( f(k) \)가 불연속인 상수 \(k\)의 값을 모두 구하시오.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 items-center">
+                        <div class="space-y-3 text-sm text-slate-700 font-mono">
+                            <p class="font-bold text-fuchsia-800">💡 교점 개수 세기 (가로줄 긋기)</p>
+                            <ul class="space-y-2">
+                                <li>• \( k < 0 \): 0개</li>
+                                <li class="bg-fuchsia-50 p-1.5 rounded text-fuchsia-700 font-bold">• \( k = 0 \): 2개 (접함, 불연속점 발생!)</li>
+                                <li>• \( 0 < k < 4 \): 4개</li>
+                                <li class="bg-fuchsia-50 p-1.5 rounded text-fuchsia-700 font-bold">• \( k = 4 \): 3개 (극댓값 접함, 불연속점 발생!)</li>
+                                <li>• \( k > 4 \): 2개</li>
+                            </ul>
+                            <div class="mt-4 pt-3 border-t border-slate-200">
+                                <p class="font-bold text-slate-800">결론: 교점의 개수가 확 바뀌는 경계선</p>
+                                <p class="text-center text-xl font-bold text-rose-600 mt-2">답: \( k=0 \text{ 또는 } k=4 \)</p>
+                            </div>
+                        </div>
+                        <div class="bg-slate-100 p-4 rounded-xl flex justify-center items-center h-full min-h-[150px]">
+                            <p class="text-slate-500 text-center text-xs">
+                                📈 \( y=|x^2-4x| \) 그래프는 \( x=0, 4 \)에서 x축과 만나며,<br>꼭짓점 \( (2, 4) \)에서 위로 볼록하게 솟아오른 형태입니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+    </main>
+
+    <footer class="mt-auto py-8 text-center text-sm text-slate-500 bg-white/40 backdrop-blur-md border-t border-white/50">
+        <p class="font-medium text-slate-700 mb-1">👩‍🏫 2022 개정 교육과정 미적분 I 교과 자료실</p>
+        <p>복습은 실력을 배신하지 않습니다. 화이팅!</p>
+    </footer>
+
+</body>
+</html>
