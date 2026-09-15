@@ -134,15 +134,17 @@
                 <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
                     <h4 class="font-bold text-brand-700 mb-2 text-sm">4번. 다항함수 계수 결정</h4>
                     <div class="space-y-2 text-sm font-mono text-slate-700">
-                        <p class="font-sans text-xs text-slate-500">\( f(x)=ax^3+bx^2+10 \) (오타 수정)</p>
+                        <p class="font-sans text-xs text-slate-500">\( f(x)=ax^3+bx+10 \)</p>
                         <p>① (가) \( f(-1) = f(2) \)</p>
-                        <p>\( -a+b+10 = 8a+4b+10 \implies b = -3a \)</p>
+                        <p>\( -a-b+10 = 8a+2b+10 \implies 3b = -9a \implies b = -3a \)</p>
                         <p>② (나) \( [0, 3] \) 평균값 정리 상수 \( c=a \)</p>
-                        <p>평균변화율: \( \frac{f(3)-f(0)}{3} = 9a+3b = 0 \)</p>
-                        <p>\( f'(x) = 3ax^2+2bx \implies f'(a) = 3a^3+2a^2b = 0 \)</p>
-                        <p class="text-brand-600 font-bold text-center bg-white p-2 rounded border border-slate-200">
-                            \( a(3a^2+2ab) = 0 \implies 3a^2+2a(-3a) = 0 \)<br>
-                            \( -3a^2 = 0 \dots \) (판서 수정: \( a=2, b=-6 \))
+                        <p>평균변화율: \( \frac{f(3)-f(0)}{3-0} = \frac{27a+3b}{3} = 9a+b \)</p>
+                        <p>\( b=-3a \) 이므로 평균변화율은 \( 6a \)</p>
+                        <p>\( f'(x) = 3ax^2+b \implies f'(a) = 3a^3+b = 3a^3-3a \)</p>
+                        <p class="text-brand-600 font-bold text-center bg-white p-2 rounded border border-slate-200 mt-2">
+                            \( 3a^3-3a = 6a \implies 3a^3-9a = 0 \)<br>
+                            \( 3a(a^2-3) = 0 \implies a = \sqrt{3} \; (\because 0 < a < 3) \)<br>
+                            \( b = -3\sqrt{3} \implies \therefore ab = -9 \)
                         </p>
                     </div>
                 </div>
