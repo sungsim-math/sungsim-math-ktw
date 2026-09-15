@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>72쪽 교과서 필기 노트 🌌</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] },
+                    colors: { brand: { 50: '#eef2ff', 100: '#e0e7ff', 500: '#6366f1', 600: '#4f46e5', 900: '#312e81' } } // Indigo 톤
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            font-family: 'Pretendard', sans-serif; 
+            background: linear-gradient(135deg, #fdf4ff 0%, #e0e7ff 50%, #f3e8ff 100%);
+            background-attachment: fixed;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 40px -10px rgba(31, 38, 135, 0.08);
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #818cf8; border-radius: 4px; }
+    </style>
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['$$', '$$']], macros: { lim: '\\mathop{\\rm lim}\\limits' } },
+            startup: { pageReady: () => MathJax.startup.defaultPageReady() }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <header class="w-full pt-10 pb-6 px-4 relative z-10">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <div class="inline-block mb-2 px-3 py-1 rounded-full bg-brand-100 text-brand-900 font-bold text-xs shadow-sm border border-brand-200">
+                    교과서 72쪽 스마트 복습 🌌
+                </div>
+                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-800 drop-shadow-sm">접선의 방정식</h1>
+            </div>
+            <button onclick="location.href='index.html'" class="bg-white hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm border border-slate-200 transition-all hover:-translate-y-0.5 flex items-center gap-2">
+                <span>🏠</span> 대문으로 돌아가기
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 pb-20 space-y-6">
+        
+        <div class="glass-card rounded-2xl p-5 flex items-start gap-4">
+            <div class="text-2xl mt-1">👩‍🏫</div>
+            <div>
+                <h3 class="font-bold text-slate-800 mb-1">선생님의 꿀팁 코멘트!</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    접선의 방정식은 세 가지 유형이 있습니다. 1번(접점 제공), 2번(기울기 제공), 3번(곡선 밖의 점 제공). 특히 곡선 밖의 점이 주어졌을 때 접점을 미지수 \(a\)로 놓고 푸는 과정을 확실히 익혀두세요! 법선의 방정식(5번)과 두 곡선의 공통 접선(생각 넓히기)도 중요합니다.
+                </p>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <section class="glass-card rounded-3xl p-6 relative overflow-hidden flex flex-col h-full">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-brand-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">1 & 2</span>
+                    <h3 class="font-bold text-lg text-slate-800">기본 접선의 방정식</h3>
+                </div>
+                <div class="bg-brand-50 p-4 rounded-xl border border-brand-100 font-mono text-sm space-y-4">
+                    <div class="bg-white p-3 rounded-lg border border-brand-200">
+                        <p class="font-sans text-xs text-slate-500 mb-1">[1번] 곡선 위의 점이 주어진 경우</p>
+                        <p>\( y = x^3-x-3 \) 위의 점 \( (2, 3) \)</p>
+                        <p>\( f'(x) = 3x^2-1 \implies f'(2) = 11 \)</p>
+                        <p class="text-brand-600 font-bold text-center mt-2">
+                            \( y = 11(x-2)+3 \implies y = 11x-19 \)
+                        </p>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg border border-brand-200">
+                        <p class="font-sans text-xs text-slate-500 mb-1">[2번] 기울기가 주어진 경우</p>
+                        <p>\( y = -x^2+2x \)에 접하고 \( y = x-2 \)와 평행</p>
+                        <p>접점을 \( (a, -a^2+2a) \)라 하면, 기울기 \( f'(a) = 1 \)</p>
+                        <p>\( -2a+2 = 1 \implies a = 1/2 \) (접점: \( (1/2, 3/4) \))</p>
+                        <p class="text-brand-600 font-bold text-center mt-2">
+                            \( y = 1(x-1/2)+3/4 \implies y = x+1/4 \)
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="glass-card rounded-3xl p-6 relative overflow-hidden flex flex-col h-full">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-brand-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">3</span>
+                    <h3 class="font-bold text-lg text-slate-800">곡선 밖의 점이 주어진 경우</h3>
+                </div>
+                <div class="bg-brand-50 p-4 rounded-xl border border-brand-100 font-mono text-sm space-y-3 h-full">
+                    <p class="font-sans text-xs text-slate-500 mb-1">점 \( (0, 1) \)에서 \( y=-x^3+x^2-x \)에 그은 접선</p>
+                    <p class="font-bold text-brand-700">① 접점을 \( (a, -a^3+a^2-a) \) 로 둠</p>
+                    <p class="font-bold text-brand-700">② 접선의 방정식 세우기</p>
+                    <p>\( y = (-3a^2+2a-1)(x-a) - a^3+a^2-a \)</p>
+                    <p class="font-bold text-brand-700">③ \( (0, 1) \) 대입하여 \( a \) 구하기</p>
+                    <p>\( 1 = (-3a^2+2a-1)(-a) - a^3+a^2-a \)</p>
+                    <p>\( 2a^3-a^2-1 = 0 \implies (a-1)(2a^2+a+1) = 0 \)</p>
+                    <p>모든 실수 \(a\)에 대해 \(2a^2+a+1>0\) 이므로 <span class="text-brand-600 font-bold">\( a = 1 \)</span></p>
+                    <div class="text-center font-bold text-lg text-brand-600 mt-2 pt-2 border-t border-brand-200">
+                        \( \therefore y = -2x+1 \)
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden">
+            <div class="flex items-center gap-3 mb-4 border-b border-slate-200 pb-4">
+                <span class="bg-brand-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">4 & 5</span>
+                <h3 class="font-bold text-xl text-slate-800">심화 및 법선의 방정식</h3>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6 mt-4">
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                    <h4 class="font-bold text-brand-700 mb-2 text-sm">4번. 극한과 미분계수를 활용한 접선</h4>
+                    <div class="space-y-2 text-sm font-mono text-slate-700">
+                        <p class="font-sans text-xs text-slate-500">점 \( (2, f(2)) \)에서의 접선의 방정식</p>
+                        <p>① (나) 조건 활용: \( \lim_{h \to 0}\frac{f(2+h)-f(2)}{h} = 11 \)</p>
+                        <p class="text-brand-600 font-bold text-center">\( \implies f'(2) = 11 \) (기울기)</p>
+                        <p class="mt-2">② (가) 조건에 \( x=0 \) 대입:</p>
+                        <p>\( f(2) - f(2) = 0 \) (항등식)</p>
+                        <p>③ (가) 조건에 \( x=2 \) 대입 (오타 수정):</p>
+                        <p>\( f(4) - f(2) = 54 \) (이용하지 않음)</p>
+                        <p>※ 교과서 원본 문제에서 다른 조건을 통해 \( f(2)=6 \)임을 알 수 있음.</p>
+                        <p class="text-brand-600 font-bold text-center bg-white p-2 rounded border border-slate-200 mt-2">
+                            \( y = 11(x-2)+6 \implies y = 11x-16 \)
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                    <h4 class="font-bold text-brand-700 mb-2 text-sm">5번. 법선의 방정식 (수직인 직선)</h4>
+                    <div class="space-y-3 text-sm font-mono text-slate-700">
+                        <p class="font-sans text-xs text-slate-500">\( y = \frac{1}{2}x^2+1 \) 위의 점 \( (2, 3) \)에서 수직인 직선</p>
+                        <p>① 접선의 기울기: \( y' = x \implies f'(2) = 2 \)</p>
+                        <p>② 수직인 직선(법선)의 기울기: \( -1/2 \)</p>
+                        <p class="text-brand-600 font-bold text-center mt-2 bg-white p-2 rounded border border-slate-200">
+                            \( y = -\frac{1}{2}(x-2)+3 \implies y = -\frac{1}{2}x+4 \)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden">
+            <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-amber-300 rounded-full mix-blend-multiply filter blur-2xl opacity-20 pointer-events-none"></div>
+            
+            <div class="flex items-center gap-3 mb-4 relative z-10">
+                <span class="bg-amber-500 text-white px-3 py-1.5 rounded-lg text-sm font-bold shadow-md">수학으로 생각 넓히기</span>
+                <h3 class="font-bold text-lg text-slate-800">두 곡선의 공통 접선 (보트 궤적)</h3>
+            </div>
+            
+            <div class="bg-white p-5 rounded-2xl border border-amber-100 shadow-sm relative z-10 text-sm text-slate-700">
+                <p class="font-sans text-slate-600 mb-4">두 곡선 \( f(x) = x^2+ax+b \) 와 \( g(x) = -x^2+cx \) 가 점 \( (1, 3) \)에서 공통 접선 \( l \)에 접할 때.</p>
+                <div class="grid md:grid-cols-2 gap-4 font-mono">
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                        <p class="font-bold text-brand-800 border-b pb-2 mb-2">① 점 \( (1, 3) \)을 지남 (함숫값 일치)</p>
+                        <p>\( f(1) = 1+a+b = 3 \)</p>
+                        <p>\( g(1) = -1+c = 3 \implies \)<span class="text-brand-600 font-bold">\( c = 4 \)</span></p>
+                        <p class="mt-1">따라서 \( a+b = 2 \)</p>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                        <p class="font-bold text-brand-800 border-b pb-2 mb-2">② 공통 접선 가짐 (미분계수 일치)</p>
+                        <p>\( f'(x) = 2x+a, \; g'(x) = -2x+c \)</p>
+                        <p>\( f'(1) = g'(1) \implies 2+a = -2+c \)</p>
+                        <p>\( 2+a = 2 \implies \)<span class="text-brand-600 font-bold">\( a = 0 \)</span></p>
+                        <p>\( a+b = 2 \) 에 대입 \(\implies \)<span class="text-brand-600 font-bold">\( b = 2 \)</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</body>
+</html>

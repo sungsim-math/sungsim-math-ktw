@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미분계수 식 변형 무한 생성 랩</title>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] },
+                    colors: {
+                        brand: { 50: '#fff1f2', 100: '#ffe4e6', 500: '#f43f5e', 600: '#e11d48', 900: '#881337' } // Rose 계열
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            font-family: 'Pretendard', sans-serif; 
+            background: linear-gradient(135deg, #fdf4ff 0%, #e0e7ff 50%, #f3e8ff 100%);
+            background-attachment: fixed;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 40px -10px rgba(31, 38, 135, 0.08);
+        }
+        .math-container { min-height: 140px; display: flex; align-items: center; justify-content: center; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #fda4af; border-radius: 4px; }
+    </style>
+    <script>
+        MathJax = {
+            tex: { 
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['$$', '$$']],
+                macros: {
+                    lim: '\\mathop{\\rm lim}\\limits'
+                }
+            },
+            startup: {
+                pageReady: () => {
+                    return MathJax.startup.defaultPageReady().then(() => {
+                        generateProblem(0); 
+                    });
+                }
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <header class="w-full pt-10 pb-6 px-4 relative z-10">
+        <div class="max-w-3xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <div class="inline-block mb-2 px-3 py-1 rounded-full bg-white/80 text-brand-600 font-bold text-xs shadow-sm border border-brand-100 backdrop-blur-sm">
+                    실전 훈련 ⚡
+                </div>
+                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-800 drop-shadow-sm">
+                    미분계수 식 변형 랩
+                </h1>
+            </div>
+            <button onclick="location.href='index.html'" class="bg-white/80 hover:bg-white text-slate-700 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm border border-slate-200 backdrop-blur-sm transition-all hover:-translate-y-0.5 flex items-center gap-2">
+                <span>🏠</span> 대문으로 돌아가기
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-3xl mx-auto w-full px-4 pb-20">
+        <div class="glass-card rounded-3xl shadow-lg p-6 md:p-8 relative overflow-hidden">
+            <!-- 장식용 데코 -->
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-brand-300 rounded-full mix-blend-multiply filter blur-2xl opacity-30"></div>
+            <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-pink-300 rounded-full mix-blend-multiply filter blur-2xl opacity-30"></div>
+            
+            <div class="text-center mb-6 relative z-10">
+                <p class="text-slate-600 font-medium text-sm md:text-base">미분계수의 정의($h \to 0$, $x \to a$)를 활용한 식 변형 무한 반복</p>
+            </div>
+
+            <div class="flex justify-between items-center bg-white/60 border border-white rounded-2xl p-4 mb-6 shadow-sm relative z-10">
+                <span class="text-brand-800 font-bold flex items-center gap-2">
+                    <span class="text-xl">🔥</span> 연속 정답: <span id="streakCount" class="text-2xl text-brand-600">0</span>
+                </span>
+                <span class="text-slate-500 font-medium text-sm">총 푼 문제: <span id="totalCount" class="font-bold text-slate-700">0</span></span>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-6 gap-2 md:gap-3 mb-8 relative z-10">
+                <button onclick="generateProblem(1)" class="py-2.5 text-xs md:text-sm bg-white/80 hover:bg-brand-500 hover:text-white text-slate-700 border border-brand-100 font-bold rounded-xl shadow-sm transition-all">h형 (기본)</button>
+                <button onclick="generateProblem(2)" class="py-2.5 text-xs md:text-sm bg-white/80 hover:bg-brand-500 hover:text-white text-slate-700 border border-brand-100 font-bold rounded-xl shadow-sm transition-all">h형 (응용)</button>
+                <button onclick="generateProblem(3)" class="py-2.5 text-xs md:text-sm bg-white/80 hover:bg-brand-500 hover:text-white text-slate-700 border border-brand-100 font-bold rounded-xl shadow-sm transition-all">x형 (기본)</button>
+                <button onclick="generateProblem(5)" class="py-2.5 text-xs md:text-sm bg-white/80 hover:bg-brand-500 hover:text-white text-slate-700 border border-brand-100 font-bold rounded-xl shadow-sm transition-all">x형 (합차)</button>
+                <button onclick="generateProblem(4)" class="py-2.5 text-xs md:text-sm bg-white/80 hover:bg-brand-500 hover:text-white text-brand-700 border border-brand-200 font-extrabold rounded-xl shadow-sm transition-all">x형 (교차)</button>
+                <button onclick="generateProblem(0)" class="py-2.5 text-xs md:text-sm bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl shadow-md transition-all col-span-2 md:col-span-1">🎲 랜덤</button>
+            </div>
+
+            <div class="bg-white/60 border border-white rounded-2xl p-6 mb-8 text-center shadow-inner relative z-10">
+                <div id="questionType" class="text-sm font-bold text-brand-600 mb-3 bg-brand-50 inline-block px-3 py-1 rounded-full border border-brand-100"></div>
+                <!-- 조건(가정) 지문 영역 -->
+                <div id="questionCondition" class="text-sm md:text-base font-semibold text-slate-700 mb-2 flex items-center justify-center"></div>
+                <!-- 수식 전용 영역 -->
+                <div id="problemDisplay" class="math-container text-2xl overflow-x-auto text-slate-900 bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-4 relative z-10">
+                <input type="number" id="answerInput" placeholder="정답을 입력하세요 (정수)" class="flex-1 text-center md:text-left text-lg bg-white border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100 transition shadow-sm" onkeypress="if(event.key === 'Enter') checkAnswer()">
+                <button onclick="checkAnswer()" class="bg-brand-600 hover:bg-brand-700 text-white font-bold text-lg px-8 py-3 rounded-xl shadow-md transition-all transform hover:-translate-y-0.5">정답 확인</button>
+            </div>
+
+            <div id="feedback" class="mt-6 text-center text-lg font-bold min-h-[30px] relative z-10"></div>
+        </div>
+    </main>
+
+    <script>
+        let currentAnswer = null;
+        let streak = 0;
+        let total = 0;
+
+        function rand(min, max, exclude = []) {
+            let val;
+            do {
+                val = Math.floor(Math.random() * (max - min + 1)) + min;
+            } while (exclude.includes(val));
+            return val;
+        }
+
+        // 항을 예쁘게 문자열로 만들어주는 유틸리티
+        function formatTerm(coeff, variable) {
+            if (coeff === 0) return "";
+            if (coeff === 1) return `+${variable}`;
+            if (coeff === -1) return `-${variable}`;
+            return coeff > 0 ? `+${coeff}${variable}` : `${coeff}${variable}`;
+        }
+
+        function generateProblem(type) {
+            let currentType = type === 0 ? rand(1, 5) : type;
+            let texStr = "";
+            let typeTitle = "";
+            let condText = "";
+            
+            let a = rand(1, 4); // 기준점 a (항상 양수로 설정하여 표기 간소화)
+            let f_a = rand(-5, 5, [0]); // f(a) 값
+            let fp_a = rand(-5, 5, [0]); // f'(a) 값
+
+            if (currentType === 1) { 
+                // [유형 1] h -> 0 기본형: [f(a+ph) - f(a)] / qh
+                typeTitle = "[ h ➔ 0 미분계수 : 기본형 ]";
+                let p = rand(-4, 4, [0]);
+                let q = rand(1, 4);
+                
+                // 정수 정답을 위해 fp_a 값을 q의 배수로 재조정
+                fp_a = fp_a * q; 
+                
+                condText = `다항함수 \\( f(x) \\)에 대하여 \\( f'(${a}) = ${fp_a} \\) 일 때, 다음 극한값을 구하시오.`;
+                let signP = formatTerm(p, 'h');
+                if(signP.startsWith('+')) signP = signP; // a+ph 형태 유지
+                
+                texStr = `$$ \\lim_{h \\to 0} \\frac{f(${a}${signP}) - f(${a})}{${q}h} $$`;
+                currentAnswer = (p / q) * fp_a;
+
+            } else if (currentType === 2) { 
+                // [유형 2] h -> 0 응용형: [f(a+ph) - f(a+qh)] / rh
+                typeTitle = "[ h ➔ 0 미분계수 : 응용형 ]";
+                let p = rand(-3, 3, [0]);
+                let q = rand(-3, 3, [0, p]);
+                let r = rand(1, 4);
+                
+                // 정수 정답을 위해 fp_a 값을 r의 배수로 재조정
+                fp_a = fp_a * r; 
+                
+                condText = `다항함수 \\( f(x) \\)에 대하여 \\( f'(${a}) = ${fp_a} \\) 일 때, 다음 극한값을 구하시오.`;
+                let signP = formatTerm(p, 'h');
+                let signQ = formatTerm(q, 'h');
+                
+                texStr = `$$ \\lim_{h \\to 0} \\frac{f(${a}${signP}) - f(${a}${signQ})}{${r}h} $$`;
+                currentAnswer = ((p - q) / r) * fp_a;
+
+            } else if (currentType === 3) { 
+                // [유형 3] x -> a 기본형(분모 인수분해): [f(x) - f(a)] / (x^n - a^n)
+                typeTitle = "[ x ➔ a 미분계수 : 인수분해형 ]";
+                let n = rand(2, 3); // x^2 - a^2 또는 x^3 - a^3
+                let a_val = rand(1, 3);
+                let coeff = n * Math.pow(a_val, n - 1);
+                
+                // 정수 정답을 위해 fp_a 값을 다항식 계수의 배수로 설정
+                fp_a = fp_a * coeff; 
+                
+                condText = `다항함수 \\( f(x) \\)에 대하여 \\( f'(${a_val}) = ${fp_a} \\) 일 때, 다음 극한값을 구하시오.`;
+                let denom = n === 2 ? `x^2 - ${a_val*a_val}` : `x^3 - ${a_val*a_val*a_val}`;
+                
+                texStr = `$$ \\lim_{x \\to ${a_val}} \\frac{f(x) - f(${a_val})}{${denom}} $$`;
+                currentAnswer = fp_a / coeff;
+
+            } else if (currentType === 4) { 
+                // [유형 4] x -> a 교차형: [x*f(a) - a*f(x)] / (x - a)
+                typeTitle = "[ x ➔ a 미분계수 : 항 추가/교차형 ]";
+                let a_val = rand(1, 4);
+                fp_a = rand(-4, 4, [0]);
+                f_a = rand(-4, 4, [0]);
+                
+                condText = `다항함수 \\( f(x) \\)에 대하여 \\( f(${a_val}) = ${f_a}, \\; f'(${a_val}) = ${fp_a} \\) 일 때, 다음 극한값을 구하시오.`;
+                
+                // x*f(a) - a*f(x) 형태
+                texStr = `$$ \\lim_{x \\to ${a_val}} \\frac{x f(${a_val}) - ${a_val} f(x)}{x - ${a_val}} $$`;
+                currentAnswer = f_a - a_val * fp_a;
+
+            } else if (currentType === 5) { 
+                // [유형 5] x -> a 합차형: [f(x^2) - f(a^2)] / (x - a)
+                typeTitle = "[ x ➔ a 미분계수 : 제곱수 형태 ]";
+                let a_val = rand(1, 4);
+                let a_sq = a_val * a_val;
+                fp_a = rand(-5, 5, [0]); // f'(a^2) 값
+                
+                condText = `다항함수 \\( f(x) \\)에 대하여 \\( f'(${a_sq}) = ${fp_a} \\) 일 때, 다음 극한값을 구하시오.`;
+                
+                texStr = `$$ \\lim_{x \\to ${a_val}} \\frac{f(x^2) - f(${a_sq})}{x - ${a_val}} $$`;
+                currentAnswer = 2 * a_val * fp_a;
+            }
+
+            // 화면 업데이트
+            document.getElementById('questionType').innerHTML = typeTitle;
+            document.getElementById('questionCondition').innerHTML = condText;
+            document.getElementById('problemDisplay').innerHTML = texStr;
+            document.getElementById('answerInput').value = "";
+            document.getElementById('answerInput').focus();
+            document.getElementById('feedback').innerHTML = "";
+            
+            // MathJax 렌더링
+            MathJax.typesetPromise([
+                document.getElementById('questionCondition'),
+                document.getElementById('problemDisplay')
+            ]);
+        }
+
+        function checkAnswer() {
+            let inputVal = document.getElementById('answerInput').value.trim();
+            let feedback = document.getElementById('feedback');
+            
+            if (inputVal === "") {
+                feedback.innerHTML = "<span class='text-slate-500 bg-slate-100 px-4 py-1 rounded-full'>정답을 입력해주세요.</span>";
+                return;
+            }
+
+            total++;
+            document.getElementById('totalCount').innerText = total;
+
+            if (parseInt(inputVal) === currentAnswer) {
+                streak++;
+                document.getElementById('streakCount').innerText = streak;
+                feedback.innerHTML = `<span class='text-brand-600 bg-brand-50 border border-brand-100 px-6 py-2 rounded-full inline-block shadow-sm'>🎉 정답입니다! (답: ${currentAnswer})</span>`;
+                setTimeout(() => generateProblem(0), 1500);
+            } else {
+                streak = 0;
+                document.getElementById('streakCount').innerText = streak;
+                feedback.innerHTML = `<span class='text-slate-600 bg-slate-100 border border-slate-200 px-6 py-2 rounded-full inline-block shadow-sm'>❌ 오답입니다. 수식을 다시 변형해 보세요!</span>`;
+                document.getElementById('answerInput').value = "";
+                document.getElementById('answerInput').focus();
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>77쪽 교과서 필기 노트 🌊</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] },
+                    colors: { brand: { 50: '#f0fdfa', 100: '#ccfbf1', 500: '#14b8a6', 600: '#0d9488', 900: '#134e4a' } } // Teal 톤
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            font-family: 'Pretendard', sans-serif; 
+            background: linear-gradient(135deg, #fdf4ff 0%, #e0e7ff 50%, #f3e8ff 100%);
+            background-attachment: fixed;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 40px -10px rgba(31, 38, 135, 0.08);
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #5eead4; border-radius: 4px; }
+    </style>
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['$$', '$$']], macros: { lim: '\\mathop{\\rm lim}\\limits' } },
+            startup: { pageReady: () => MathJax.startup.defaultPageReady() }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <header class="w-full pt-10 pb-6 px-4 relative z-10">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <div class="inline-block mb-2 px-3 py-1 rounded-full bg-brand-100 text-brand-900 font-bold text-xs shadow-sm border border-brand-200">
+                    교과서 77쪽 스마트 복습 🌊
+                </div>
+                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-800 drop-shadow-sm">롤의 정리와 평균값 정리</h1>
+            </div>
+            <button onclick="location.href='index.html'" class="bg-white hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm border border-slate-200 transition-all hover:-translate-y-0.5 flex items-center gap-2">
+                <span>🏠</span> 대문으로 돌아가기
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 pb-20 space-y-6">
+        
+        <div class="glass-card rounded-2xl p-5 flex items-start gap-4">
+            <div class="text-2xl mt-1">👩‍🏫</div>
+            <div>
+                <h3 class="font-bold text-slate-800 mb-1">선생님의 꿀팁 코멘트!</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    77쪽은 <strong>롤의 정리(1번)</strong>와 <strong>평균값 정리(2,3,4번)</strong>가 주된 내용입니다. 특히 '생각 넓히기'에서 부등식과 평균값 정리를 결합하여 함숫값의 최댓값과 최솟값을 찾아내는 고난도 응용 과정을 눈여겨보세요. 수능에서도 매우 중요하게 다뤄집니다!
+                </p>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <section class="glass-card rounded-3xl p-6 relative overflow-hidden flex flex-col h-full">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-brand-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">1</span>
+                    <h3 class="font-bold text-lg text-slate-800">롤의 정리</h3>
+                </div>
+                <div class="text-sm text-slate-700 mb-2 font-bold text-brand-600">
+                    💡 \( f(a)=f(b) \) 일 때, \( f'(c) = 0 \) 인 \( c \) 찾기
+                </div>
+                <div class="bg-brand-50 p-4 rounded-xl border border-brand-100 font-mono text-sm space-y-3">
+                    <div class="bg-white p-3 rounded-lg border border-brand-200">
+                        <p class="font-sans text-xs text-slate-500 mb-1">(2) \( f(x) = -x^3+9x+2 \) \( [-3, 3] \)</p>
+                        <p>\( f(-3) = f(3) = 2 \)</p>
+                        <p>\( f'(c) = -3c^2+9 = 0 \)</p>
+                        <p class="text-brand-600 font-bold text-center mt-2">
+                            \( c^2 = 3 \implies c = \pm \sqrt{3} \)
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="glass-card rounded-3xl p-6 relative overflow-hidden flex flex-col h-full">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-brand-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">2</span>
+                    <h3 class="font-bold text-lg text-slate-800">평균값 정리</h3>
+                </div>
+                <div class="text-sm text-slate-700 mb-2 font-bold text-brand-600">
+                    💡 \( \frac{f(b)-f(a)}{b-a} = f'(c) \) 인 \( c \) 찾기
+                </div>
+                <div class="bg-brand-50 p-4 rounded-xl border border-brand-100 font-mono text-sm space-y-3 h-full">
+                    <div class="bg-white p-3 rounded-lg border border-brand-200">
+                        <p class="font-sans text-xs text-slate-500 mb-1">(2) \( f(x) = -2x^3+4x+5 \) \( [-1, 1] \)</p>
+                        <p>평균변화율: \( \frac{f(1)-f(-1)}{1-(-1)} = \frac{7-3}{2} = 2 \)</p>
+                        <p>\( f'(c) = -6c^2+4 = 2 \)</p>
+                        <p class="text-brand-600 font-bold text-center mt-2">
+                            \( c^2 = 1/3 \implies c = \pm \frac{\sqrt{3}}{3} \)
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden">
+            <div class="flex items-center gap-3 mb-4 border-b border-slate-200 pb-4">
+                <span class="bg-brand-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">3 & 4</span>
+                <h3 class="font-bold text-xl text-slate-800">평균값 정리의 활용</h3>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6 mt-4">
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                    <h4 class="font-bold text-brand-700 mb-2 text-sm">3번. 미지수 구간 구하기</h4>
+                    <div class="space-y-3 text-sm font-mono text-slate-700">
+                        <p class="font-sans text-xs text-slate-500">\( f(x)=x^2+2x \), \( [1, a] \), \( c = 3/2 \)</p>
+                        <p>① 평균변화율 = \( f'(c) \)</p>
+                        <p>\( \frac{f(a)-f(1)}{a-1} = \frac{a^2+2a-3}{a-1} = a+3 \)</p>
+                        <p>② \( f'(x) = 2x+2 \implies f'(3/2) = 5 \)</p>
+                        <p class="text-brand-600 font-bold text-center bg-white p-2 rounded border border-slate-200">
+                            \( a+3 = 5 \implies a = 2 \)
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                    <h4 class="font-bold text-brand-700 mb-2 text-sm">4번. 다항함수 계수 결정</h4>
+                    <div class="space-y-2 text-sm font-mono text-slate-700">
+                        <p class="font-sans text-xs text-slate-500">\( f(x)=ax^3+bx^2+10 \) (오타 수정)</p>
+                        <p>① (가) \( f(-1) = f(2) \)</p>
+                        <p>\( -a+b+10 = 8a+4b+10 \implies b = -3a \)</p>
+                        <p>② (나) \( [0, 3] \) 평균값 정리 상수 \( c=a \)</p>
+                        <p>평균변화율: \( \frac{f(3)-f(0)}{3} = 9a+3b = 0 \)</p>
+                        <p>\( f'(x) = 3ax^2+2bx \implies f'(a) = 3a^3+2a^2b = 0 \)</p>
+                        <p class="text-brand-600 font-bold text-center bg-white p-2 rounded border border-slate-200">
+                            \( a(3a^2+2ab) = 0 \implies 3a^2+2a(-3a) = 0 \)<br>
+                            \( -3a^2 = 0 \dots \) (판서 수정: \( a=2, b=-6 \))
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-card rounded-3xl p-6 md:p-8 relative overflow-hidden">
+            <div class="flex items-center gap-3 mb-4 border-b border-slate-200 pb-4">
+                <span class="bg-brand-500 text-white w-8 h-8 rounded-full flex justify-center items-center font-bold shadow-md">5 & 확장</span>
+                <h3 class="font-bold text-xl text-slate-800">진위 판별과 평균값 정리의 심화</h3>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6 mt-4">
+                <div class="bg-brand-50 p-5 rounded-2xl border border-brand-100">
+                    <h4 class="font-bold text-brand-800 mb-3 text-sm">5번. 접선에 대한 진위 판별</h4>
+                    <div class="text-sm text-slate-700 font-mono space-y-3">
+                        <p class="font-sans text-xs text-slate-500">\( (-1, 1), (0, -1), (1, 1) \) 지나는 \( f(x) \)</p>
+                        <p>ㄱ. 기울기 2인 접선 항상 존재 (O)</p>
+                        <p class="text-xs text-brand-600 font-sans">\( (0, -1) \)과 \( (1, 1) \) 사이의 평균변화율이 2이므로, 평균값 정리에 의해 존재함.</p>
+                        <p>ㄴ. x축과 평행한 접선 항상 존재 (O)</p>
+                        <p class="text-xs text-brand-600 font-sans">\( (-1, 1) \)과 \( (1, 1) \) 함숫값이 같으므로 롤의 정리에 의해 존재함.</p>
+                        <p>ㄷ. 점 \( (0, -1) \)에서 항상 x축과 평행 (X)</p>
+                        <p class="text-xs text-brand-600 font-sans">\( f'(0)=0 \)이 아닌 함수도 있으므로 거짓.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-amber-200 shadow-sm relative overflow-hidden">
+                    <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-amber-300 rounded-full mix-blend-multiply filter blur-2xl opacity-20 pointer-events-none"></div>
+                    <h4 class="font-bold text-amber-600 mb-3 text-sm flex items-center gap-2">
+                        <span class="bg-amber-100 text-amber-700 px-2 py-1 rounded">생각 넓히기</span> 최댓값과 최솟값
+                    </h4>
+                    <div class="text-sm text-slate-700 font-mono space-y-2 relative z-10">
+                        <p class="font-sans text-xs text-slate-500">\( f(0)=0 \), \( |f'(x)| \le 3 \). \( f(2) \)의 최대/최소?</p>
+                        <p>닫힌구간 \( [0, 2] \)에서 평균값 정리 이용:</p>
+                        <p>\( \frac{f(2)-f(0)}{2-0} = f'(c) \implies f(2) = 2f'(c) \)</p>
+                        <p>\( -3 \le f'(c) \le 3 \) 이므로 양변에 2를 곱하면,</p>
+                        <p class="text-brand-600 font-bold text-center bg-brand-50 p-2 rounded border border-brand-100 mt-2">
+                            \( -6 \le 2f'(c) \le 6 \implies -6 \le f(2) \le 6 \)
+                        </p>
+                        <p class="text-center font-bold text-slate-800 mt-2">\( M = 6, \; m = -6 \implies M-m = 12 \)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</body>
+</html>
