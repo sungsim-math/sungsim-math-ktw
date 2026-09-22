@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교과서 필기 노트 - 42쪽 (스스로 마무리하기)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    
+    <!-- MathJax 설정 -->
+    <script>
+        MathJax = {
+            tex: { 
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['$$', '$$']],
+                macros: {
+                    lim: '\\mathop{\\rm lim}\\limits'
+                }
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] },
+                    colors: {
+                        theme: { 50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 500: '#0ea5e9', 600: '#0284c7', 800: '#075985' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Pretendard', sans-serif; background-color: #f0f9ff; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.1);
+        }
+        .teacher-pen {
+            color: #e11d48; /* 붉은 펜 */
+            font-weight: 600;
+            background-color: #fff1f2;
+            padding: 2px 8px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+        .blue-pen {
+            color: #2563eb; /* 푸른 펜 */
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto space-y-6">
+        
+        <!-- 헤더 영역 -->
+        <header class="glass-card p-6 rounded-2xl border-t-4 border-theme-500 flex justify-between items-center relative overflow-hidden">
+            <div class="absolute -right-6 -top-6 w-24 h-24 bg-theme-200 rounded-full blur-2xl opacity-50"></div>
+            <div>
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="bg-theme-100 text-theme-800 text-xs font-bold px-2 py-1 rounded">대단원 마무리</span>
+                    <span class="text-sm font-semibold text-slate-500">교과서 42쪽</span>
+                </div>
+                <h1 class="text-2xl font-bold text-slate-800">스스로 마무리하기 (6번 ~ 10번)</h1>
+            </div>
+            <div class="text-3xl font-black text-theme-200 opacity-50">I</div>
+        </header>
+
+        <!-- 문제 6번 -->
+        <div class="glass-card rounded-2xl p-6 relative">
+            <div class="absolute top-6 left-6 text-2xl font-black text-theme-300 opacity-40">06</div>
+            <div class="ml-10">
+                <h2 class="text-lg font-bold mb-4">두 함수 \( f(x), g(x) \)에 대하여<br>
+                \( \lim_{x \to a} \{f(x)+g(x)\} = 4 \), \( \lim_{x \to a} \{f(x)-g(x)\} = 2 \)<br>
+                일 때, \( \lim_{x \to a} f(x)g(x) \)의 값은?</h2>
+                
+                <div class="bg-slate-50 p-4 rounded-xl space-y-4 text-lg">
+                    <div class="teacher-pen text-sm mb-2">💡 주어진 두 식을 더해보자!</div>
+                    <div>
+                        \( \lim_{x \to a} \{ f(x) + g(x) + f(x) - g(x) \} = 2 \lim_{x \to a} f(x) = 6 \) <br><br>
+                        \( \therefore \lim_{x \to a} f(x) = 3 \), &nbsp; \( \lim_{x \to a} g(x) = 1 \)
+                    </div>
+                    <div class="bg-white p-3 rounded-lg shadow-sm border border-slate-100 text-center text-xl text-rose-600 font-bold mt-2">
+                        \( \lim_{x \to a} f(x)g(x) = 3 \times 1 = 3 \)
+                    </div>
+                    <div class="text-base font-bold text-slate-700">정답: ③ 3</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 문제 7번 -->
+        <div class="glass-card rounded-2xl p-6 relative">
+            <div class="absolute top-6 left-6 text-2xl font-black text-theme-300 opacity-40">07</div>
+            <div class="ml-10">
+                <h2 class="text-lg font-bold mb-4">함수 \( f(x) \)가 모든 양의 실수 \( x \)에 대하여 부등식<br>
+                \( 3x^2 - x < f(x) < 3x^2 + 2x \)<br>
+                를 만족시킬 때, \( \lim_{x \to \infty} \frac{f(2x)}{x^2} \) 의 값은?</h2>
+                
+                <div class="bg-slate-50 p-4 rounded-xl space-y-4 text-lg">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="blue-pen border border-blue-200 bg-blue-50 px-2 py-1 rounded text-sm">\( x \) 대신 \( 2x \) 대입</span>
+                    </div>
+                    <div class="overflow-x-auto pb-2">
+                        \( 3(2x)^2 - (2x) < f(2x) < 3(2x)^2 + 2(2x) \) <br><br>
+                        \( 12x^2 - 2x < f(2x) < 12x^2 + 4x \)
+                    </div>
+                    
+                    <div class="teacher-pen text-sm mt-2 mb-1">양변을 \( x^2 \) 으로 나누고 극한을 취하면 (샌드위치 정리)</div>
+                    <div class="overflow-x-auto">
+                        <span class="text-slate-500 text-sm">※ 극한을 취하면 부등호에 등호가 성립함</span><br>
+                        \( \lim_{x \to \infty} \frac{12x^2 - 2x}{x^2} \le \lim_{x \to \infty} \frac{f(2x)}{x^2} \le \lim_{x \to \infty} \frac{12x^2 + 4x}{x^2} \) <br><br>
+                        <span class="text-rose-600 font-bold text-xl">\( \therefore \lim_{x \to \infty} \frac{f(2x)}{x^2} = 12 \)</span>
+                    </div>
+                    <div class="text-base font-bold text-slate-700 mt-2">정답: ② 12</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 문제 8번 -->
+        <div class="glass-card rounded-2xl p-6 relative">
+            <div class="absolute top-6 left-6 text-2xl font-black text-theme-300 opacity-40">08</div>
+            <div class="ml-10">
+                <h2 class="text-lg font-bold mb-4">두 함수 \( f(x), g(x) \)가<br>
+                \( \lim_{x \to \infty} f(x) = \infty \), \( \lim_{x \to \infty} \{3f(x)-g(x)\} = 4 \)<br>
+                를 만족시킬 때, \( \lim_{x \to \infty} \frac{5f(x)+g(x)}{8f(x)-2g(x)} \) 의 값은?</h2>
+                
+                <div class="bg-slate-50 p-4 rounded-xl space-y-4 text-lg">
+                    <div class="teacher-pen text-sm mb-2">💡 주어진 식을 무한대로 발산하는 \( f(x) \) 로 묶어내거나 나누기!</div>
+                    <div class="overflow-x-auto">
+                        \( \lim_{x \to \infty} \frac{3f(x) - g(x)}{f(x)} = \lim_{x \to \infty} \frac{4}{f(x)} = 0 \) <br><br>
+                        \( \lim_{x \to \infty} \left\{ 3 - \frac{g(x)}{f(x)} \right\} = 0 \quad \therefore \) <strong class="text-blue-600">\( \lim_{x \to \infty} \frac{g(x)}{f(x)} = 3 \)</strong>
+                    </div>
+                    
+                    <div class="mt-4 pt-4 border-t border-slate-200">
+                        <div class="blue-pen text-sm mb-2">구하려는 식의 분모, 분자를 \( f(x) \) 로 나누면:</div>
+                        \( \lim_{x \to \infty} \frac{ 5 + \frac{g(x)}{f(x)} }{ 8 - 2\frac{g(x)}{f(x)} } = \frac{5 + 3}{8 - 2(3)} = \frac{8}{2} = \)<strong class="text-rose-600 text-xl ml-1">4</strong>
+                    </div>
+                    <div class="text-base font-bold text-slate-700">정답: ① 4</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 문제 9번 -->
+        <div class="glass-card rounded-2xl p-6 relative">
+            <div class="absolute top-6 left-6 text-2xl font-black text-theme-300 opacity-40">09</div>
+            <div class="ml-10">
+                <h2 class="text-lg font-bold mb-4">두 함수 \( f(x), g(x) \)에 대하여 보기에서 옳은 것만을 있는 대로 고른 것은?</h2>
+                
+                <div class="space-y-4">
+                    <!-- 보기 ㄱ -->
+                    <div class="bg-slate-50 p-4 rounded-xl border-l-4 border-emerald-400">
+                        <div class="font-bold flex items-center gap-2 mb-2">
+                            <span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded">ㄱ. (참)</span>
+                            \( \lim_{x \to a} f(x) \)와 \( \lim_{x \to a} \frac{g(x)}{f(x)} \)의 값이 각각 존재하면, \( \lim_{x \to a} g(x) \)의 값이 존재한다.
+                        </div>
+                        <div class="text-slate-600 text-base pl-2">
+                            <span class="teacher-pen text-sm">해설</span> \( \lim_{x \to a} \left\{ f(x) \times \frac{g(x)}{f(x)} \right\} \) 도 극한의 성질에 의해 존재한다.
+                        </div>
+                    </div>
+
+                    <!-- 보기 ㄴ -->
+                    <div class="bg-slate-50 p-4 rounded-xl border-l-4 border-rose-400">
+                        <div class="font-bold flex items-start gap-2 mb-2">
+                            <span class="bg-rose-100 text-rose-700 px-2 py-1 rounded whitespace-nowrap">ㄴ. (거짓)</span>
+                            <div>\( \lim_{x \to a} f(x) \)와 \( \lim_{x \to a} f(x)g(x) \)의 값이 각각 존재하면, \( \lim_{x \to a} g(x) \)의 값이 존재한다.</div>
+                        </div>
+                        <div class="text-slate-600 text-base pl-2">
+                            <span class="blue-pen text-sm bg-blue-50 px-2 py-1 rounded border border-blue-200">반례</span> 
+                            \( f(x) = 0 \), \( g(x) = \frac{1}{x-a} \) 라 하면, <br>
+                            \( \lim_{x \to a} f(x) = 0 \), \( \lim_{x \to a} f(x)g(x) = 0 \) 으로 존재하지만 \( \lim_{x \to a} g(x) \) 는 존재하지 않는다.
+                        </div>
+                    </div>
+
+                    <!-- 보기 ㄷ -->
+                    <div class="bg-slate-50 p-4 rounded-xl border-l-4 border-emerald-400">
+                        <div class="font-bold flex items-start gap-2 mb-2">
+                            <span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded whitespace-nowrap">ㄷ. (참)</span>
+                            <div>\( \lim_{x \to a} f(x) \)의 값이 존재하고 \( \lim_{x \to a} \frac{f(x)}{g(x)} = \infty \) 이면 \( \lim_{x \to a} g(x) = 0 \) 이다.</div>
+                        </div>
+                        <div class="text-slate-600 text-base pl-2">
+                            <span class="teacher-pen text-sm">해설</span> \( \lim_{x \to a} \frac{g(x)}{f(x)} = 0 \) 이므로, \( \lim_{x \to a} \left\{ f(x) \times \frac{g(x)}{f(x)} \right\} = 0 \) 이다.
+                        </div>
+                    </div>
+                    
+                    <div class="text-base font-bold text-slate-700 mt-2">정답: ③ ㄱ, ㄷ</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 문제 10번 -->
+        <div class="glass-card rounded-2xl p-6 relative">
+            <div class="absolute top-6 left-6 text-2xl font-black text-theme-300 opacity-40">10</div>
+            <div class="ml-10">
+                <h2 class="text-lg font-bold mb-4">등식 \( \lim_{x \to -1} \frac{x^2+ax+a-1}{x+b} = 4 \) 가 성립할 때, \( a+b \)의 값은? (단, \( a, b \)는 상수)</h2>
+                
+                <div class="bg-slate-50 p-4 rounded-xl space-y-4 text-lg">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="teacher-pen text-sm">0/0 꼴 성질 이용</span> 
+                        <span class="text-slate-600 text-base">\( \lim_{x \to -1} \) 일 때 (분모) \( \to 0 \) 이므로 (분자) \( \to 0 \)</span>
+                    </div>
+                    
+                    <div class="border-l-2 border-theme-300 pl-4 space-y-2">
+                        <p>1) 분모: \( -1 + b = 0 \quad \therefore \)<strong class="text-blue-600"> \( b = 1 \)</strong></p>
+                        <p>2) 분자 인수분해: \( x^2 + ax + a - 1 = (x+1)(x+a-1) \)</p>
+                    </div>
+
+                    <div class="mt-4 pt-4 border-t border-slate-200 overflow-x-auto">
+                        \( \lim_{x \to -1} \frac{(x+1)(x+a-1)}{x+1} = \lim_{x \to -1} (x+a-1) = a - 2 = 4 \) <br><br>
+                        <span class="text-blue-600 font-bold">\( \therefore a = 6 \)</span>
+                    </div>
+                    
+                    <div class="bg-white p-3 rounded-lg shadow-sm border border-slate-100 text-center text-xl text-rose-600 font-bold mt-2">
+                        \( a + b = 6 + 1 = 7 \)
+                    </div>
+                    <div class="text-base font-bold text-slate-700">정답: ① 7</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

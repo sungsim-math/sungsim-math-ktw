@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교과서 필기 노트 - 43쪽 (스스로 마무리하기)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    
+    <script>
+        MathJax = {
+            tex: { 
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['$$', '$$']],
+                macros: {
+                    lim: '\\mathop{\\rm lim}\\limits'
+                }
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] },
+                    colors: {
+                        theme: { 50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 500: '#0ea5e9', 600: '#0284c7', 800: '#075985' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Pretendard', sans-serif; background-color: #f0f9ff; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.1);
+        }
+        .teacher-pen {
+            color: #e11d48; /* 붉은 펜 */
+            font-weight: 600;
+            background-color: #fff1f2;
+            padding: 2px 8px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+        .blue-pen {
+            color: #2563eb; /* 푸른 펜 */
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto space-y-6">
+        
+        <header class="glass-card p-6 rounded-2xl border-t-4 border-theme-500 flex justify-between items-center relative overflow-hidden">
+            <div class="absolute -right-6 -top-6 w-24 h-24 bg-theme-200 rounded-full blur-2xl opacity-50"></div>
+            <div>
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="bg-theme-100 text-theme-800 text-xs font-bold px-2 py-1 rounded">대단원 마무리</span>
+                    <span class="text-sm font-semibold text-slate-500">교과서 43쪽</span>
+                </div>
+                <h1 class="text-2xl font-bold text-slate-800">스스로 마무리하기 (11번 ~ 16번)</h1>
+            </div>
+            <div class="text-3xl font-black text-theme-200 opacity-50">I</div>
+        </header>
+
+        <div class="glass-card rounded-2xl p-6 relative">
+            <div class="absolute top-6 left-6 text-2xl font-black text-theme-300 opacity-40">11</div>
+            <div class="ml-10">
+                <h2 class="text-lg font-bold mb-4">삼차함수 \( f(x) \)가 \( \lim_{x \to 1} \frac{f(x)}{x-1} = \lim_{x \to 2} \frac{f(x)}{x-2} = 1 \)을 만족시킬 때, \( f(0) \)의 값은?</h2>
+                
+                <div class="bg-slate-50 p-4 rounded-xl space-y-4 text-lg">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="teacher-pen text-sm">인수정리 활용</span>
+                        <span class="text-slate-600 text-base">분모 \( \to 0 \) 이므로 분자 \( \to 0 \implies \) <strong class="text-rose-600">\( f(1) = f(2) = 0 \)</strong></span>
+                    </div>
+                    
+                    <p class="font-mono">\( f(x) = (x-1)(x-2)(ax+b) \) <span class="text-sm text-slate-500">(단, \( a, b \)는 상수)</span></p>
+
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-white p-3 rounded-xl border border-slate-200">
+                            <p class="font-bold text-sm text-blue-600 mb-1">① \( x \to 1 \) 극한</p>
+                            <p>\( \lim_{x \to 1} \frac{(x-1)(x-2)(ax+b)}{x-1} = 1 \)</p>
+                            <p class="font-bold text-rose-600 mt-1">\( \therefore -a - b = 1 \)</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-slate-200">
+                            <p class="font-bold text-sm text-blue-600 mb-1">② \( x \to 2 \) 극한</p>
+                            <p>\( \lim_{x \to 2} \frac{(x-1)(x-2)(ax+b)}{x-2} = 1 \)</p>
+                            <p class="font-bold text-rose-600 mt-1">\( \therefore 2a + b = 1 \)</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-200">
+                        <p class="mb-2">두 식을 연립하면: <strong class="text-blue-600">\( a = 2, \ b = -3 \)</strong></p>
+                        <p>\( \implies f(x) = (x-1)(x-2)(2x-3) \)</p>
+                        <div class="bg-white p-3 rounded-lg shadow-sm border border-slate-100 text-center text-xl text-rose-600 font-bold mt-3">
+                            \( f(0) = (-1) \times (-2) \times (-3) = -6 \)
+                        </div>
+                    </div>
+                    <div class="text-base font-bold text-slate-700">정답: ① -6</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 relative">
+            <div class="absolute top-6 left-6 text-2xl font-black text-theme-300 opacity-40">12</div>
+            <div class="ml-10">
+                <h2 class="text-lg font-bold mb-4">최고차항의 계수가 1인 이차함수 \( f(x) \)에 대하여<br>
+                \( \lim_{x \to 2} \frac{xf(x)-4}{x-2} = 6 \) 일 때, \( f(1) \)의 값은?</h2>
+                
+                <div class="bg-slate-50 p-4 rounded-xl space-y-4 text-lg">
+                    <p class="mb-2"><span class="teacher-pen text-sm">기본 분석</span> 분모 \( \to 0 \) 이므로 분자 \( \to 0 \implies 2f(2) = 4 \implies \) <strong class="text-rose-600">\( f(2) = 2 \)</strong></p>
+                    
+                    <div class="border-l-2 border-theme-300 pl-4 bg-white p-3 rounded-r-xl shadow-sm">
+                        <p class="font-bold text-blue-600 mb-2">💡 치환 및 미분계수의 정의 활용 (사고력)</p>
+                        <p>\( g(x) = xf(x) \) 라고 하면, \( g'(x) = f(x) + xf'(x) \)</p>
+                        <div class="overflow-x-auto mt-2">
+                            \( \lim_{x \to 2} \frac{g(x) - g(2)}{x-2} = g'(2) = f(2) + 2f'(2) = 6 \)
+                        </div>
+                        <p class="mt-2">\( 2 + 2f'(2) = 6 \implies \) <strong class="text-rose-600">\( f'(2) = 2 \)</strong></p>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-200">
+                        <p>\( f(x) = x^2 + ax + b \) 라고 하면,</p>
+                        <p>1) \( f(2) = 4 + 2a + b = 2 \implies 2a + b = -2 \)</p>
+                        <p>2) \( f'(x) = 2x + a \implies f'(2) = 4 + a = 2 \implies \) <strong class="text-blue-600">\( a = -2 \)</strong></p>
+                        <p>대입하면 <strong class="text-blue-600">\( b = 2 \)</strong> 이므로 \( f(x) = x^2 - 2x + 2 \)</p>
+                        <div class="text-center text-xl text-rose-600 font-bold mt-3 bg-white p-2 rounded-lg border border-rose-100">
+                            \( \therefore f(1) = 1 - 2 + 2 = 1 \)
+                        </div>
+                    </div>
+                    <div class="text-base font-bold text-slate-700">정답: ① 1</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 relative">
+            <div class="absolute top-6 left-6 text-2xl font-black text-theme-300 opacity-40">13</div>
+            <div class="ml-10">
+                <h2 class="text-lg font-bold mb-4">다항함수 \( f(x) \)가 다음 조건을 만족시킬 때, \( f(1) \)의 값은?</h2>
+                <div class="bg-white p-3 rounded-xl border border-slate-200 mb-4">
+                    <p>(가) \( \lim_{x \to \infty} \frac{f(x)-x^3}{3x^2} = 2 \)</p>
+                    <p>(나) \( \lim_{x \to 0} \frac{f(x)}{x} = 5 \)</p>
+                </div>
+                
+                <div class="bg-slate-50 p-4 rounded-xl space-y-4 text-lg">
+                    <div class="space-y-2">
+                        <div class="flex items-start gap-2">
+                            <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-sm font-bold mt-1">(가)</span>
+                            <div>
+                                분자와 분모의 차수가 같고 최고차항의 계수비가 2이므로<br>
+                                \( f(x) - x^3 = 6x^2 + ax + b \implies \) <strong class="text-rose-600">\( f(x) = x^3 + 6x^2 + ax + b \)</strong>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-sm font-bold mt-1">(나)</span>
+                            <div>
+                                분모 \( \to 0 \) 이므로 \( f(0) = 0 \implies \) <strong class="text-blue-600">\( b = 0 \)</strong><br>
+                                \( \lim_{x \to 0} \frac{f(x)}{x} = f'(0) = 5 \implies \) <strong class="text-blue-600">\( a = 5 \)</strong>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-4 border-t border-slate-200 text-center font-bold">
+                        \( f(x) = x^3 + 6x^2 + 5x \) <br>
+                        <span class="text-rose-600 text-xl inline-block mt-2">\( \therefore f(1) = 1 + 6 + 5 = 12 \)</span>
+                    </div>
+                    <div class="text-base font-bold text-slate-700">정답: ② 12</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 relative">
+            <div class="absolute top-6 left-6 text-2xl font-black text-theme-300 opacity-40">14</div>
+            <div class="ml-10">
+                <h2 class="text-lg font-bold mb-4">함수 \( f(x) = \begin{cases} -2x+a & (x < 1) \\ x+b & (x \ge 1) \end{cases} \) 가 실수 전체의 집합에서 연속이고, \( f(0)=5 \)일 때, \( a+b \)의 값은? (단, \( a, b \)는 상수)</h2>
+                
+                <div class="bg-slate-50 p-4 rounded-xl space-y-3 text-lg">
+                    <p>1) \( x=0 \)일 때 \( x < 1 \) 범위이므로, \( f(0) = a = 5 \)</p>
+                    <p>2) \( x=1 \)에서 연속이어야 하므로 \( \lim_{x \to 1-} f(x) = \lim_{x \to 1+} f(x) = f(1) \)</p>
+                    
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 font-bold text-center">
+                        <p>\( -2(1) + a = 1 + b \)</p>
+                        <p class="text-blue-600 mt-1">\( -2 + 5 = 1 + b \implies 3 = 1 + b \implies b = 2 \)</p>
+                    </div>
+                    
+                    <div class="text-xl text-rose-600 font-bold text-center">
+                        \( \therefore a + b = 5 + 2 = 7 \)
+                    </div>
+                    <div class="text-base font-bold text-slate-700">정답: ② 7</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 relative">
+            <div class="absolute top-6 left-6 text-2xl font-black text-theme-300 opacity-40">15</div>
+            <div class="ml-10">
+                <h2 class="text-lg font-bold mb-4">함수 \( f(x) = \begin{cases} \frac{\sqrt{x+1}+a}{x-3} & (-1 \le x < 3, x > 3) \\ b & (x = 3) \end{cases} \) 가 \( x=3 \)에서 연속일 때, \( a+b \)의 값은? (단, \( a, b \)는 상수)</h2>
+                
+                <div class="bg-slate-50 p-4 rounded-xl space-y-3 text-lg">
+                    <div class="teacher-pen text-sm mb-2">연속 조건: 극한값 = 함숫값</div>
+                    <p>\( \lim_{x \to 3} \frac{\sqrt{x+1}+a}{x-3} = b \)</p>
+                    
+                    <div class="pl-4 border-l-2 border-theme-300 space-y-2">
+                        <p>분모 \( \to 0 \) 이므로 분자 \( \to 0 \)</p>
+                        <p>\( \lim_{x \to 3} (\sqrt{x+1}+a) = 0 \implies \sqrt{4} + a = 0 \implies \) <strong class="text-blue-600">\( a = -2 \)</strong></p>
+                    </div>
+
+                    <div class="overflow-x-auto mt-4 pt-4 border-t border-slate-200">
+                        \( \lim_{x \to 3} \frac{\sqrt{x+1}-2}{x-3} = \lim_{x \to 3} \frac{x-3}{(x-3)(\sqrt{x+1}+2)} \) <br><br>
+                        \( = \lim_{x \to 3} \frac{1}{\sqrt{x+1}+2} = \frac{1}{4} = \) <strong class="text-blue-600">\( b \)</strong>
+                    </div>
+                    
+                    <div class="bg-white p-3 rounded-lg shadow-sm border border-slate-100 text-center text-xl text-rose-600 font-bold mt-3">
+                        \( \therefore a + b = -2 + \frac{1}{4} = -\frac{7}{4} \)
+                    </div>
+                    <div class="text-base font-bold text-slate-700">정답: ② \( -\frac{7}{4} \)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 relative">
+            <div class="absolute top-6 left-6 text-2xl font-black text-theme-300 opacity-40">16</div>
+            <div class="ml-10">
+                <h2 class="text-lg font-bold mb-4">함수 \( f(x) = \begin{cases} x^2+x & (x < 2) \\ ax-4 & (x \ge 2) \end{cases} \) 에 대하여 함수 \( |f(x)| \)가 실수 전체의 집합에서 연속이 되도록 하는 모든 실수 \( a \)의 값의 합은?</h2>
+                
+                <div class="bg-slate-50 p-4 rounded-xl space-y-4 text-lg">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="teacher-pen text-sm">절댓값 함수의 연속</span>
+                        <span class="text-slate-600 text-base">\( x=2 \)에서 연속이면 됨</span>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <p>1) 우극한 & 함숫값: \( \lim_{x \to 2+} |ax-4| = |2a-4| \)</p>
+                        <p>2) 좌극한: \( \lim_{x \to 2-} |x^2+x| = |4+2| = 6 \)</p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 font-bold">
+                        <p class="text-center text-xl text-blue-600 mb-3">\( \therefore |2a-4| = 6 \)</p>
+                        <div class="grid grid-cols-2 gap-4 text-center">
+                            <div>
+                                <p class="text-sm text-slate-500 mb-1">i) \( 2a - 4 = 6 \)</p>
+                                <p class="text-rose-600">\( 2a = 10 \implies a = 5 \)</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-slate-500 mb-1">ii) \( 2a - 4 = -6 \)</p>
+                                <p class="text-rose-600">\( 2a = -2 \implies a = -1 \)</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center text-xl text-slate-800 font-bold mt-2">
+                        모든 \( a \)의 값의 합 = \( 5 + (-1) = 4 \)
+                    </div>
+                    <div class="text-base font-bold text-slate-700">정답: ① 4</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

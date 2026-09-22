@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교과서 필기 노트 - 45쪽 (스스로 마무리하기)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    
+    <!-- MathJax 설정 -->
+    <script>
+        MathJax = {
+            tex: { 
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['$$', '$$']],
+                macros: {
+                    lim: '\\mathop{\\rm lim}\\limits'
+                }
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] },
+                    colors: {
+                        theme: { 50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 500: '#0ea5e9', 600: '#0284c7', 800: '#075985' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Pretendard', sans-serif; background-color: #f0f9ff; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.1);
+        }
+        .teacher-pen {
+            color: #e11d48; /* 붉은 펜 */
+            font-weight: 600;
+            background-color: #fff1f2;
+            padding: 2px 8px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+        .blue-pen {
+            color: #2563eb; /* 푸른 펜 */
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto space-y-6">
+        
+        <!-- 헤더 영역 -->
+        <header class="glass-card p-6 rounded-2xl border-t-4 border-theme-500 flex justify-between items-center relative overflow-hidden">
+            <div class="absolute -right-6 -top-6 w-24 h-24 bg-theme-200 rounded-full blur-2xl opacity-50"></div>
+            <div>
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="bg-theme-100 text-theme-800 text-xs font-bold px-2 py-1 rounded">대단원 마무리 [서술형]</span>
+                    <span class="text-sm font-semibold text-slate-500">교과서 45쪽</span>
+                </div>
+                <h1 class="text-2xl font-bold text-slate-800">스스로 마무리하기 (22번 ~ 25번)</h1>
+            </div>
+            <div class="text-3xl font-black text-theme-200 opacity-50">I</div>
+        </header>
+
+        <!-- 문제 22번 -->
+        <div class="glass-card rounded-2xl p-6 relative">
+            <div class="absolute top-6 left-6 text-2xl font-black text-theme-300 opacity-40">22</div>
+            <div class="ml-10">
+                <h2 class="text-lg font-bold mb-4">삼차함수 \( f(x) \)가 \( f(0)=2, \ \lim_{x \to 1} \frac{f(x)+2}{(x-1)^2} = 7 \) 을 만족시킬 때, \( f(3) \)의 값을 구하시오.</h2>
+                
+                <div class="bg-slate-50 p-4 rounded-xl space-y-4 text-lg">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="teacher-pen text-sm">0/0 꼴 분석</span>
+                        <span class="text-slate-600 text-base">분모 \( \to 0 \) 이므로 분자 \( \to 0 \)</span>
+                    </div>
+                    
+                    <p class="font-mono bg-white p-3 rounded-lg border border-slate-200 text-center font-bold">
+                        \( f(x) + 2 = (x-1)^2(ax+b) \)
+                    </p>
+
+                    <div class="space-y-2">
+                        <p>1) \( f(0) = 2 \) 대입: \( f(0) + 2 = 4 \implies (0-1)^2(0+b) = 4 \implies \) <strong class="text-blue-600">\( b = 4 \)</strong></p>
+                        <p>2) 극한식에 대입:</p>
+                        <div class="bg-white p-3 rounded-lg border border-slate-200 overflow-x-auto text-center">
+                            \( \lim_{x \to 1} \frac{(x-1)^2(ax+4)}{(x-1)^2} = a + 4 = 7 \implies \) <strong class="text-blue-600">\( a = 3 \)</strong>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-200">
+                        <p>\( f(x) = (x-1)^2(3x+4) - 2 \) 이므로,</p>
+                        <div class="bg-white p-3 rounded-lg shadow-sm border border-slate-100 text-center text-xl text-rose-600 font-bold mt-2">
+                            \( f(3) = (3-1)^2(9+4) - 2 = 4(13) - 2 = 50 \)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 문제 23번 -->
+        <div class="glass-card rounded-2xl p-6 relative">
+            <div class="absolute top-6 left-6 text-2xl font-black text-theme-300 opacity-40">23</div>
+            <div class="ml-10">
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="bg-rose-100 text-rose-700 font-bold px-2 py-1 rounded text-xs">사고력 UP</span>
+                </div>
+                <h2 class="text-lg font-bold mb-4">곡선 \( y=\sqrt{2x} \) 위에 점 \( P(t, \sqrt{2t}) \ (t \neq 0) \)에 대하여 선분 \( OP \)의 중점을 \( M \), 점 \( M \)을 지나고 직선 \( OP \)에 수직인 직선 \( l \)이 \( x \)축과 만나는 점을 \( Q \)라 하자. \( \lim_{t \to \infty} \frac{\overline{PQ}^2}{3t^2+5} \) 의 값을 구하시오. (단, \( O \)는 원점이다.)</h2>
+                
+                <div class="bg-slate-50 p-4 rounded-xl space-y-4 text-sm md:text-base">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-2 border-r border-slate-200 pr-4">
+                            <p class="font-bold text-theme-700">1. 직선 \( l \)의 방정식 구하기</p>
+                            <ul class="space-y-1 font-mono">
+                                <li>• 직선 \( OP \)의 기울기: \( \frac{\sqrt{2t}}{t} \)</li>
+                                <li>• 직선 \( l \)의 기울기 (수직): <strong class="text-rose-600">\( -\frac{t}{\sqrt{2t}} \)</strong></li>
+                                <li>• 중점 \( M \)의 좌표: \( \left( \frac{t}{2}, \frac{\sqrt{2t}}{2} \right) \)</li>
+                            </ul>
+                            <p class="bg-white p-2 rounded border border-slate-200 text-center font-mono font-bold">
+                                \( l: y = -\frac{t}{\sqrt{2t}} \left( x - \frac{t}{2} \right) + \frac{\sqrt{2t}}{2} \)
+                            </p>
+                        </div>
+                        <div class="space-y-2">
+                            <p class="font-bold text-theme-700">2. 점 \( Q \) 좌표 및 거리 계산</p>
+                            <p>\( y=0 \) 대입하여 \( x \)절편 \( Q \) 구하기:</p>
+                            <p class="font-mono">\( \therefore Q \left( \frac{t}{2}+1, 0 \right) \)</p>
+                            <p class="mt-2 font-mono">\( \overline{PQ}^2 = \left( \frac{t}{2}-1 \right)^2 + (\sqrt{2t})^2 \)</p>
+                            <p class="bg-white p-2 rounded border border-slate-200 text-center font-mono font-bold text-blue-600">
+                                \( = \frac{1}{4}t^2 - t + 1 + 2t = \frac{1}{4}t^2 + t + 1 \)
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-200">
+                        <p class="font-bold text-center text-lg">3. 극한값 계산</p>
+                        <div class="bg-white p-3 rounded-lg shadow-sm border border-slate-100 text-center text-xl text-rose-600 font-bold mt-2 font-mono overflow-x-auto">
+                            \( \lim_{t \to \infty} \frac{\frac{1}{4}t^2+t+1}{3t^2+5} = \frac{1/4}{3} = \frac{1}{12} \)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 문제 24번 -->
+        <div class="glass-card rounded-2xl p-6 relative">
+            <div class="absolute top-6 left-6 text-2xl font-black text-theme-300 opacity-40">24</div>
+            <div class="ml-10">
+                <h2 class="text-lg font-bold mb-4">실수 전체의 집합에서 연속인 함수 \( f(x) \)가 모든 실수 \( x \)에 대하여 \( (x-1)f(x)=(x+a)|x-1| \) 을 만족시킬 때, \( f(4) \)의 값을 구하시오. (단, \( a \)는 상수)</h2>
+                
+                <div class="bg-slate-50 p-4 rounded-xl space-y-4 text-lg">
+                    <p>\( x \neq 1 \)일 때, \( f(x) = \frac{(x+a)|x-1|}{x-1} \) 이고, 연속이므로 \( x=1 \)에서의 좌·우극한이 일치해야 합니다.</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-white p-3 rounded-xl border border-slate-200 text-center">
+                            <p class="font-bold text-sm text-blue-600 mb-1">우극한 (\( x > 1 \))</p>
+                            <p>\( \lim_{x \to 1+} (x+a) = 1+a \)</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-slate-200 text-center">
+                            <p class="font-bold text-sm text-rose-600 mb-1">좌극한 (\( x < 1 \))</p>
+                            <p>\( \lim_{x \to 1-} -(x+a) = -1-a \)</p>
+                        </div>
+                    </div>
+
+                    <div class="text-center font-bold">
+                        <p>\( 1+a = -1-a \implies 2a = -2 \implies \) <strong class="text-blue-600">\( a = -1 \)</strong></p>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-200">
+                        <p class="text-sm text-slate-500 mb-2">💡 주어진 원래 식에 \( x=4, a=-1 \) 직접 대입!</p>
+                        <div class="bg-white p-3 rounded-lg shadow-sm border border-slate-100 text-center text-xl text-rose-600 font-bold">
+                            \( 3 \times f(4) = 3 \times 3 \implies f(4) = 3 \)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 문제 25번 -->
+        <div class="glass-card rounded-2xl p-6 relative">
+            <div class="absolute top-6 left-6 text-2xl font-black text-theme-300 opacity-40">25</div>
+            <div class="ml-10">
+                <h2 class="text-lg font-bold mb-4">\( x \)에 대한 방정식 \( x^3-x^2+nx-8=0 \) 은 자연수 \( n \)의 값에 관계없이 오직 하나의 실근을 갖는다. 이 방정식의 실근이 열린구간 \( (1, 2) \)에 존재하도록 하는 모든 자연수 \( n \)의 값의 합을 구하시오.</h2>
+                
+                <div class="bg-slate-50 p-4 rounded-xl space-y-4 text-lg">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="teacher-pen text-sm">사이값 정리</span>
+                        <span class="text-slate-600 text-base">\( f(1)f(2) < 0 \) 이어야 함!</span>
+                    </div>
+                    
+                    <div class="space-y-2 font-mono bg-white p-4 rounded-xl border border-slate-200">
+                        <p>\( f(x) = x^3-x^2+nx-8 \) 라 하면,</p>
+                        <p>\( f(1) = 1-1+n-8 = n-8 \)</p>
+                        <p>\( f(2) = 8-4+2n-8 = 2n-4 \)</p>
+                        <p class="text-center font-bold mt-2 text-rose-600">
+                            \( (n-8)(2n-4) < 0 \implies 2(n-8)(n-2) < 0 \)
+                        </p>
+                    </div>
+
+                    <div class="pt-2 text-center">
+                        <p class="font-bold text-xl text-blue-600">\( \therefore 2 < n < 8 \)</p>
+                        <p class="mt-2 text-slate-700">만족하는 자연수 \( n \)은 3, 4, 5, 6, 7 이므로</p>
+                    </div>
+                    
+                    <div class="text-center text-xl text-slate-800 font-bold bg-theme-100 p-3 rounded-lg mt-2">
+                        자연수 \( n \)의 합 = \( 3 + 4 + 5 + 6 + 7 = 25 \)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

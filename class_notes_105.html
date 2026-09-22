@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교과서 필기 노트 - 105쪽 (스스로 마무리하기)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    
+    <!-- MathJax 설정 -->
+    <script>
+        MathJax = {
+            tex: { 
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['$$', '$$']],
+                macros: {
+                    lim: '\\mathop{\\rm lim}\\limits'
+                }
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] },
+                    colors: {
+                        theme: { 50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc', 500: '#6366f1', 600: '#4f46e5', 800: '#3730a3' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Pretendard', sans-serif; background-color: #eef2ff; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.1);
+        }
+        .teacher-pen {
+            color: #e11d48; /* 붉은 펜 */
+            font-weight: 600;
+            background-color: #fff1f2;
+            padding: 2px 8px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+        .blue-pen {
+            color: #2563eb; /* 푸른 펜 */
+            font-weight: 600;
+            background-color: #eff6ff;
+            padding: 2px 8px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto space-y-6">
+        
+        <!-- 헤더 영역 -->
+        <header class="glass-card p-6 rounded-2xl border-t-4 border-theme-500 flex justify-between items-center relative overflow-hidden">
+            <div class="absolute -right-6 -top-6 w-24 h-24 bg-theme-200 rounded-full blur-2xl opacity-50"></div>
+            <div>
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="bg-theme-100 text-theme-800 text-xs font-bold px-2 py-1 rounded">대단원 마무리</span>
+                    <span class="text-sm font-semibold text-slate-500">교과서 105쪽</span>
+                </div>
+                <h1 class="text-2xl font-bold text-slate-800">스스로 마무리하기 (1번 ~ 6번)</h1>
+            </div>
+            <div class="text-3xl font-black text-theme-200 opacity-50">II</div>
+        </header>
+
+        <!-- 문제 1번 -->
+        <div class="glass-card rounded-2xl p-6 relative">
+            <div class="absolute top-6 left-6 text-2xl font-black text-theme-300 opacity-40">01</div>
+            <div class="ml-10">
+                <h2 class="text-lg font-bold mb-4">함수 \( f(x) = x^2-4x+1 \)에서 \( x \)의 값이 1에서 2까지 변할 때의 평균변화율과 \( x=a \)에서의 미분계수 \( f'(a) \)가 같을 때, 상수 \( a \)의 값은?</h2>
+                
+                <div class="bg-slate-50 p-4 rounded-xl space-y-4 text-lg">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="teacher-pen text-sm">평균변화율 = 순간변화율</span>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg border border-slate-200 text-center font-mono">
+                        \( \frac{f(2) - f(1)}{2 - 1} = 2a - 4 \)
+                    </div>
+                    <div class="space-y-2">
+                        <p>1) 평균변화율: \( f(2) = -3 \), \( f(1) = -2 \) 이므로 <br>
+                        <span class="ml-4 text-blue-600 font-bold">\( \frac{-3 - (-2)}{1} = -1 \)</span></p>
+                        <p>2) 미분계수: \( f'(x) = 2x-4 \) 이므로 <span class="font-bold text-blue-600">\( f'(a) = 2a-4 \)</span></p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-200 text-center">
+                        <p class="font-bold text-rose-600 text-xl">\( -1 = 2a - 4 \implies 2a = 3 \implies a = \frac{3}{2} \)</p>
+                    </div>
+                    <div class="text-base font-bold text-slate-700">정답: ③ \( \frac{3}{2} \)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 문제 2번 -->
+        <div class="glass-card rounded-2xl p-6 relative">
+            <div class="absolute top-6 left-6 text-2xl font-black text-theme-300 opacity-40">02</div>
+            <div class="ml-10">
+                <h2 class="text-lg font-bold mb-4">함수 \( f(x) = x^3+x+5 \)일 때, \( \lim_{h \to 0} \frac{f(1+2h)-f(1-h)}{h} \) 의 값은?</h2>
+                
+                <div class="bg-slate-50 p-4 rounded-xl space-y-3 overflow-x-auto text-lg">
+                    <p class="mb-2">1) 미분: \( f'(x) = 3x^2+1 \) 이므로 <strong class="text-rose-600">\( f'(1) = 4 \)</strong></p>
+                    <p class="mb-2">2) 극한식 변형 <span class="text-sm text-slate-500">(\(-f(1)+f(1)\) 삽입 후 분리)</span></p>
+                    
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 font-mono">
+                        \( \lim_{h \to 0} \frac{f(1+2h)-f(1)}{h} - \lim_{h \to 0} \frac{f(1-h)-f(1)}{h} \) <br><br>
+                        \( = 2 \lim_{h \to 0} \frac{f(1+2h)-f(1)}{2h} + \lim_{h \to 0} \frac{f(1-h)-f(1)}{-h} \) <br><br>
+                        <span class="text-blue-600 font-bold">\( = 2f'(1) + f'(1) = 3f'(1) \)</span>
+                    </div>
+                    
+                    <div class="text-center font-bold text-xl text-rose-600 mt-2">
+                        \( \therefore 3 \times 4 = 12 \)
+                    </div>
+                    <div class="text-base font-bold text-slate-700">정답: ⑤ 12</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 문제 3번 -->
+        <div class="glass-card rounded-2xl p-6 relative">
+            <div class="absolute top-6 left-6 text-2xl font-black text-theme-300 opacity-40">03</div>
+            <div class="ml-10">
+                <h2 class="text-lg font-bold mb-4">다항함수 \( f(x) \)가 \( f(1)=3, \ f'(1)=2 \)를 만족시킬 때, <br>\( \lim_{x \to 1} \frac{x^2 f(1) - f(x^2)}{x-1} \) 의 값은?</h2>
+                
+                <div class="bg-slate-50 p-4 rounded-xl space-y-4 overflow-x-auto text-lg">
+                    <div class="teacher-pen text-sm mb-2 block w-fit">💡 \(-f(1)+f(1)\) 삽입하여 두 개의 미분계수 형태로 분리!</div>
+                    
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 font-mono">
+                        \( \lim_{x \to 1} \frac{x^2 f(1) - f(1) + f(1) - f(x^2)}{x-1} \) <br><br>
+                        \( = \lim_{x \to 1} \frac{f(1)(x^2-1)}{x-1} - \lim_{x \to 1} \frac{f(x^2)-f(1)}{x^2-1} \times (x+1) \)
+                    </div>
+                    
+                    <div class="pt-2 border-t border-slate-200 text-center font-mono">
+                        <p class="mb-2 text-blue-600 font-bold">\( = \lim_{x \to 1} f(1)(x+1) - 2f'(1) \)</p>
+                        <p class="text-rose-600 font-bold text-xl">\( = 2f(1) - 2f'(1) = 6 - 4 = 2 \)</p>
+                    </div>
+                    <div class="text-base font-bold text-slate-700">정답: ⑤ 2</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 문제 4번 -->
+        <div class="glass-card rounded-2xl p-6 relative">
+            <div class="absolute top-6 left-6 text-2xl font-black text-theme-300 opacity-40">04</div>
+            <div class="ml-10">
+                <h2 class="text-lg font-bold mb-4">함수 \( f(x) = \begin{cases} x^2+ax+2 & (x < 1) \\ 4x+b & (x \ge 1) \end{cases} \) 가 \( x=1 \)에서 미분가능할 때, \( f'(-1)+f(2) \) 의 값은? (단, \( a, b \)는 상수)</h2>
+                
+                <div class="bg-slate-50 p-4 rounded-xl space-y-4 text-lg">
+                    <div class="blue-pen text-sm mb-2">미분가능 조건 = 1) 미분계수 존재, 2) 연속</div>
+                    <p class="font-mono bg-white p-2 rounded text-center shadow-sm">
+                        \( f'(x) = \begin{cases} 2x+a & (x < 1) \\ 4 & (x > 1) \end{cases} \)
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-white p-3 rounded-xl border border-theme-200">
+                            <p class="font-bold text-sm text-theme-700 mb-1">① 미분가능 (좌우 미분계수 일치)</p>
+                            <p class="font-mono text-center">\( \lim_{x \to 1-} f'(x) = \lim_{x \to 1+} f'(x) \)</p>
+                            <p class="text-center font-bold text-rose-600 mt-1">\( 2+a = 4 \implies a=2 \)</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-theme-200">
+                            <p class="font-bold text-sm text-theme-700 mb-1">② 연속 (좌우 극한 및 함숫값 일치)</p>
+                            <p class="font-mono text-center">\( \lim_{x \to 1-} f(x) = \lim_{x \to 1+} f(x) \)</p>
+                            <p class="text-center font-bold text-rose-600 mt-1">\( 1+a+2 = 4+b \implies b=1 \)</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-200">
+                        <p>\( f'(x) \)와 \( f(x) \) 식이 완성되었으므로 값을 대입합니다.</p>
+                        <p class="font-mono mt-1 text-blue-700 font-bold">\( f'(-1) = 2(-1) + 2 = 0 \)</p>
+                        <p class="font-mono text-blue-700 font-bold">\( f(2) = 4(2) + 1 = 9 \)</p>
+                        <div class="text-center text-xl text-slate-800 font-bold bg-theme-100 p-2 rounded-lg mt-3">
+                            \( \therefore f'(-1) + f(2) = 0 + 9 = 9 \)
+                        </div>
+                    </div>
+                    <div class="text-base font-bold text-slate-700">정답: ④ 9</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 문제 5번 -->
+        <div class="glass-card rounded-2xl p-6 relative">
+            <div class="absolute top-6 left-6 text-2xl font-black text-theme-300 opacity-40">05</div>
+            <div class="ml-10">
+                <h2 class="text-lg font-bold mb-4">두 다항함수 \( f(x), g(x) \)가 <br>
+                ① \( \lim_{x \to 1} \frac{f(x)-2}{x-1} = 1 \), &nbsp; ② \( \lim_{x \to 1} \frac{g(x)+3}{x-1} = 4 \) <br>
+                를 만족시킬 때, \( \lim_{x \to 1} \frac{f(x)g(x) - f(1)g(1)}{x-1} \) 의 값은?</h2>
+                
+                <div class="bg-slate-50 p-4 rounded-xl space-y-4 text-lg">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="border-l-4 border-rose-400 pl-3">
+                            <p class="font-bold text-sm text-slate-500 mb-1">조건 ① 해석</p>
+                            <p class="font-mono text-rose-600 font-bold">\( f(1) = 2, \ f'(1) = 1 \)</p>
+                        </div>
+                        <div class="border-l-4 border-blue-400 pl-3">
+                            <p class="font-bold text-sm text-slate-500 mb-1">조건 ② 해석</p>
+                            <p class="font-mono text-blue-600 font-bold">\( g(1) = -3, \ g'(1) = 4 \)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                        <div class="teacher-pen text-sm mb-2">새로운 함수로 치환하기</div>
+                        <p class="mb-2">\( h(x) = f(x)g(x) \) 라고 하면,</p>
+                        <p class="font-mono mb-2 text-center text-theme-700 font-bold">
+                            \( \lim_{x \to 1} \frac{h(x)-h(1)}{x-1} = h'(1) \)
+                        </p>
+                        <div class="pt-2 border-t border-slate-200">
+                            <p class="text-sm text-slate-500 mb-1">곱의 미분법 적용:</p>
+                            <p class="font-mono text-center">\( h'(1) = f'(1)g(1) + f(1)g'(1) \)</p>
+                            <p class="font-mono font-bold text-xl text-center text-rose-600 mt-2">
+                                \( = (1)(-3) + (2)(4) = -3 + 8 = 5 \)
+                            </p>
+                        </div>
+                    </div>
+                    <div class="text-base font-bold text-slate-700">정답: ④ 5</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 문제 6번 -->
+        <div class="glass-card rounded-2xl p-6 relative">
+            <div class="absolute top-6 left-6 text-2xl font-black text-theme-300 opacity-40">06</div>
+            <div class="ml-10">
+                <h2 class="text-lg font-bold mb-4">곡선 \( y=x^3-x+7 \)의 접선 중에서 직선 \( y=2x+3 \)과 평행한 두 접선 사이의 거리는?</h2>
+                
+                <div class="bg-slate-50 p-4 rounded-xl space-y-4 text-lg">
+                    <div class="teacher-pen text-sm mb-2">💡 평행 = 기울기가 같다! 접점의 좌표 찾기</div>
+                    <div class="space-y-2">
+                        <p>접점을 \( (a, a^3-a+7) \) 이라 하면, 접선의 기울기 \( f'(a) = 2 \)</p>
+                        <p class="font-mono font-bold text-center bg-white p-2 rounded shadow-sm">
+                            \( 3a^2 - 1 = 2 \implies 3a^2 = 3 \implies a = \pm 1 \)
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-white p-3 rounded-xl border border-slate-200">
+                            <p class="font-bold text-sm text-blue-600 mb-1">i) \( a = 1 \) 일 때</p>
+                            <p>접점 \( (1, 7) \), 기울기 2</p>
+                            <p class="font-mono font-bold">\( y-7 = 2(x-1) \implies 2x-y+5 = 0 \)</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-slate-200">
+                            <p class="font-bold text-sm text-rose-600 mb-1">ii) \( a = -1 \) 일 때</p>
+                            <p>접점 \( (-1, 7) \), 기울기 2</p>
+                            <p class="font-mono font-bold">\( y-7 = 2(x+1) \implies 2x-y+9 = 0 \)</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-200">
+                        <p class="font-bold mb-2">두 평행한 직선 사이의 거리</p>
+                        <p class="text-sm text-slate-500 mb-2">※ \( 2x-y+5=0 \) 위의 한 점 (예: \((0, 5)\))과 다른 직선 \( 2x-y+9=0 \) 사이의 거리</p>
+                        <div class="font-mono text-center text-xl text-rose-600 font-bold bg-theme-100 p-3 rounded-xl">
+                            \( d = \frac{|2(0) - 5 + 9|}{\sqrt{2^2 + (-1)^2}} = \frac{4}{\sqrt{5}} = \frac{4\sqrt{5}}{5} \)
+                        </div>
+                    </div>
+                    <div class="text-base font-bold text-slate-700">정답: ④ \( \frac{4\sqrt{5}}{5} \)</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
