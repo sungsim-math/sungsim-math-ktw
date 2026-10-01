@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미적분 I - 논술형 수식 입력 실습 도구</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- 부드러운 고운돋움 폰트 적용 (장난스럽지 않고 단정한 느낌) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Gowun Dodum"', 'sans-serif'],
+                    },
+                    colors: {
+                        /* 파스텔 톤의 테마 컬러 (연보라 & 부드러운 민트) */
+                        primary: { 50: '#faf5ff', 100: '#f3e8ff', 200: '#e9d5ff', 500: '#a855f7', 600: '#9333ea', 700: '#7e22ce', 900: '#581c87' },
+                        secondary: { 50: '#f0fdfa', 100: '#ccfbf1', 500: '#14b8a6', 600: '#0d9488', 700: '#0f766e' },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            /* 부드러운 파스텔 그라데이션 배경 */
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            background: linear-gradient(to bottom right, #f8fafc, #f3e8ff, #f0fdfa);
+        }
+        
+        /* 글래스모피즘 스타일 적용 */
+        .glass-panel { 
+            background: rgba(255, 255, 255, 0.65); 
+            backdrop-filter: blur(12px); 
+            border: 1px solid rgba(255, 255, 255, 0.9); 
+            box-shadow: 0 8px 32px 0 rgba(100, 100, 150, 0.1); 
+        }
+        .math-font { font-family: 'Times New Roman', Times, serif; font-style: italic; }
+        
+        @media print {
+            body { background: white; -webkit-print-color-adjust: exact; }
+            .no-print { display: none !important; }
+            .glass-panel { box-shadow: none; border: 1px solid #ddd; background: transparent; }
+            textarea { display: none !important; } 
+            .print-page-break { page-break-before: always; }
+            .print-answer-box {
+                display: block !important;
+                background: transparent !important;
+                border: 1px solid #cbd5e1 !important;
+                box-shadow: none !important;
+                min-height: 100px;
+                margin-top: 0 !important;
+            }
+            .preview-header { display: none !important; } 
+        }
+    </style>
+</head>
+<body class="text-slate-700 antialiased min-h-screen">
+
+    <header class="bg-white/70 backdrop-blur-md border-b border-white/50 text-slate-800 shadow-sm no-print sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <h1 class="text-2xl font-bold tracking-tight text-primary-900 flex items-center gap-2">
+                    <span>📝</span> 미적분 I - 논술형 수식 입력 실습 도구
+                </h1>
+                <p class="text-slate-500 text-sm mt-1 ml-8">본 평가 전 수식 입력기(MathJax) 사용 및 개념 서술 연습용</p>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="window.print()" class="px-4 py-2 bg-primary-50 text-primary-700 border border-primary-200 hover:bg-primary-100 rounded-xl text-sm font-bold transition shadow-sm">제출용 PDF 저장</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <div class="lg:col-span-5 space-y-6">
+            
+            <div class="glass-panel rounded-3xl p-6 border-t-4 border-primary-500">
+                <h2 class="text-xl font-bold mb-4 flex items-center gap-2 text-primary-900">
+                    <span class="bg-primary-100 text-primary-700 p-1.5 rounded-xl text-sm">📍</span> 문제 제시
+                </h2>
+                <p class="text-sm text-slate-700 leading-relaxed mb-4">
+                    다음 두 함수 $f(x)$와 $g(x)$로 정의된 함수가 <strong>$x = 1$에서 연속이고 미분가능</strong>할 때, 상수 $a, b$의 값을 구하는 과정을 서술하시오.
+                </p>
+                <div class="bg-white/60 p-4 rounded-2xl border border-white text-sm shadow-sm">
+                    <p class="mb-2">기준점 <span class="math-font text-primary-600 font-bold">x = 1</span></p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-2">
+                            <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded font-mono text-xs">f(x)</span> 
+                            <span>\( = -x^2 + 2x + 2 \quad \) (<span class="math-font text-xs">x &lt; 1</span>)</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="bg-purple-100 text-purple-700 px-2 py-0.5 rounded font-mono text-xs">g(x)</span> 
+                            <span>\( = x^2 + ax + b \quad \) (<span class="math-font text-xs">x ≥ 1</span>)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-3xl p-6 border-t-4 border-secondary-500 no-print">
+                <h2 class="text-xl font-bold mb-4 flex items-center gap-2 text-secondary-900">
+                    <span class="bg-secondary-100 text-secondary-700 p-1.5 rounded-xl text-sm">📊</span> 함수 그래프 확인
+                </h2>
+                <p class="text-xs text-slate-500 mb-4">슬라이더를 움직여 상수 a, b값을 조절하며 $x=1$에서의 그래프 변화를 관찰하세요.</p>
+                
+                <div class="bg-white/80 p-2 rounded-2xl border border-white mb-6 h-64 relative shadow-inner">
+                    <canvas id="trackChart"></canvas>
+                </div>
+
+                <div class="space-y-5">
+                    <div class="bg-white/50 p-3 rounded-xl border border-white shadow-sm">
+                        <div class="flex justify-between text-sm font-semibold mb-2">
+                            <label class="text-slate-700">상수 <span class="math-font text-lg text-secondary-600">a</span></label>
+                            <span id="val-a" class="text-secondary-600 font-mono bg-white px-2 rounded-md shadow-sm">0</span>
+                        </div>
+                        <input type="range" id="slider-a" min="-10" max="5" step="0.5" value="0" class="w-full accent-secondary-500">
+                    </div>
+                    <div class="bg-white/50 p-3 rounded-xl border border-white shadow-sm">
+                        <div class="flex justify-between text-sm font-semibold mb-2">
+                            <label class="text-slate-700">상수 <span class="math-font text-lg text-secondary-600">b</span></label>
+                            <span id="val-b" class="text-secondary-600 font-mono bg-white px-2 rounded-md shadow-sm">0</span>
+                        </div>
+                        <input type="range" id="slider-b" min="-5" max="10" step="0.5" value="0" class="w-full accent-secondary-500">
+                    </div>
+                </div>
+
+                <div class="mt-4 p-3 bg-white/60 rounded-xl text-xs grid grid-cols-2 gap-2 text-center shadow-sm border border-white">
+                    <div class="border-r border-slate-200">
+                        <span class="block text-slate-500 mb-1"><span class="math-font text-sm">f(x)</span> 접선 기울기 <br><span class="math-font">f '(1)</span></span>
+                        <strong class="text-blue-500 text-lg">0</strong>
+                    </div>
+                    <div>
+                        <span class="block text-slate-500 mb-1"><span class="math-font text-sm">g(x)</span> 접선 기울기 <br><span class="math-font">g '(1) = 2 + a</span></span>
+                        <strong id="val-g-prime" class="text-purple-500 text-lg"></strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:col-span-7 space-y-6">
+            
+            <div class="flex justify-between items-end mb-2">
+                <h2 class="text-2xl font-extrabold text-primary-900">✏️ 답안 작성란</h2>
+                <div class="text-sm font-semibold flex items-center gap-2 bg-white/50 px-3 py-1.5 rounded-xl border border-white shadow-sm">
+                    <label class="text-slate-600">학번/이름:</label>
+                    <input type="text" class="border-b-2 border-slate-300 focus:border-primary-400 outline-none px-2 py-1 bg-transparent w-32 font-bold text-slate-800">
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-3xl p-6 relative">
+                <div class="absolute -left-3 -top-3 bg-primary-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-md">1</div>
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-lg font-bold text-slate-800">[연속성 개념의 정확한 이해 및 적용]</h3>
+                </div>
+                <p class="text-sm text-slate-600 mb-4">주어진 함수가 <span class="math-font">x=1</span>에서 <strong>연속</strong>이기 위한 조건을 기호(식)로 제시하고, 이를 바탕으로 상수 <span class="math-font">a, b</span> 사이의 관계식을 도출하는 과정을 서술하시오.</p>
+                <div>
+                    <div class="bg-white/80 p-2 rounded-t-2xl border border-slate-200 border-b-0 flex flex-wrap gap-1.5 text-sm no-print items-center shadow-sm">
+                        <span class="text-xs text-slate-500 font-bold mr-1">수식 도우미:</span>
+                        <button type="button" onclick="insertMath(this, '$\\lim\\limits_{x \\to 1-}$ ')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(\lim\limits_{x \to 1-}\)</button>
+                        <button type="button" onclick="insertMath(this, '$\\lim\\limits_{x \\to 1+}$ ')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(\lim\limits_{x \to 1+}\)</button>
+                        <button type="button" onclick="insertMath(this, '$f(x)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(f(x)\)</button>
+                        <button type="button" onclick="insertMath(this, '$g(x)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(g(x)\)</button>
+                        <button type="button" onclick="insertMath(this, '$f(1)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(f(1)\)</button>
+                        <button type="button" onclick="insertMath(this, '$g(1)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(g(1)\)</button>
+                        <button type="button" onclick="insertMath(this, '$x$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(x\)</button>
+                        <button type="button" onclick="insertMath(this, '$a$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs italic transition">\(a\)</button>
+                        <button type="button" onclick="insertMath(this, '$b$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs italic transition">\(b\)</button>
+                        <button type="button" onclick="insertMath(this, '$+$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(+\)</button>
+                        <button type="button" onclick="insertMath(this, '$-$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(-\)</button>
+                        <button type="button" onclick="insertMath(this, '$=$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(=\)</button>
+                    </div>
+                    <textarea rows="4" placeholder="여기에 연속성 조건과 풀이 과정을 작성하세요. (수식은 도우미 버튼을 누르거나 $ 기호로 감싸 입력하면 미리보기가 지원됩니다.)" class="w-full p-4 border border-slate-200 rounded-b-2xl focus:ring-2 focus:ring-primary-400 focus:border-transparent resize-y outline-none bg-white/90 shadow-inner"></textarea>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-3xl p-6 relative">
+                <div class="absolute -left-3 -top-3 bg-primary-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-md">2</div>
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-lg font-bold text-slate-800">[미분가능성 개념의 정확한 이해 및 적용]</h3>
+                </div>
+                <p class="text-sm text-slate-600 mb-4">주어진 함수가 <span class="math-font">x=1</span>에서 <strong>미분가능</strong>하기 위한 조건을 제시하고, 1번 문항에서 구한 조건과 연립하여 상수 <span class="math-font">a</span>와 <span class="math-font">b</span>의 값을 구하는 풀이 과정을 서술하시오.</p>
+
+                <div class="bg-white/60 p-3 rounded-2xl flex gap-4 mb-4 items-center w-full md:w-1/2 border border-white shadow-sm">
+                    <span class="font-bold text-slate-700">최종 결과:</span>
+                    <label class="flex items-center gap-1"><span class="math-font italic">a</span> = <input type="number" class="w-16 bg-white border border-slate-200 rounded-lg px-2 py-1 focus:ring-2 focus:ring-primary-400"></label>
+                    <label class="flex items-center gap-1"><span class="math-font italic">b</span> = <input type="number" class="w-16 bg-white border border-slate-200 rounded-lg px-2 py-1 focus:ring-2 focus:ring-primary-400"></label>
+                </div>
+                <div>
+                    <div class="bg-white/80 p-2 rounded-t-2xl border border-slate-200 border-b-0 flex flex-wrap gap-1.5 text-sm no-print items-center shadow-sm">
+                        <span class="text-xs text-slate-500 font-bold mr-1">수식 도우미:</span>
+                        <button type="button" onclick="insertMath(this, '$\\lim\\limits_{x \\to 1-}$ ')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(\lim\limits_{x \to 1-}\)</button>
+                        <button type="button" onclick="insertMath(this, '$\\lim\\limits_{x \\to 1+}$ ')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(\lim\limits_{x \to 1+}\)</button>
+                        <button type="button" onclick="insertMath(this, '$f^{\\prime}(x)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(f '(x)\)</button>
+                        <button type="button" onclick="insertMath(this, '$g^{\\prime}(x)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(g '(x)\)</button>
+                        <button type="button" onclick="insertMath(this, '$f^{\\prime}(1)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(f '(1)\)</button>
+                        <button type="button" onclick="insertMath(this, '$g^{\\prime}(1)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(g '(1)\)</button>
+                        <button type="button" onclick="insertMath(this, '$a$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs italic transition">\(a\)</button>
+                        <button type="button" onclick="insertMath(this, '$b$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs italic transition">\(b\)</button>
+                        <button type="button" onclick="insertMath(this, '$+$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(+\)</button>
+                        <button type="button" onclick="insertMath(this, '$-$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(-\)</button>
+                        <button type="button" onclick="insertMath(this, '$=$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(=\)</button>
+                    </div>
+                    <textarea rows="5" placeholder="자세한 풀이 과정을 서술하세요. (수식은 $ 기호로 감싸면 미리보기가 지원됩니다.)" class="w-full p-4 border border-slate-200 rounded-b-2xl focus:ring-2 focus:ring-primary-400 focus:border-transparent resize-y outline-none bg-white/90 shadow-inner"></textarea>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-3xl p-6 relative print-page-break">
+                <div class="absolute -left-3 -top-3 bg-primary-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-md">3</div>
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-lg font-bold text-slate-800">[올바른 개념 기반의 의사결정 제안 서술]</h3>
+                </div>
+                <p class="text-sm text-slate-600 mb-4">
+                    함수가 연속이지만 <strong>미분불가능한 지점(첨점)</strong>에서는 좌미분계수와 우미분계수가 어떻게 다른지 기하학적 의미(접선의 기울기)를 들어 설명하고, 미분가능성이 기하학적으로 그래프에서 어떻게 나타나는지 서술하시오.
+                </p>
+                <div>
+                    <div class="bg-white/80 p-2 rounded-t-2xl border border-slate-200 border-b-0 flex flex-wrap gap-1.5 text-sm no-print items-center shadow-sm">
+                        <span class="text-xs text-slate-500 font-bold mr-1">수식 도우미:</span>
+                        <button type="button" onclick="insertMath(this, '$\\lim\\limits_{x \\to 1-}$ ')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(\lim\limits_{x \to 1-}\)</button>
+                        <button type="button" onclick="insertMath(this, '$\\lim\\limits_{x \\to 1+}$ ')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(\lim\limits_{x \to 1+}\)</button>
+                        <button type="button" onclick="insertMath(this, '$f^{\\prime}(x)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(f '(x)\)</button>
+                        <button type="button" onclick="insertMath(this, '$g^{\\prime}(x)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(g '(x)\)</button>
+                        <button type="button" onclick="insertMath(this, '$f^{\\prime}(1)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(f '(1)\)</button>
+                        <button type="button" onclick="insertMath(this, '$g^{\\prime}(1)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(g '(1)\)</button>
+                        <button type="button" onclick="insertMath(this, '$a$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs italic transition">\(a\)</button>
+                        <button type="button" onclick="insertMath(this, '$b$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs italic transition">\(b\)</button>
+                        <button type="button" onclick="insertMath(this, '$-$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(-\)</button>
+                        <button type="button" onclick="insertMath(this, '$0$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(0\)</button>
+                        <button type="button" onclick="insertMath(this, '$=$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(=\)</button>
+                        <button type="button" onclick="insertMath(this, '$\\neq$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(\neq\)</button>
+                    </div>
+                    <textarea rows="8" placeholder="개념에 대한 서술을 작성하세요. (수식은 $ 기호로 감싸면 미리보기가 지원됩니다.)" class="w-full p-4 border border-slate-200 rounded-b-2xl focus:ring-2 focus:ring-primary-400 focus:border-transparent resize-y outline-none bg-white/90 shadow-inner"></textarea>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const textareas = document.querySelectorAll('textarea');
+        let previewTimeout;
+
+        textareas.forEach(textarea => {
+            const previewDiv = document.createElement('div');
+            previewDiv.className = 'mt-2 p-3 bg-white/60 border border-primary-100 rounded-xl shadow-sm hidden print-answer-box transition-all duration-300 backdrop-blur-md';
+            previewDiv.innerHTML = `
+                <span class="preview-header text-xs text-primary-600 font-bold mb-1 flex items-center gap-1">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg> 
+                    수식 렌더링 확인
+                </span>
+                <div class="preview-content text-sm text-slate-800 leading-relaxed min-h-[1.5rem]" style="white-space: pre-wrap;"></div>
+            `;
+            textarea.parentNode.insertBefore(previewDiv, textarea.nextSibling);
+
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+                
+                const contentDiv = previewDiv.querySelector('.preview-content');
+                const val = this.value.trim();
+                
+                if (val === '') {
+                    previewDiv.classList.add('hidden');
+                } else {
+                    previewDiv.classList.remove('hidden');
+                    contentDiv.textContent = val;
+                    
+                    clearTimeout(previewTimeout);
+                    previewTimeout = setTimeout(() => {
+                        if(window.MathJax) {
+                            MathJax.typesetPromise([contentDiv]).catch(err => console.log(err));
+                        }
+                    }, 300); 
+                }
+            });
+        });
+
+        function insertMath(btn, text) {
+            const textarea = btn.parentElement.nextElementSibling;
+            if (textarea && textarea.tagName === 'TEXTAREA') {
+                const start = textarea.selectionStart;
+                const end = textarea.selectionEnd;
+                const currentVal = textarea.value;
+                
+                textarea.value = currentVal.substring(0, start) + text + currentVal.substring(end);
+                
+                const newPos = start + text.length;
+                textarea.selectionStart = newPos;
+                textarea.selectionEnd = newPos;
+                textarea.focus();
+                
+                textarea.dispatchEvent(new Event('input')); 
+            }
+        }
+
+        let trackChart = null;
+        const sliderA = document.getElementById('slider-a');
+        const sliderB = document.getElementById('slider-b');
+        const valA = document.getElementById('val-a');
+        const valB = document.getElementById('val-b');
+        const valGPrime = document.getElementById('val-g-prime');
+
+        function initChart() {
+            const ctx = document.getElementById('trackChart').getContext('2d');
+            
+            trackChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [
+                        {
+                            label: '함수 f(x)',
+                            borderColor: '#3b82f6',
+                            backgroundColor: '#3b82f6',
+                            borderWidth: 4,
+                            pointRadius: 0,
+                            data: [],
+                            tension: 0.4
+                        },
+                        {
+                            label: '함수 g(x)',
+                            borderColor: '#a855f7',
+                            backgroundColor: '#a855f7',
+                            borderWidth: 4,
+                            pointRadius: 0,
+                            data: [],
+                            tension: 0.4
+                        },
+                        {
+                            label: 'x=1 에서의 f(x) 접선',
+                            borderColor: 'rgba(59, 130, 246, 0.4)',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            pointRadius: 0,
+                            data: []
+                        },
+                        {
+                            label: 'x=1 에서의 g(x) 접선',
+                            borderColor: 'rgba(168, 85, 247, 0.4)',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            pointRadius: 0,
+                            data: []
+                        },
+                        {
+                            label: '확인 지점',
+                            backgroundColor: '#f43f5e', 
+                            borderColor: 'white',
+                            borderWidth: 2,
+                            pointRadius: 6,
+                            pointHoverRadius: 8,
+                            data: [{x: 1, y: 3}], 
+                            showLine: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: { duration: 0 }, 
+                    scales: {
+                        x: { 
+                            type: 'linear', 
+                            position: 'bottom',
+                            min: -2, max: 4, 
+                            grid: { color: 'rgba(0,0,0,0.05)' }
+                        },
+                        y: { 
+                            min: -2, max: 8, 
+                            grid: { color: 'rgba(0,0,0,0.05)' }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: false }
+                    }
+                }
+            });
+            updateChart();
+        }
+
+        function updateChart() {
+            const a = parseFloat(sliderA.value);
+            const b = parseFloat(sliderB.value);
+            
+            valA.textContent = a;
+            valB.textContent = b;
+            valGPrime.textContent = 2 + a; 
+
+            const dataA = [];
+            const dataB = [];
+            
+            for (let x = -2; x <= 1.01; x += 0.1) {
+                dataA.push({ x: x, y: -(x * x) + 2 * x + 2 });
+            }
+            
+            for (let x = 1; x <= 4; x += 0.1) {
+                dataB.push({ x: x, y: (x * x) + a * x + b });
+            }
+
+            const tangentA = [
+                {x: 0, y: 3}, {x: 1, y: 3}
+            ];
+
+            const g1 = 1 + a + b; 
+            const slopeB = 2 + a;
+            const tangentB = [
+                {x: 1, y: g1},
+                {x: 2, y: g1 + slopeB * 1}
+            ];
+
+            trackChart.data.datasets[0].data = dataA;
+            trackChart.data.datasets[1].data = dataB;
+            trackChart.data.datasets[2].data = tangentA;
+            trackChart.data.datasets[3].data = tangentB;
+            
+            trackChart.data.datasets[4].data = [{x: 1, y: 3}, {x: 1, y: g1}]; 
+
+            trackChart.update();
+        }
+
+        sliderA.addEventListener('input', updateChart);
+        sliderB.addEventListener('input', updateChart);
+
+        window.onload = function() {
+            initChart();
+            if(window.MathJax) {
+                MathJax.typesetPromise();
+            }
+        };
+    </script>
+</body>
+</html>
