@@ -14,7 +14,14 @@
 
     <script>
         window.MathJax = {
-            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+            tex: { 
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                packages: {'[+]': ['textmacros']}
+            },
+            chtml: {
+                matchFontHeight: true, /* 주변 웹 폰트(고운돋움)와 높이를 일치시켜 자연스럽게 어우러지도록 설정 */
+                scale: 1.05 /* 수식 렌더링 스케일을 미세하게 키워 시인성 확보 */
+            }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -27,7 +34,6 @@
                         sans: ['"Gowun Dodum"', 'sans-serif'],
                     },
                     colors: {
-                        /* 파스텔 톤의 테마 컬러 (연보라 & 부드러운 민트) */
                         primary: { 50: '#faf5ff', 100: '#f3e8ff', 200: '#e9d5ff', 500: '#a855f7', 600: '#9333ea', 700: '#7e22ce', 900: '#581c87' },
                         secondary: { 50: '#f0fdfa', 100: '#ccfbf1', 500: '#14b8a6', 600: '#0d9488', 700: '#0f766e' },
                     }
@@ -35,26 +41,27 @@
             }
         }
     </script>
+    
     <style>
         body { 
-            /* 부드러운 파스텔 그라데이션 배경 */
             background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
             background: linear-gradient(to bottom right, #f8fafc, #f3e8ff, #f0fdfa);
         }
         
-        /* 글래스모피즘 스타일 적용 */
         .glass-panel { 
             background: rgba(255, 255, 255, 0.65); 
             backdrop-filter: blur(12px); 
             border: 1px solid rgba(255, 255, 255, 0.9); 
             box-shadow: 0 8px 32px 0 rgba(100, 100, 150, 0.1); 
         }
-        .math-font { font-family: 'Times New Roman', Times, serif; font-style: italic; }
+        
+        /* MathJax 컨테이너가 텍스트 흐름을 방해하지 않도록 색상 및 마진 동기화 */
+        mjx-container { color: inherit; }
         
         @media print {
-            body { background: white; -webkit-print-color-adjust: exact; }
+            body { background: white; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .no-print { display: none !important; }
-            .glass-panel { box-shadow: none; border: 1px solid #ddd; background: transparent; }
+            .glass-panel { box-shadow: none; border: 1px solid #ddd; background: transparent; backdrop-filter: none; }
             textarea { display: none !important; } 
             .print-page-break { page-break-before: always; }
             .print-answer-box {
@@ -93,19 +100,20 @@
                 <h2 class="text-xl font-bold mb-4 flex items-center gap-2 text-primary-900">
                     <span class="bg-primary-100 text-primary-700 p-1.5 rounded-xl text-sm">📍</span> 문제 제시
                 </h2>
+                <!-- 가짜 폰트를 지우고 완벽한 MathJax \( ... \) 로 통일 -->
                 <p class="text-sm text-slate-700 leading-relaxed mb-4">
-                    다음 두 함수 $f(x)$와 $g(x)$로 정의된 함수가 <strong>$x = 1$에서 연속이고 미분가능</strong>할 때, 상수 $a, b$의 값을 구하는 과정을 서술하시오.
+                    다음 두 함수 \(f(x)\)와 \(g(x)\)로 정의된 함수가 <strong>\(x = 1\)에서 연속이고 미분가능</strong>할 때, 상수 \(a, b\)의 값을 구하는 과정을 서술하시오.
                 </p>
                 <div class="bg-white/60 p-4 rounded-2xl border border-white text-sm shadow-sm">
-                    <p class="mb-2">기준점 <span class="math-font text-primary-600 font-bold">x = 1</span></p>
-                    <ul class="space-y-3">
-                        <li class="flex items-center gap-2">
-                            <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded font-mono text-xs">f(x)</span> 
-                            <span>\( = -x^2 + 2x + 2 \quad \) (<span class="math-font text-xs">x &lt; 1</span>)</span>
+                    <p class="mb-3 text-slate-600 font-bold">기준점 <span class="text-primary-600 text-base">\(x = 1\)</span></p>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-3">
+                            <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-lg text-sm font-bold shadow-sm">\(f(x)\)</span> 
+                            <span class="text-slate-800 text-base">\( = -x^2 + 2x + 2 \quad (x < 1) \)</span>
                         </li>
-                        <li class="flex items-center gap-2">
-                            <span class="bg-purple-100 text-purple-700 px-2 py-0.5 rounded font-mono text-xs">g(x)</span> 
-                            <span>\( = x^2 + ax + b \quad \) (<span class="math-font text-xs">x ≥ 1</span>)</span>
+                        <li class="flex items-center gap-3">
+                            <span class="bg-purple-100 text-purple-700 px-2 py-1 rounded-lg text-sm font-bold shadow-sm">\(g(x)\)</span> 
+                            <span class="text-slate-800 text-base">\( = x^2 + ax + b \quad (x \ge 1) \)</span>
                         </li>
                     </ul>
                 </div>
@@ -115,7 +123,7 @@
                 <h2 class="text-xl font-bold mb-4 flex items-center gap-2 text-secondary-900">
                     <span class="bg-secondary-100 text-secondary-700 p-1.5 rounded-xl text-sm">📊</span> 함수 그래프 확인
                 </h2>
-                <p class="text-xs text-slate-500 mb-4">슬라이더를 움직여 상수 a, b값을 조절하며 $x=1$에서의 그래프 변화를 관찰하세요.</p>
+                <p class="text-xs text-slate-500 mb-4">슬라이더를 움직여 상수 \(a, b\)값을 조절하며 \(x=1\)에서의 그래프 변화를 관찰하세요.</p>
                 
                 <div class="bg-white/80 p-2 rounded-2xl border border-white mb-6 h-64 relative shadow-inner">
                     <canvas id="trackChart"></canvas>
@@ -123,28 +131,28 @@
 
                 <div class="space-y-5">
                     <div class="bg-white/50 p-3 rounded-xl border border-white shadow-sm">
-                        <div class="flex justify-between text-sm font-semibold mb-2">
-                            <label class="text-slate-700">상수 <span class="math-font text-lg text-secondary-600">a</span></label>
-                            <span id="val-a" class="text-secondary-600 font-mono bg-white px-2 rounded-md shadow-sm">0</span>
+                        <div class="flex justify-between items-center text-sm font-semibold mb-2">
+                            <label class="text-slate-700 flex items-center gap-1">상수 <span class="text-secondary-600 text-lg">\(a\)</span></label>
+                            <span id="val-a" class="text-secondary-600 font-mono bg-white px-2 py-0.5 rounded-md shadow-sm">0</span>
                         </div>
                         <input type="range" id="slider-a" min="-10" max="5" step="0.5" value="0" class="w-full accent-secondary-500">
                     </div>
                     <div class="bg-white/50 p-3 rounded-xl border border-white shadow-sm">
-                        <div class="flex justify-between text-sm font-semibold mb-2">
-                            <label class="text-slate-700">상수 <span class="math-font text-lg text-secondary-600">b</span></label>
-                            <span id="val-b" class="text-secondary-600 font-mono bg-white px-2 rounded-md shadow-sm">0</span>
+                        <div class="flex justify-between items-center text-sm font-semibold mb-2">
+                            <label class="text-slate-700 flex items-center gap-1">상수 <span class="text-secondary-600 text-lg">\(b\)</span></label>
+                            <span id="val-b" class="text-secondary-600 font-mono bg-white px-2 py-0.5 rounded-md shadow-sm">0</span>
                         </div>
                         <input type="range" id="slider-b" min="-5" max="10" step="0.5" value="0" class="w-full accent-secondary-500">
                     </div>
                 </div>
 
                 <div class="mt-4 p-3 bg-white/60 rounded-xl text-xs grid grid-cols-2 gap-2 text-center shadow-sm border border-white">
-                    <div class="border-r border-slate-200">
-                        <span class="block text-slate-500 mb-1"><span class="math-font text-sm">f(x)</span> 접선 기울기 <br><span class="math-font">f '(1)</span></span>
+                    <div class="border-r border-slate-200 flex flex-col justify-center">
+                        <span class="block text-slate-500 mb-1">\(f(x)\) 접선 기울기 <br><span class="text-sm">\(f'(1)\)</span></span>
                         <strong class="text-blue-500 text-lg">0</strong>
                     </div>
-                    <div>
-                        <span class="block text-slate-500 mb-1"><span class="math-font text-sm">g(x)</span> 접선 기울기 <br><span class="math-font">g '(1) = 2 + a</span></span>
+                    <div class="flex flex-col justify-center">
+                        <span class="block text-slate-500 mb-1">\(g(x)\) 접선 기울기 <br><span class="text-sm">\(g'(1) = 2 + a\)</span></span>
                         <strong id="val-g-prime" class="text-purple-500 text-lg"></strong>
                     </div>
                 </div>
@@ -166,24 +174,24 @@
                 <div class="flex justify-between items-start mb-2">
                     <h3 class="text-lg font-bold text-slate-800">[연속성 개념의 정확한 이해 및 적용]</h3>
                 </div>
-                <p class="text-sm text-slate-600 mb-4">주어진 함수가 <span class="math-font">x=1</span>에서 <strong>연속</strong>이기 위한 조건을 기호(식)로 제시하고, 이를 바탕으로 상수 <span class="math-font">a, b</span> 사이의 관계식을 도출하는 과정을 서술하시오.</p>
+                <p class="text-sm text-slate-600 mb-4">주어진 함수가 \(x=1\)에서 <strong>연속</strong>이기 위한 조건을 기호(식)로 제시하고, 이를 바탕으로 상수 \(a, b\) 사이의 관계식을 도출하는 과정을 서술하시오.</p>
                 <div>
                     <div class="bg-white/80 p-2 rounded-t-2xl border border-slate-200 border-b-0 flex flex-wrap gap-1.5 text-sm no-print items-center shadow-sm">
                         <span class="text-xs text-slate-500 font-bold mr-1">수식 도우미:</span>
                         <button type="button" onclick="insertMath(this, '$\\lim\\limits_{x \\to 1-}$ ')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(\lim\limits_{x \to 1-}\)</button>
                         <button type="button" onclick="insertMath(this, '$\\lim\\limits_{x \\to 1+}$ ')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(\lim\limits_{x \to 1+}\)</button>
-                        <button type="button" onclick="insertMath(this, '$f(x)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(f(x)\)</button>
-                        <button type="button" onclick="insertMath(this, '$g(x)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(g(x)\)</button>
-                        <button type="button" onclick="insertMath(this, '$f(1)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(f(1)\)</button>
-                        <button type="button" onclick="insertMath(this, '$g(1)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(g(1)\)</button>
-                        <button type="button" onclick="insertMath(this, '$x$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(x\)</button>
-                        <button type="button" onclick="insertMath(this, '$a$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs italic transition">\(a\)</button>
-                        <button type="button" onclick="insertMath(this, '$b$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs italic transition">\(b\)</button>
-                        <button type="button" onclick="insertMath(this, '$+$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(+\)</button>
-                        <button type="button" onclick="insertMath(this, '$-$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(-\)</button>
-                        <button type="button" onclick="insertMath(this, '$=$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(=\)</button>
+                        <button type="button" onclick="insertMath(this, '$f(x)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(f(x)\)</button>
+                        <button type="button" onclick="insertMath(this, '$g(x)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(g(x)\)</button>
+                        <button type="button" onclick="insertMath(this, '$f(1)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(f(1)\)</button>
+                        <button type="button" onclick="insertMath(this, '$g(1)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(g(1)\)</button>
+                        <button type="button" onclick="insertMath(this, '$x$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(x\)</button>
+                        <button type="button" onclick="insertMath(this, '$a$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(a\)</button>
+                        <button type="button" onclick="insertMath(this, '$b$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(b\)</button>
+                        <button type="button" onclick="insertMath(this, '$+$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(+\)</button>
+                        <button type="button" onclick="insertMath(this, '$-$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(-\)</button>
+                        <button type="button" onclick="insertMath(this, '$=$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(=\)</button>
                     </div>
-                    <textarea rows="4" placeholder="여기에 연속성 조건과 풀이 과정을 작성하세요. (수식은 도우미 버튼을 누르거나 $ 기호로 감싸 입력하면 미리보기가 지원됩니다.)" class="w-full p-4 border border-slate-200 rounded-b-2xl focus:ring-2 focus:ring-primary-400 focus:border-transparent resize-y outline-none bg-white/90 shadow-inner"></textarea>
+                    <textarea rows="4" placeholder="여기에 연속성 조건과 풀이 과정을 작성하세요. (수식은 도우미 버튼을 누르거나 $ 기호로 감싸 입력하면 미리보기가 지원됩니다.)" class="w-full p-4 border border-slate-200 rounded-b-2xl focus:ring-2 focus:ring-primary-400 focus:border-transparent resize-y outline-none bg-white/90 shadow-inner text-sm"></textarea>
                 </div>
             </div>
 
@@ -192,29 +200,29 @@
                 <div class="flex justify-between items-start mb-2">
                     <h3 class="text-lg font-bold text-slate-800">[미분가능성 개념의 정확한 이해 및 적용]</h3>
                 </div>
-                <p class="text-sm text-slate-600 mb-4">주어진 함수가 <span class="math-font">x=1</span>에서 <strong>미분가능</strong>하기 위한 조건을 제시하고, 1번 문항에서 구한 조건과 연립하여 상수 <span class="math-font">a</span>와 <span class="math-font">b</span>의 값을 구하는 풀이 과정을 서술하시오.</p>
+                <p class="text-sm text-slate-600 mb-4">주어진 함수가 \(x=1\)에서 <strong>미분가능</strong>하기 위한 조건을 제시하고, 1번 문항에서 구한 조건과 연립하여 상수 \(a\)와 \(b\)의 값을 구하는 풀이 과정을 서술하시오.</p>
 
-                <div class="bg-white/60 p-3 rounded-2xl flex gap-4 mb-4 items-center w-full md:w-1/2 border border-white shadow-sm">
-                    <span class="font-bold text-slate-700">최종 결과:</span>
-                    <label class="flex items-center gap-1"><span class="math-font italic">a</span> = <input type="number" class="w-16 bg-white border border-slate-200 rounded-lg px-2 py-1 focus:ring-2 focus:ring-primary-400"></label>
-                    <label class="flex items-center gap-1"><span class="math-font italic">b</span> = <input type="number" class="w-16 bg-white border border-slate-200 rounded-lg px-2 py-1 focus:ring-2 focus:ring-primary-400"></label>
+                <div class="bg-white/60 p-3 rounded-2xl flex gap-5 mb-4 items-center w-full md:w-max border border-white shadow-sm">
+                    <span class="font-bold text-slate-700 text-sm">최종 결과:</span>
+                    <label class="flex items-center gap-2 text-base text-secondary-700 font-bold">\(a\) = <input type="number" class="w-16 bg-white border border-slate-200 text-slate-800 rounded-lg px-2 py-1 focus:ring-2 focus:ring-primary-400 font-sans font-normal text-sm"></label>
+                    <label class="flex items-center gap-2 text-base text-secondary-700 font-bold">\(b\) = <input type="number" class="w-16 bg-white border border-slate-200 text-slate-800 rounded-lg px-2 py-1 focus:ring-2 focus:ring-primary-400 font-sans font-normal text-sm"></label>
                 </div>
                 <div>
                     <div class="bg-white/80 p-2 rounded-t-2xl border border-slate-200 border-b-0 flex flex-wrap gap-1.5 text-sm no-print items-center shadow-sm">
                         <span class="text-xs text-slate-500 font-bold mr-1">수식 도우미:</span>
                         <button type="button" onclick="insertMath(this, '$\\lim\\limits_{x \\to 1-}$ ')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(\lim\limits_{x \to 1-}\)</button>
                         <button type="button" onclick="insertMath(this, '$\\lim\\limits_{x \\to 1+}$ ')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(\lim\limits_{x \to 1+}\)</button>
-                        <button type="button" onclick="insertMath(this, '$f^{\\prime}(x)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(f '(x)\)</button>
-                        <button type="button" onclick="insertMath(this, '$g^{\\prime}(x)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(g '(x)\)</button>
-                        <button type="button" onclick="insertMath(this, '$f^{\\prime}(1)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(f '(1)\)</button>
-                        <button type="button" onclick="insertMath(this, '$g^{\\prime}(1)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(g '(1)\)</button>
-                        <button type="button" onclick="insertMath(this, '$a$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs italic transition">\(a\)</button>
-                        <button type="button" onclick="insertMath(this, '$b$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs italic transition">\(b\)</button>
-                        <button type="button" onclick="insertMath(this, '$+$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(+\)</button>
-                        <button type="button" onclick="insertMath(this, '$-$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(-\)</button>
-                        <button type="button" onclick="insertMath(this, '$=$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(=\)</button>
+                        <button type="button" onclick="insertMath(this, '$f^{\\prime}(x)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(f'(x)\)</button>
+                        <button type="button" onclick="insertMath(this, '$g^{\\prime}(x)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(g'(x)\)</button>
+                        <button type="button" onclick="insertMath(this, '$f^{\\prime}(1)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(f'(1)\)</button>
+                        <button type="button" onclick="insertMath(this, '$g^{\\prime}(1)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(g'(1)\)</button>
+                        <button type="button" onclick="insertMath(this, '$a$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(a\)</button>
+                        <button type="button" onclick="insertMath(this, '$b$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(b\)</button>
+                        <button type="button" onclick="insertMath(this, '$+$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(+\)</button>
+                        <button type="button" onclick="insertMath(this, '$-$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(-\)</button>
+                        <button type="button" onclick="insertMath(this, '$=$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(=\)</button>
                     </div>
-                    <textarea rows="5" placeholder="자세한 풀이 과정을 서술하세요. (수식은 $ 기호로 감싸면 미리보기가 지원됩니다.)" class="w-full p-4 border border-slate-200 rounded-b-2xl focus:ring-2 focus:ring-primary-400 focus:border-transparent resize-y outline-none bg-white/90 shadow-inner"></textarea>
+                    <textarea rows="5" placeholder="자세한 풀이 과정을 서술하세요. (수식은 $ 기호로 감싸면 미리보기가 지원됩니다.)" class="w-full p-4 border border-slate-200 rounded-b-2xl focus:ring-2 focus:ring-primary-400 focus:border-transparent resize-y outline-none bg-white/90 shadow-inner text-sm"></textarea>
                 </div>
             </div>
 
@@ -231,18 +239,18 @@
                         <span class="text-xs text-slate-500 font-bold mr-1">수식 도우미:</span>
                         <button type="button" onclick="insertMath(this, '$\\lim\\limits_{x \\to 1-}$ ')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(\lim\limits_{x \to 1-}\)</button>
                         <button type="button" onclick="insertMath(this, '$\\lim\\limits_{x \\to 1+}$ ')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(\lim\limits_{x \to 1+}\)</button>
-                        <button type="button" onclick="insertMath(this, '$f^{\\prime}(x)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(f '(x)\)</button>
-                        <button type="button" onclick="insertMath(this, '$g^{\\prime}(x)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(g '(x)\)</button>
-                        <button type="button" onclick="insertMath(this, '$f^{\\prime}(1)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(f '(1)\)</button>
-                        <button type="button" onclick="insertMath(this, '$g^{\\prime}(1)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(g '(1)\)</button>
-                        <button type="button" onclick="insertMath(this, '$a$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs italic transition">\(a\)</button>
-                        <button type="button" onclick="insertMath(this, '$b$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs italic transition">\(b\)</button>
-                        <button type="button" onclick="insertMath(this, '$-$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(-\)</button>
-                        <button type="button" onclick="insertMath(this, '$0$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(0\)</button>
-                        <button type="button" onclick="insertMath(this, '$=$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(=\)</button>
-                        <button type="button" onclick="insertMath(this, '$\\neq$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white font-mono text-xs transition">\(\neq\)</button>
+                        <button type="button" onclick="insertMath(this, '$f^{\\prime}(x)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(f'(x)\)</button>
+                        <button type="button" onclick="insertMath(this, '$g^{\\prime}(x)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(g'(x)\)</button>
+                        <button type="button" onclick="insertMath(this, '$f^{\\prime}(1)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(f'(1)\)</button>
+                        <button type="button" onclick="insertMath(this, '$g^{\\prime}(1)$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(g'(1)\)</button>
+                        <button type="button" onclick="insertMath(this, '$a$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(a\)</button>
+                        <button type="button" onclick="insertMath(this, '$b$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(b\)</button>
+                        <button type="button" onclick="insertMath(this, '$-$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(-\)</button>
+                        <button type="button" onclick="insertMath(this, '$0$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(0\)</button>
+                        <button type="button" onclick="insertMath(this, '$=$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(=\)</button>
+                        <button type="button" onclick="insertMath(this, '$\\neq$')" class="px-2 py-1 bg-slate-50 border border-slate-200 shadow-sm rounded hover:bg-white text-xs transition">\(\neq\)</button>
                     </div>
-                    <textarea rows="8" placeholder="개념에 대한 서술을 작성하세요. (수식은 $ 기호로 감싸면 미리보기가 지원됩니다.)" class="w-full p-4 border border-slate-200 rounded-b-2xl focus:ring-2 focus:ring-primary-400 focus:border-transparent resize-y outline-none bg-white/90 shadow-inner"></textarea>
+                    <textarea rows="8" placeholder="개념에 대한 서술을 작성하세요. (수식은 $ 기호로 감싸면 미리보기가 지원됩니다.)" class="w-full p-4 border border-slate-200 rounded-b-2xl focus:ring-2 focus:ring-primary-400 focus:border-transparent resize-y outline-none bg-white/90 shadow-inner text-sm"></textarea>
                 </div>
             </div>
 
@@ -250,14 +258,15 @@
     </main>
 
     <script>
+        // 수식 렌더링 입력 처리
         const textareas = document.querySelectorAll('textarea');
         let previewTimeout;
 
         textareas.forEach(textarea => {
             const previewDiv = document.createElement('div');
-            previewDiv.className = 'mt-2 p-3 bg-white/60 border border-primary-100 rounded-xl shadow-sm hidden print-answer-box transition-all duration-300 backdrop-blur-md';
+            previewDiv.className = 'mt-2 p-4 bg-white/60 border border-primary-100 rounded-xl shadow-sm hidden print-answer-box transition-all duration-300 backdrop-blur-md';
             previewDiv.innerHTML = `
-                <span class="preview-header text-xs text-primary-600 font-bold mb-1 flex items-center gap-1">
+                <span class="preview-header text-xs text-primary-600 font-bold mb-2 flex items-center gap-1">
                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg> 
                     수식 렌더링 확인
                 </span>
@@ -288,6 +297,7 @@
             });
         });
 
+        // 수식 도우미 버튼 로직
         function insertMath(btn, text) {
             const textarea = btn.parentElement.nextElementSibling;
             if (textarea && textarea.tagName === 'TEXTAREA') {
@@ -306,6 +316,7 @@
             }
         }
 
+        // Chart.js 시뮬레이터 로직
         let trackChart = null;
         const sliderA = document.getElementById('slider-a');
         const sliderB = document.getElementById('slider-b');
