@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미분계수의 기하학적 의미 랩</title>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] },
+                    colors: {
+                        brand: { 50: '#fdf4ff', 100: '#fae8ff', 500: '#d946ef', 600: '#c026d3' },
+                        pink: { 50: '#fdf2f8', 100: '#fce7f3', 500: '#ec4899', 600: '#db2777' },
+                        rose: { 50: '#fff1f2', 100: '#ffe4e6', 500: '#f43f5e', 600: '#e11d48' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            font-family: 'Pretendard', sans-serif; 
+            background: linear-gradient(135deg, #fdf4ff 0%, #e0e7ff 50%, #f3e8ff 100%);
+            background-attachment: fixed;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 40px -10px rgba(31, 38, 135, 0.08);
+        }
+        canvas { touch-action: none; display: block; width: 100%; height: 100%; }
+        input[type=range] { accent-color: #ec4899; } 
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #fbcfe8; border-radius: 4px; }
+    </style>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
+            startup: {
+                pageReady: () => {
+                    return MathJax.startup.defaultPageReady();
+                }
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <!-- 파스텔톤 통합 헤더 -->
+    <header class="w-full pt-10 pb-6 px-4 relative z-20">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <div class="inline-block mb-2 px-3 py-1 rounded-full bg-white/80 text-pink-600 font-bold text-xs shadow-sm border border-pink-100 backdrop-blur-sm">
+                    개념 시각화 🎢
+                </div>
+                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-800 drop-shadow-sm flex items-center justify-center md:justify-start gap-2">
+                    미분계수의 기하학적 의미 랩
+                </h1>
+                <p class="text-slate-600 font-medium text-sm mt-2">평균변화율에서 순간변화율로의 위대한 도약</p>
+            </div>
+            <button onclick="location.href='index.html'" class="bg-white/80 hover:bg-white text-slate-700 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm border border-slate-200 backdrop-blur-sm transition-all hover:-translate-y-0.5 flex items-center gap-2">
+                <span>🏠</span> 대문으로 돌아가기
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto w-full p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 relative z-10">
+        
+        <!-- 배경 장식용 블러 데코 -->
+        <div class="absolute top-0 -right-10 w-48 h-48 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 pointer-events-none"></div>
+        <div class="absolute bottom-20 -left-10 w-48 h-48 bg-brand-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 pointer-events-none"></div>
+
+        <!-- 좌측 컨트롤 패널 -->
+        <div class="lg:col-span-4 space-y-6 flex flex-col">
+            
+            <div class="glass-card rounded-2xl p-6 border-t-4 border-pink-500 relative z-10">
+                <h2 class="text-lg font-bold mb-4 flex items-center gap-2 text-slate-800">
+                    <span class="bg-pink-100 text-pink-600 p-1.5 rounded-lg text-sm">1</span> 점 P의 이동 (Δx 조작)
+                </h2>
+                <p class="text-sm text-slate-600 mb-6 leading-relaxed">
+                    슬라이더를 움직여 점 P를 고정된 점 A로 한없이 다가가게 해보세요. $\Delta x$가 0에 가까워집니다.
+                </p>
+                
+                <div class="space-y-2 mb-6 bg-white/60 p-4 rounded-xl border border-white shadow-sm">
+                    <div class="flex justify-between text-sm font-semibold text-slate-700 mb-2">
+                        <label>증분 $\Delta x$ 의 값</label>
+                        <span id="val-dx" class="text-pink-600 font-mono text-lg font-bold bg-white px-2 py-0.5 rounded border border-slate-100">3.00</span>
+                    </div>
+                    <input type="range" id="slider-dx" min="0.001" max="4" step="0.01" value="3" class="w-full accent-pink-500 cursor-pointer">
+                    <div class="flex justify-between text-xs text-slate-400 mt-1">
+                        <span>0에 수렴</span>
+                        <span>초기 상태</span>
+                    </div>
+                </div>
+
+                <div class="flex gap-3">
+                    <button onclick="playAnimation()" class="flex-1 bg-pink-600 text-white py-3 rounded-xl font-bold shadow-md hover:bg-pink-500 transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                        ▶ 애니메이션 재생
+                    </button>
+                    <button onclick="resetDx()" class="px-4 bg-white/90 text-slate-600 py-3 rounded-xl font-bold border border-slate-200 hover:bg-white transition-all shadow-sm">
+                        초기화
+                    </button>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-6 flex-grow bg-slate-800/90 text-white border border-slate-700 relative overflow-hidden shadow-lg backdrop-blur-xl">
+                <div class="absolute -right-10 -top-10 w-32 h-32 bg-pink-500 rounded-full blur-3xl opacity-30 pointer-events-none"></div>
+                
+                <h3 class="text-sm font-bold text-pink-300 mb-4 relative z-10">실시간 변화율 모니터링</h3>
+                
+                <!-- 평균변화율 영역 -->
+                <div class="bg-slate-900/60 rounded-xl p-4 mb-4 border border-slate-600 relative z-10">
+                    <div class="text-xs text-slate-400 mb-1">두 점 A, P를 지나는 직선의 기울기</div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-semibold text-slate-300">평균변화율 $\frac{\Delta y}{\Delta x}$</span>
+                        <span id="avg-rate" class="text-2xl font-mono text-white transition-colors duration-200">0.00</span>
+                    </div>
+                </div>
+
+                <!-- 화살표 (수렴 표현) -->
+                <div class="flex justify-center mb-4 text-pink-400 relative z-10">
+                    <svg class="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                    </svg>
+                </div>
+
+                <!-- 순간변화율 영역 -->
+                <div class="bg-pink-900/40 rounded-xl p-4 border border-pink-500/30 relative z-10">
+                    <div class="text-xs text-pink-300/70 mb-1">점 A에서의 접선의 기울기</div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-semibold text-pink-100">순간변화율 $f'(a)$</span>
+                        <span id="inst-rate" class="text-2xl font-mono text-pink-400">0.00</span>
+                    </div>
+                </div>
+
+                <div id="success-msg" class="mt-4 text-center text-sm font-bold text-green-400 opacity-0 transition-opacity duration-500 relative z-10">
+                    ✨ 평균변화율이 순간변화율과 같아졌습니다!
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:col-span-8 flex flex-col gap-4 relative z-10">
+            <div class="glass-card rounded-2xl p-2 flex-grow relative shadow-inner min-h-[500px] md:min-h-[600px] bg-white/50">
+                <canvas id="mathCanvas"></canvas>
+                
+                <!-- 범례 -->
+                <div class="absolute top-6 left-6 bg-white/90 p-4 rounded-xl shadow-sm border border-slate-200 text-sm space-y-3 backdrop-blur-md">
+                    <div class="flex items-center gap-3">
+                        <div class="w-6 h-1 bg-slate-800 rounded-full"></div>
+                        <span class="font-medium text-slate-700">함수 $y=f(x)$</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-6 h-1 bg-slate-400 rounded-full"></div>
+                        <span class="font-medium text-slate-700">할선 (평균변화율)</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-6 h-1 bg-pink-500 rounded-full"></div>
+                        <span class="font-medium text-slate-700">접선 (순간변화율)</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white/80 border border-white rounded-2xl p-5 text-sm text-slate-700 flex gap-4 shadow-sm backdrop-blur-sm">
+                <span class="text-2xl mt-1">💡</span>
+                <div>
+                    <strong class="text-pink-600 block mb-1 text-base">선생님의 해설</strong>
+                    <p class="leading-relaxed font-medium">
+                        "점 P가 곡선을 따라 점 A로 한없이 다가갈 때($\Delta x \to 0$), 초록색 점선으로 표시된 직각삼각형의 밑변($\Delta x$)이 점점 줄어들죠? 이때 두 점을 잇는 회색 할선이 결국 점 A에서의 붉은색 접선과 일치하게 됩니다. 이것이 바로 미분계수의 기하학적 의미랍니다!"
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // DOM 요소
+        const canvas = document.getElementById('mathCanvas');
+        const ctx = canvas.getContext('2d');
+        const sliderDx = document.getElementById('slider-dx');
+        const valDx = document.getElementById('val-dx');
+        const avgRateDisp = document.getElementById('avg-rate');
+        const instRateDisp = document.getElementById('inst-rate');
+        const successMsg = document.getElementById('success-msg');
+
+        // 수학적 모델 설정 (f(x) = 0.2x^2 + 1)
+        const f = (x) => 0.2 * x * x + 1;
+        const df = (x) => 0.4 * x; 
+        const a = 1.5; 
+        const f_a = f(a); 
+        const instRate = df(a); 
+
+        let dx = parseFloat(sliderDx.value);
+        let isAnimating = false;
+        let animId;
+
+        // 캔버스 설정
+        let width, height;
+        const mathMinX = -1;
+        const mathMaxX = 7;
+        const mathMinY = -1;
+        const mathMaxY = 7;
+
+        function resizeCanvas() {
+            const rect = canvas.parentElement.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+            width = rect.width;
+            height = rect.height;
+            drawScene();
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        // 좌표 변환 유틸리티
+        function toPixelX(mathX) {
+            return (mathX - mathMinX) / (mathMaxX - mathMinX) * width;
+        }
+        function toPixelY(mathY) {
+            return height - (mathY - mathMinY) / (mathMaxY - mathMinY) * height;
+        }
+
+        // 초기화 및 이벤트 등록
+        window.onload = () => {
+            instRateDisp.innerText = instRate.toFixed(2);
+            setTimeout(resizeCanvas, 100);
+        };
+
+        sliderDx.addEventListener('input', (e) => {
+            if(isAnimating) cancelAnimationFrame(animId);
+            isAnimating = false;
+            dx = parseFloat(e.target.value);
+            updateDashboard();
+            drawScene();
+        });
+
+        function updateDashboard() {
+            valDx.innerText = dx.toFixed(2);
+            const avgRate = (f(a + dx) - f(a)) / dx;
+            avgRateDisp.innerText = avgRate.toFixed(2);
+
+            if (dx < 0.05) {
+                avgRateDisp.classList.add('text-pink-400');
+                avgRateDisp.classList.remove('text-white');
+                successMsg.style.opacity = '1';
+            } else {
+                avgRateDisp.classList.remove('text-pink-400');
+                avgRateDisp.classList.add('text-white');
+                successMsg.style.opacity = '0';
+            }
+        }
+
+        function resetDx() {
+            if(isAnimating) cancelAnimationFrame(animId);
+            isAnimating = false;
+            dx = 3;
+            sliderDx.value = dx;
+            updateDashboard();
+            drawScene();
+        }
+
+        function playAnimation() {
+            if(isAnimating) return;
+            isAnimating = true;
+            
+            function animate() {
+                dx = dx * 0.96;
+                if (dx < 0.005) {
+                    dx = 0.001; 
+                    sliderDx.value = dx;
+                    updateDashboard();
+                    drawScene();
+                    isAnimating = false;
+                    return;
+                }
+                sliderDx.value = dx;
+                updateDashboard();
+                drawScene();
+                animId = requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        function drawScene() {
+            ctx.clearRect(0, 0, width, height);
+
+            // 1. 축 그리기
+            ctx.beginPath();
+            ctx.strokeStyle = '#94a3b8'; // slate-400
+            ctx.lineWidth = 2;
+            ctx.moveTo(toPixelX(mathMinX), toPixelY(0));
+            ctx.lineTo(toPixelX(mathMaxX), toPixelY(0));
+            ctx.moveTo(toPixelX(0), toPixelY(mathMinY));
+            ctx.lineTo(toPixelX(0), toPixelY(mathMaxY));
+            ctx.stroke();
+
+            ctx.fillStyle = '#64748b';
+            ctx.font = 'italic 16px serif';
+            ctx.fillText('O', toPixelX(-0.3), toPixelY(-0.3));
+            ctx.fillText('x', toPixelX(mathMaxX - 0.3), toPixelY(-0.3));
+            ctx.fillText('y', toPixelX(-0.4), toPixelY(mathMaxY - 0.3));
+
+            // 2. 함수 곡선 그리기
+            ctx.beginPath();
+            ctx.strokeStyle = '#1e293b'; // slate-800
+            ctx.lineWidth = 3;
+            for (let x = mathMinX; x <= mathMaxX; x += 0.05) {
+                if (x === mathMinX) ctx.moveTo(toPixelX(x), toPixelY(f(x)));
+                else ctx.lineTo(toPixelX(x), toPixelY(f(x)));
+            }
+            ctx.stroke();
+            ctx.fillStyle = '#1e293b';
+            ctx.font = 'bold 16px Pretendard';
+            ctx.fillText('y = f(x)', toPixelX(5), toPixelY(f(5) + 0.5));
+
+            const pX = a + dx;
+            const f_p = f(pX);
+
+            // 3. 접선 그리기
+            ctx.beginPath();
+            ctx.strokeStyle = '#ec4899'; // pink-500
+            ctx.lineWidth = 2;
+            const tanY1 = df(a) * (mathMinX - a) + f_a;
+            const tanY2 = df(a) * (mathMaxX - a) + f_a;
+            ctx.moveTo(toPixelX(mathMinX), toPixelY(tanY1));
+            ctx.lineTo(toPixelX(mathMaxX), toPixelY(tanY2));
+            ctx.stroke();
+
+            // 4. 할선 그리기
+            if (dx > 0.01) {
+                ctx.beginPath();
+                ctx.strokeStyle = '#94a3b8'; // slate-400
+                ctx.lineWidth = 2;
+                const slope = (f_p - f_a) / dx;
+                const secY1 = slope * (mathMinX - a) + f_a;
+                const secY2 = slope * (mathMaxX - a) + f_a;
+                ctx.moveTo(toPixelX(mathMinX), toPixelY(secY1));
+                ctx.lineTo(toPixelX(mathMaxX), toPixelY(secY2));
+                ctx.stroke();
+            }
+
+            // 5. 직각삼각형 및 보조선 (Δx, Δy)
+            if (dx > 0.05) {
+                ctx.beginPath();
+                ctx.strokeStyle = '#10b981'; // emerald-500
+                ctx.setLineDash([5, 5]);
+                ctx.lineWidth = 1.5;
+                
+                ctx.moveTo(toPixelX(a), toPixelY(f_a));
+                ctx.lineTo(toPixelX(pX), toPixelY(f_a));
+                
+                ctx.moveTo(toPixelX(pX), toPixelY(f_a));
+                ctx.lineTo(toPixelX(pX), toPixelY(f_p));
+                ctx.stroke();
+                
+                ctx.strokeStyle = '#cbd5e1'; 
+                ctx.moveTo(toPixelX(a), toPixelY(f_a));
+                ctx.lineTo(toPixelX(a), toPixelY(0));
+                
+                ctx.moveTo(toPixelX(a), toPixelY(f_a));
+                ctx.lineTo(toPixelX(0), toPixelY(f_a));
+                
+                ctx.moveTo(toPixelX(pX), toPixelY(f_p));
+                ctx.lineTo(toPixelX(pX), toPixelY(0));
+                
+                ctx.moveTo(toPixelX(pX), toPixelY(f_p));
+                ctx.lineTo(toPixelX(0), toPixelY(f_p));
+                ctx.stroke();
+                ctx.setLineDash([]);
+
+                // 직각 표시
+                const size = 10;
+                ctx.beginPath();
+                ctx.strokeStyle = '#10b981';
+                ctx.moveTo(toPixelX(pX) - size, toPixelY(f_a));
+                ctx.lineTo(toPixelX(pX) - size, toPixelY(f_a) + size);
+                ctx.lineTo(toPixelX(pX), toPixelY(f_a) + size);
+                ctx.stroke();
+
+                ctx.fillStyle = '#059669'; 
+                ctx.font = 'italic 16px serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('Δx', toPixelX(a + dx/2), toPixelY(f_a) + 20);
+                ctx.textAlign = 'left';
+                ctx.fillText('Δy', toPixelX(pX) + 10, toPixelY(f_a + (f_p - f_a)/2));
+            }
+
+            ctx.fillStyle = '#475569';
+            ctx.font = 'italic 16px serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('a', toPixelX(a), toPixelY(-0.3));
+            ctx.textAlign = 'right';
+            ctx.fillText('f(a)', toPixelX(-0.1), toPixelY(f_a) - 5);
+            
+            if (dx > 0.1) {
+                ctx.textAlign = 'center';
+                ctx.fillText('a+Δx', toPixelX(pX), toPixelY(-0.3));
+                ctx.textAlign = 'right';
+                ctx.fillText('f(a+Δx)', toPixelX(-0.1), toPixelY(f_p) - 5);
+            }
+
+            // 6. 점 A와 P 찍기
+            ctx.beginPath();
+            ctx.arc(toPixelX(a), toPixelY(f_a), 6, 0, Math.PI * 2);
+            ctx.fillStyle = '#0f172a';
+            ctx.fill();
+            ctx.textAlign = 'right';
+            ctx.font = 'bold 18px Pretendard';
+            ctx.fillText('A', toPixelX(a) - 10, toPixelY(f_a) + 15);
+
+            if (dx > 0.05) {
+                ctx.beginPath();
+                ctx.arc(toPixelX(pX), toPixelY(f_p), 6, 0, Math.PI * 2);
+                ctx.fillStyle = '#334155';
+                ctx.fill();
+                ctx.textAlign = 'left';
+                ctx.fillText('P', toPixelX(pX) - 5, toPixelY(f_p) + 25);
+            }
+        }
+    </script>
+</body>
+</html>
