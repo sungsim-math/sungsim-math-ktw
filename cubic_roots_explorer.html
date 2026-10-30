@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>삼차방정식 실근의 개수 탐구 랩</title>
+    <!-- Pretendard 폰트 -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] },
+                    colors: {
+                        primary: { 50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 500: '#0ea5e9', 600: '#0284c7', 900: '#0c4a6e' }, /* Sky */
+                        accent: { 500: '#8b5cf6', 600: '#7c3aed' }, /* Violet */
+                        brand: { 50: '#fdf4ff', 100: '#fae8ff', 500: '#d946ef', 600: '#c026d3' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            font-family: 'Pretendard', sans-serif;
+            background: linear-gradient(135deg, #fdf4ff 0%, #e0e7ff 50%, #f3e8ff 100%);
+            background-attachment: fixed;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 40px -10px rgba(31, 38, 135, 0.08);
+        }
+        .math-font { font-family: 'Times New Roman', Times, serif; font-style: italic; }
+        
+        /* 탭 활성화 스타일 */
+        .tab-active { background-color: #0ea5e9; color: white; border-color: #0ea5e9; box-shadow: 0 4px 6px -1px rgba(14, 165, 233, 0.2); }
+        .tab-inactive { background-color: rgba(255, 255, 255, 0.6); color: #475569; border-color: #cbd5e1; }
+        .tab-inactive:hover { background-color: white; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #bae6fd; border-radius: 4px; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen pb-20 flex flex-col">
+
+    <!-- 헤더 -->
+    <header class="w-full pt-10 pb-6 px-4 relative z-20">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <div class="inline-block mb-2 px-3 py-1 rounded-full bg-white/80 text-primary-600 font-bold text-xs shadow-sm border border-primary-100 backdrop-blur-sm">
+                    개념 및 실전 랩 🎯
+                </div>
+                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-800 drop-shadow-sm flex items-center justify-center md:justify-start gap-2">
+                    삼차방정식 실근의 개수 탐구
+                </h1>
+                <p class="text-slate-600 font-medium text-sm mt-2">미적분 I - 극값을 활용한 방정식의 해 판별법</p>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="location.href='index.html'" class="bg-white/80 hover:bg-white text-slate-700 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm border border-slate-200 backdrop-blur-sm transition-all hover:-translate-y-0.5 flex items-center gap-2">
+                    <span>🏠</span> 돌아가기
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-6xl mx-auto w-full px-4 relative z-10">
+        
+        <!-- 데코 -->
+        <div class="absolute top-10 -right-10 w-48 h-48 bg-primary-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 pointer-events-none"></div>
+        <div class="absolute bottom-20 -left-10 w-48 h-48 bg-accent-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 pointer-events-none"></div>
+
+        <!-- 탭 버튼 -->
+        <div class="flex justify-center md:justify-start gap-3 mb-6 relative z-20">
+            <button onclick="switchTab(1)" id="tab-btn-1" class="tab-active px-6 py-3 rounded-2xl font-bold text-sm md:text-base border transition-all duration-200 flex items-center gap-2">
+                <span>1️⃣</span> [개념] 극값의 부호 판별법
+            </button>
+            <button onclick="switchTab(2)" id="tab-btn-2" class="tab-inactive px-6 py-3 rounded-2xl font-bold text-sm md:text-base border transition-all duration-200 flex items-center gap-2">
+                <span>2️⃣</span> [실전] 수평선 교점 찾기
+            </button>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- Part 1. 개념 직관형 (엘리베이터) -->
+        <!-- ========================================== -->
+        <div id="tab-content-1" class="grid grid-cols-1 lg:grid-cols-12 gap-6 animate-[fadeIn_0.3s_ease-in-out]">
+            <div class="lg:col-span-5 space-y-6">
+                <!-- 설명 패널 -->
+                <div class="glass-card rounded-2xl p-6 border-t-4 border-primary-500">
+                    <h3 class="font-bold text-lg mb-3 flex items-center gap-2">
+                        <span class="text-xl">🛗</span> 엘리베이터 시뮬레이터
+                    </h3>
+                    <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                        삼차방정식 $f(x)=0$의 실근의 개수는 극댓값 $f(\alpha)$와 극솟값 $f(\beta)$의 곱의 부호로 판별할 수 있습니다. 슬라이더를 움직여 그래프를 상하로 이동시켜 보세요.
+                    </p>
+                    <div class="bg-primary-50/70 p-4 rounded-xl border border-primary-100 text-sm shadow-inner mb-6">
+                        <p class="font-bold text-primary-700 mb-2">적용 함수:</p>
+                        <p class="math-font text-lg text-center">\( f(x) = x^3 - 3x + c \)</p>
+                    </div>
+
+                    <!-- 슬라이더 -->
+                    <div class="bg-white/60 p-4 rounded-xl border border-white shadow-sm mb-6">
+                        <div class="flex justify-between text-sm font-bold mb-2">
+                            <label class="text-slate-700">상수 <span class="math-font">c</span> (y축 평행이동)</label>
+                            <span id="val-c" class="text-primary-600 font-mono bg-white px-2 py-0.5 rounded border border-slate-100">0</span>
+                        </div>
+                        <input type="range" id="slider-c" min="-4" max="4" step="0.1" value="0" class="w-full accent-primary-600 cursor-pointer">
+                    </div>
+
+                    <!-- 결과 분석창 -->
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center bg-white p-3 rounded-lg border border-slate-200 shadow-sm text-sm">
+                            <span class="text-slate-500 font-semibold">극댓값 $f(-1)$</span>
+                            <span id="f-alpha" class="font-bold text-lg math-font text-slate-800">2</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-white p-3 rounded-lg border border-slate-200 shadow-sm text-sm">
+                            <span class="text-slate-500 font-semibold">극솟값 $f(1)$</span>
+                            <span id="f-beta" class="font-bold text-lg math-font text-slate-800">-2</span>
+                        </div>
+                        
+                        <div id="result-box-1" class="mt-4 p-4 rounded-xl text-center border-2 transition-colors duration-300">
+                            <div class="text-xs font-bold mb-1 opacity-70">극댓값 × 극솟값 부호</div>
+                            <div id="prod-sign" class="math-font text-xl font-bold mb-2">\( f(\alpha)f(\beta) < 0 \)</div>
+                            <div id="root-count-1" class="text-lg font-black">서로 다른 세 실근 (3개)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7">
+                <div class="glass-card rounded-2xl p-4 h-full min-h-[500px] flex flex-col relative">
+                    <canvas id="chart-part1"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- Part 2. 실전 풀이형 (수평선 레이저) -->
+        <!-- ========================================== -->
+        <div id="tab-content-2" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-6 animate-[fadeIn_0.3s_ease-in-out]">
+            <div class="lg:col-span-5 space-y-6">
+                <!-- 설명 패널 -->
+                <div class="glass-card rounded-2xl p-6 border-t-4 border-accent-500">
+                    <h3 class="font-bold text-lg mb-3 flex items-center gap-2">
+                        <span class="text-xl">🔫</span> 수평선 레이저 시뮬레이터
+                    </h3>
+                    <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                        교과서 99쪽 역량 키우기 실전 문제입니다. 방정식을 $f(x) = -k$ 형태로 변형한 뒤, 수평선 $y = -k$ 를 위아래로 움직여 교점의 개수를 확인해 보세요.
+                    </p>
+                    
+                    <div class="bg-accent-50/70 p-4 rounded-xl border border-accent-100 text-sm shadow-inner mb-6">
+                        <p class="font-bold text-accent-700 mb-2">해결할 방정식:</p>
+                        <p class="math-font text-center text-slate-700 mb-2">\( x^3 - 6x^2 + 9x + k = 0 \)</p>
+                        <p class="math-font text-center font-bold text-accent-700 text-lg">\( x^3 - 6x^2 + 9x = -k \)</p>
+                    </div>
+
+                    <!-- 슬라이더 -->
+                    <div class="bg-white/60 p-4 rounded-xl border border-white shadow-sm mb-6">
+                        <div class="flex justify-between text-sm font-bold mb-2">
+                            <label class="text-slate-700">상수 <span class="math-font">k</span> 조절 (수평선 이동)</label>
+                            <span id="val-k" class="text-accent-600 font-mono bg-white px-2 py-0.5 rounded border border-slate-100">0</span>
+                        </div>
+                        <input type="range" id="slider-k" min="-6" max="6" step="0.1" value="0" class="w-full accent-accent-600 cursor-pointer">
+                    </div>
+
+                    <!-- 결과 분석창 -->
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-md text-sm text-white">
+                            <span class="text-slate-300 font-semibold">수평선 식</span>
+                            <span class="font-bold text-xl math-font text-accent-400" id="line-eq">\( y = 0 \)</span>
+                        </div>
+                        
+                        <div id="result-box-2" class="mt-4 p-4 rounded-xl text-center border-2 transition-colors duration-300 bg-white">
+                            <div class="text-xs font-bold mb-1 text-slate-500">그래프 교점의 개수 = 실근의 개수</div>
+                            <div id="root-count-2" class="text-2xl font-black text-accent-600">3개</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7">
+                <div class="glass-card rounded-2xl p-4 h-full min-h-[500px] flex flex-col relative">
+                    <canvas id="chart-part2"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // 공통 유틸리티
+        Chart.defaults.font.family = "'Pretendard', sans-serif";
+
+        // ==========================================
+        // 탭 제어 로직
+        // ==========================================
+        function switchTab(tabIndex) {
+            const btn1 = document.getElementById('tab-btn-1');
+            const btn2 = document.getElementById('tab-btn-2');
+            const content1 = document.getElementById('tab-content-1');
+            const content2 = document.getElementById('tab-content-2');
+
+            if (tabIndex === 1) {
+                btn1.className = "tab-active px-6 py-3 rounded-2xl font-bold text-sm md:text-base border transition-all duration-200 flex items-center gap-2";
+                btn2.className = "tab-inactive px-6 py-3 rounded-2xl font-bold text-sm md:text-base border transition-all duration-200 flex items-center gap-2";
+                content1.classList.remove('hidden');
+                content2.classList.add('hidden');
+                if(chart1) chart1.update();
+            } else {
+                btn2.className = "tab-active px-6 py-3 rounded-2xl font-bold text-sm md:text-base border transition-all duration-200 flex items-center gap-2 !bg-accent-500 !border-accent-500";
+                btn1.className = "tab-inactive px-6 py-3 rounded-2xl font-bold text-sm md:text-base border transition-all duration-200 flex items-center gap-2";
+                content2.classList.remove('hidden');
+                content1.classList.add('hidden');
+                if(chart2) chart2.update();
+                else initChart2(); // 지연 초기화
+            }
+        }
+
+        // 커스텀 플러그인: 극값 텍스트 표시용
+        const extremaLabelsPlugin = {
+            id: 'extremaLabels',
+            afterDatasetsDraw: (chart) => {
+                const ctx = chart.ctx;
+                const ds = chart.data.datasets.find(d => d.label === 'Extrema');
+                if(!ds || !ds.data || ds.data.length === 0) return;
+                
+                ctx.save();
+                ctx.font = 'bold 14px Pretendard';
+                
+                ds.data.forEach((pt, i) => {
+                    const meta = chart.getDatasetMeta(chart.data.datasets.indexOf(ds));
+                    const px = meta.data[i].x;
+                    const py = meta.data[i].y;
+                    
+                    ctx.fillStyle = '#334155';
+                    // 첫번째 점(극대)은 위로, 두번째 점(극소)은 아래로 텍스트 배치
+                    if(pt.x < 1.5) { // 대략적인 구분
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'bottom';
+                        ctx.fillText(`f(${pt.x}) = ${pt.y.toFixed(1)}`, px, py - 10);
+                    } else {
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'top';
+                        ctx.fillText(`f(${pt.x}) = ${pt.y.toFixed(1)}`, px, py + 10);
+                    }
+                });
+                ctx.restore();
+            }
+        };
+
+        // ==========================================
+        // Part 1: 엘리베이터 (f(a)f(b)) 로직
+        // ==========================================
+        let chart1;
+        function initChart1() {
+            const ctx = document.getElementById('chart-part1').getContext('2d');
+            chart1 = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [
+                        {
+                            label: 'f(x) = x³ - 3x + c',
+                            data: [],
+                            borderColor: '#0ea5e9',
+                            borderWidth: 4, pointRadius: 0, tension: 0.4
+                        },
+                        {
+                            label: 'Extrema',
+                            data: [],
+                            type: 'scatter',
+                            backgroundColor: '#ef4444', borderColor: 'white', borderWidth: 2, pointRadius: 7, pointHoverRadius: 9
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false, animation: { duration: 0 },
+                    scales: {
+                        x: { type: 'linear', min: -3, max: 3, grid: { color: c => c.tick.value === 0 ? '#64748b' : '#e2e8f0', lineWidth: c => c.tick.value === 0 ? 2 : 1 } },
+                        y: { min: -6, max: 6, grid: { color: c => c.tick.value === 0 ? '#64748b' : '#e2e8f0', lineWidth: c => c.tick.value === 0 ? 2 : 1 } }
+                    },
+                    plugins: { legend: { display: false }, tooltip: { enabled: false } }
+                },
+                plugins: [extremaLabelsPlugin]
+            });
+            updateChart1();
+        }
+
+        function updateChart1() {
+            const c = parseFloat(document.getElementById('slider-c').value);
+            document.getElementById('val-c').textContent = c.toFixed(1);
+            
+            const data = [];
+            for (let x = -3; x <= 3; x += 0.05) {
+                data.push({ x: x, y: Math.pow(x, 3) - 3 * x + c });
+            }
+            
+            const f_alpha = 2 + c; // x = -1 일때 극대
+            const f_beta = -2 + c; // x = 1 일때 극소
+            
+            chart1.data.datasets[0].data = data;
+            chart1.data.datasets[1].data = [{x: -1, y: f_alpha}, {x: 1, y: f_beta}];
+            chart1.update();
+
+            // UI 텍스트 업데이트
+            document.getElementById('f-alpha').textContent = f_alpha.toFixed(1);
+            document.getElementById('f-beta').textContent = f_beta.toFixed(1);
+
+            const prod = f_alpha * f_beta;
+            const resBox = document.getElementById('result-box-1');
+            const prodSign = document.getElementById('prod-sign');
+            const rootCount = document.getElementById('root-count-1');
+            
+            resBox.classList.remove('bg-sky-50', 'border-sky-300', 'bg-rose-50', 'border-rose-300', 'bg-slate-50', 'border-slate-300');
+            
+            if (prod < -0.01) {
+                prodSign.innerHTML = "\\( f(\\alpha)f(\\beta) < 0 \\)";
+                rootCount.innerHTML = "<span class='text-sky-600'>서로 다른 세 실근 (3개)</span>";
+                resBox.classList.add('bg-sky-50', 'border-sky-300');
+            } else if (Math.abs(prod) <= 0.01) {
+                prodSign.innerHTML = "\\( f(\\alpha)f(\\beta) = 0 \\)";
+                rootCount.innerHTML = "<span class='text-slate-600'>중근과 다른 한 실근 (2개)</span>";
+                resBox.classList.add('bg-slate-50', 'border-slate-300');
+            } else {
+                prodSign.innerHTML = "\\( f(\\alpha)f(\\beta) > 0 \\)";
+                rootCount.innerHTML = "<span class='text-rose-600'>하나의 실근과 두 허근 (1개)</span>";
+                resBox.classList.add('bg-rose-50', 'border-rose-300');
+            }
+            
+            if(window.MathJax) MathJax.typesetPromise([prodSign]);
+        }
+
+        document.getElementById('slider-c').addEventListener('input', updateChart1);
+
+        // ==========================================
+        // Part 2: 수평선 레이저 (y = -k) 로직
+        // ==========================================
+        let chart2;
+        function initChart2() {
+            if(chart2) return;
+            const ctx = document.getElementById('chart-part2').getContext('2d');
+            chart2 = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [
+                        {
+                            label: 'f(x) = x³ - 6x² + 9x',
+                            data: [],
+                            borderColor: '#94a3b8', // 배경처럼 연하게 고정
+                            borderWidth: 4, pointRadius: 0, tension: 0.4
+                        },
+                        {
+                            label: 'y = -k (수평선)',
+                            data: [],
+                            borderColor: '#8b5cf6', // Violet
+                            borderWidth: 3, pointRadius: 0, borderDash: [5, 5]
+                        },
+                        {
+                            label: 'Extrema',
+                            data: [{x: 1, y: 4}, {x: 3, y: 0}], // 기준점 (고정)
+                            type: 'scatter',
+                            backgroundColor: '#64748b', borderColor: 'white', borderWidth: 2, pointRadius: 5
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false, animation: { duration: 0 },
+                    scales: {
+                        x: { type: 'linear', min: -1, max: 5, grid: { color: c => c.tick.value === 0 ? '#64748b' : '#e2e8f0', lineWidth: c => c.tick.value === 0 ? 2 : 1 } },
+                        y: { min: -3, max: 7, grid: { color: c => c.tick.value === 0 ? '#64748b' : '#e2e8f0', lineWidth: c => c.tick.value === 0 ? 2 : 1 } }
+                    },
+                    plugins: { legend: { display: false }, tooltip: { enabled: false } }
+                },
+                plugins: [extremaLabelsPlugin]
+            });
+            updateChart2();
+        }
+
+        function updateChart2() {
+            const k = parseFloat(document.getElementById('slider-k').value);
+            document.getElementById('val-k').textContent = k.toFixed(1);
+            
+            const minusK = -k;
+            document.getElementById('line-eq').innerHTML = `\\( y = ${minusK.toFixed(1)} \\)`;
+
+            // 원함수는 고정이지만 최초 1회 생성
+            if (chart2.data.datasets[0].data.length === 0) {
+                const dataFunc = [];
+                for (let x = -1; x <= 5; x += 0.05) {
+                    dataFunc.push({ x: x, y: Math.pow(x, 3) - 6 * Math.pow(x, 2) + 9 * x });
+                }
+                chart2.data.datasets[0].data = dataFunc;
+            }
+            
+            // 수평선 이동
+            chart2.data.datasets[1].data = [{x: -1, y: minusK}, {x: 5, y: minusK}];
+            chart2.update();
+
+            // 교점(실근) 개수 판별
+            const resBox = document.getElementById('result-box-2');
+            const rootCount = document.getElementById('root-count-2');
+            
+            resBox.classList.remove('border-violet-400', 'border-slate-300', 'border-rose-400');
+            rootCount.classList.remove('text-violet-600', 'text-slate-600', 'text-rose-600');
+
+            if (minusK > 4 || minusK < 0) {
+                rootCount.textContent = "1개 (한 실근과 두 허근)";
+                rootCount.classList.add('text-rose-600');
+                resBox.classList.add('border-rose-400');
+            } else if (Math.abs(minusK - 4) < 0.05 || Math.abs(minusK - 0) < 0.05) { // 부동소수점 오차 보정
+                rootCount.textContent = "2개 (중근과 다른 한 실근)";
+                rootCount.classList.add('text-slate-600');
+                resBox.classList.add('border-slate-300');
+            } else {
+                rootCount.textContent = "3개 (서로 다른 세 실근)";
+                rootCount.classList.add('text-violet-600');
+                resBox.classList.add('border-violet-400');
+            }
+            
+            if(window.MathJax) MathJax.typesetPromise([document.getElementById('line-eq')]);
+        }
+
+        document.getElementById('slider-k').addEventListener('input', updateChart2);
+
+        // 초기 실행
+        window.onload = () => { initChart1(); };
+    </script>
+</body>
+</html>
